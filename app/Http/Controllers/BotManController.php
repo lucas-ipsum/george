@@ -14,6 +14,11 @@ class BotManController extends Controller
     public function handle()
     {
         $botman = app('botman');
+//Botman Fallback Funktion
+        $botman->fallback(function($bot) {
+          $bot->types();
+          $bot->reply('Entschuldige bitte, ich habe deine Frage nicht verstanden.');
+        });
 
         $botman->listen();
     }
@@ -34,4 +39,5 @@ class BotManController extends Controller
     {
         $bot->startConversation(new ExampleConversation());
     }
+
 }
