@@ -8,6 +8,10 @@ use App\Conversations\ExampleConversation;
 
 class BotManController extends Controller
 {
+  public function index()
+  {
+      return view('index');
+  }
     /**
      * Place your BotMan logic here.
      */

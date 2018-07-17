@@ -34,5 +34,23 @@ else{
 //Antowort
       $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
-//an actionIcomplete denken
+})->middleware($dialogflow);
+
+//Intent: 3 - termin_Veranstaltung
+$botman->hears('say_terminVeranstaltung', function ($bot) {
+
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+//Prompts
+if(strlen($veranstaltung) === 0) {      
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+}
+elseif(strlen($veranstaltungsart) === 0){
+    $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+}
+else{
+//Antowort
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+}
 })->middleware($dialogflow);
