@@ -92,8 +92,20 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
 
 <body>
   <!--Einbinden Chat Skript Versuch -->
+  <!-- Anpassung des Web Widgets -->
+  <script>
+  var botmanWidget = {
+    title: 'George',
+    aboutText: '',
+    //chatServer: The URL of the BotMan route / server to use. Default ist /botman. Hier eventuell änderung Vornehmen um Problem bei localhost zu beheben
+    bubbleAvatarUrl:'img/Chatbot.png',
+    bubbleBackground:'#FFFFFF',
+    mainColor: '#8ab8cf'
+  };
+  </script>
+  <!-- Aufruf Web Widget -->
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-  
+
 <header>
     <div class="container-fluid logo-container">
         <a href="https://www.uni-goettingen.de/"><img id="logo" src="img/logo.svg" alt="Georg-August-Universität Göttingen"><img id="print-logo" class="hidden" src="img/print-logo.svg" alt="Georg-August-Universität Göttingen"></a>

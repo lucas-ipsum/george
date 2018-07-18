@@ -8,6 +8,7 @@ use App\Conversations\ExampleConversation;
 
 class BotManController extends Controller
 {
+  //Aufruf vom Index View (Lehrstuhl Website + Bot)
   public function index()
   {
       return view('index');
