@@ -464,6 +464,29 @@ Fax. +49 551 39 9735<br>
 <noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
 style="border:0" alt=""/></p></noscript>
 
+<script type="text/javascript">
+  var idleTime = 0;
+  $(document).ready(function () {
+  //Erhöhen des idle time counter
+  var idleInterval = setInterval(timerIncrement, 1000); //(Auszuführende Funktion, Millisekunden=1Sekunde)
+
+  //Bei Mausbewegung oder Nutzung der Tastatur Timer wieder auf null setzen
+  $(this).mousemove(function (e) {
+      idleTime = 0;
+  });
+  $(this).keypress(function (e) {
+      idleTime = 0;
+  });
+});
+
+function timerIncrement() {
+  idleTime = idleTime + 1;
+  if (idleTime > 29 && idleTime < 31) { // Falls 30 Sekunden inaktiv
+      botmanChatWidget.sayAsBot('Wurde ihre Frage beantwortet? Bitte geben Sie uns ein Feedback.');
+  }
+}
+</script>
+
 
 
 </body></html>
