@@ -83,7 +83,7 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     <![endif]-->
 
 
-    <script src="js/legal_cookie.js"></script>
+
 
     <!-- Template:  inst_start -->
 <style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
