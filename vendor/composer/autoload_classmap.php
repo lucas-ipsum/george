@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Beispiel' => $baseDir . '/app/Beispiel.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Conversations\\ExampleConversation' => $baseDir . '/app/Conversations/ExampleConversation.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -121,6 +122,7 @@ return array(
     'Clue\\React\\Stdio\\Stdio' => $vendorDir . '/clue/stdio-react/src/Stdio.php',
     'Clue\\React\\Term\\ControlCodeParser' => $vendorDir . '/clue/term-react/src/ControlCodeParser.php',
     'Clue\\React\\Utf8\\Sequencer' => $vendorDir . '/clue/utf8-react/src/Sequencer.php',
+    'CreateBeispielsTable' => $baseDir . '/database/migrations/2018_07_21_141557_create_beispiels_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'Cron\\AbstractField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
