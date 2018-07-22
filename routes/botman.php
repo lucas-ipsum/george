@@ -3,7 +3,7 @@ use App\Http\Controllers\BotManController;
 use BotMan\BotMan\Middleware\Dialogflow;         //Import Dialogflow Middleware API
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Attachments\OutgoingMessage;
-use BotMan\BotMan\Storages\Storage;
+use BotMan\BotMan\Storages\Storage;             // Import zum speichern von Nutzereingaben
 
 
 $botman = resolve('botman');
@@ -60,40 +60,43 @@ else{
 //Intent: 3 - termin_Veranstaltung
 $botman->hears('say_terminVeranstaltung', function ($bot) {
 
+  $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');           //Lädt gespeicherten Inhalt (Context)
+  $veranstaltungsart_context = $bot->userStorage()->get('Veranstaltungsart');
+  //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+//Speichern der Nutzereingaben
+  $bot->userStorage()->save([
+    'Veranstaltung' => $veranstaltung,
+    'Veranstaltungsart' => $veranstaltungsart
+  ]);
 //Prompts
-if(strlen($veranstaltung) === 0) {
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+//Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
+if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
-elseif(strlen($veranstaltungsart) === 0){
-    $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+elseif(strlen($veranstaltungsart) ===  0 && strlen($veranstaltungsart_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+}
+elseif (strlen($veranstaltung) > 0 && strlen($veranstaltungsart) > 0) {
+  $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');
+}
+elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart_context) > 0) {
+  $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart_context.') findet am Dienstag von 12:15 bis 13:45 statt');
+}
+elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart) > 0) {
+  $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');
 }
 else{
 //Antowort
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart_context.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 })->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
-$botman->hears('say_ansprechpartner', function ($bot) {
-    $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');
-    $extras = $bot->getMessage()->getExtras();
-    $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-if(strlen($veranstaltung && $veranstaltung_context) === 0) {
-  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-}
-elseif (strlen($veranstaltung) > 0) {
-  $bot->reply('Ansprechpartner für ' . $veranstaltung . 'ist Pascal Freier');
-}
-else {
-  $bot->reply('Ansprechpartner für ' . $veranstaltung_context . 'ist Pascal Freier');
-}
-
-})->middleware($dialogflow);
+$botman->hears('say_ansprechpartner', 'App\Http\Controllers\ansprechpartner_Veranstaltung@ansprechpartner_Start') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 5 - termin_Klausur
@@ -106,14 +109,26 @@ $botman->hears('say_termin_Klausur', function ($bot) {
       'Veranstaltung' => $veranstaltung
     ]);
 //Prompts + Antworten
-  if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
   $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 elseif (strlen($veranstaltung) > 0) {
   $bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
 }
 else {
-  $bot->reply('Die Klausur in ' . $veranstaltung_context . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird 
+  $bot->reply('Die Klausur in ' . $veranstaltung_context . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 
 })->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 9 - beschreibung_Veranstaltung
+$botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\beschreibung_Veranstaltung@conversation') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 10 - Anmelderegeln
+$botman->hears('say_anmelderegeln', 'App\Http\Controllers\Anmelderegeln@conversation') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 11 - Voraussetzungen
+$botman->hears('say_voraussetzungen', 'App\Http\Controllers\Voraussetzungen@conversation') ->middleware($dialogflow);
