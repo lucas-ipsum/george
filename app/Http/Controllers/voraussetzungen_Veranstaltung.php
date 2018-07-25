@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 use BotMan\BotMan\Middleware\Dialogflow;
 
-class ansprechpartner_Veranstaltung extends Controller
+class voraussetzungen_Veranstaltung extends Controller
 {
-  public function ansprechpartner_Start ($bot){
+  public function conversation ($bot){
   $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
@@ -22,10 +22,10 @@ if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {     
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 elseif (strlen($veranstaltung) > 0) {
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
+$bot->reply('Voraussetzungen');
 }
 else {
-$bot->reply('Ansprechpartner für ' . $veranstaltung_context . ' ist Pascal Freier');
+$bot->reply('Voraussetzungen mit Context');
  }
 
 }

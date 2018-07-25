@@ -4,6 +4,15 @@ use BotMan\BotMan\Middleware\Dialogflow;         //Import Dialogflow Middleware 
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Attachments\OutgoingMessage;
 use BotMan\BotMan\Storages\Storage;             // Import zum speichern von Nutzereingaben
+//Buttons
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Conversations\Conversation;
+//Import Controller
+use App\Http\Controllers\voraussetzungen_Veranstaltung;
+use App\Http\Controllers\Anmelderegeln;
+use App\Http\Controllers\ansprechpartner_Veranstaltung;
+use App\Http\Controllers\beschreibung_Veranstaltung;
 
 
 $botman = resolve('botman');
@@ -94,9 +103,6 @@ else{
 }
 })->middleware($dialogflow);
 
-//################################################################################################################################################
-//Intent: 13 - ansprechpartner_Veranstaltung
-$botman->hears('say_ansprechpartner', 'App\Http\Controllers\ansprechpartner_Veranstaltung@ansprechpartner_Start') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 5 - termin_Klausur
@@ -120,15 +126,29 @@ else {
 }
 
 })->middleware($dialogflow);
+//################################################################################################################################################
+//Intent: 8 - vorleistung_Klausur
+  $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\vorleistung_Klausur@conversation') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 9 - beschreibung_Veranstaltung
-$botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\beschreibung_Veranstaltung@conversation') ->middleware($dialogflow);
+  $botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\beschreibung_Veranstaltung@conversation') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 10 - Anmelderegeln
-$botman->hears('say_anmelderegeln', 'App\Http\Controllers\Anmelderegeln@conversation') ->middleware($dialogflow);
+  $botman->hears('say_anmelderegeln', 'App\Http\Controllers\Anmelderegeln@conversation') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 11 - Voraussetzungen
-$botman->hears('say_voraussetzungen', 'App\Http\Controllers\Voraussetzungen@conversation') ->middleware($dialogflow);
+  $botman->hears('say_voraussetzungen', 'App\Http\Controllers\voraussetzungen_Veranstaltung@conversation') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 13 - ansprechpartner_Veranstaltung
+  $botman->hears('say_ansprechpartner', 'App\Http\Controllers\ansprechpartner_Veranstaltung@ansprechpartner_Start') ->middleware($dialogflow);
+
+
+//################################################################################################################################################
+//Intent: Default Fallback Intent
+$botman->hears('input.unknown', function ($bot) {
+  $bot->startConversation(new App\Http\Conversations\Fallback);
+})->middleware($dialogflow);
