@@ -13,6 +13,7 @@ use App\Http\Controllers\voraussetzungen_Veranstaltung;
 use App\Http\Controllers\Anmelderegeln;
 use App\Http\Controllers\ansprechpartner_Veranstaltung;
 use App\Http\Controllers\beschreibung_Veranstaltung;
+use App\Http\Controllers\mitarbeiter_Kontakt_Controller;
 
 
 $botman = resolve('botman');
@@ -30,7 +31,7 @@ $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an
 //Versuch Attachments
 $botman->hears('sayHallo', function ($bot) {
   $message = OutgoingMessage::create('This is your video')->withAttachment(
-  		new video('https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm')
+  		new Video('https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm')
   	);
   	$bot->reply($message);
 
@@ -50,7 +51,8 @@ $botman->hears('sayOrt', function ($bot) {
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
 //Speichern
 $bot->userStorage()->save([
-  'Veranstaltung' => $veranstaltung
+  'Veranstaltung' => $veranstaltung,
+  'Veranstaltungsart' => $veranstaltungsart
   ]);
 //Prompts
 if(strlen($veranstaltung) === 0) {
@@ -126,6 +128,10 @@ else {
 }
 
 })->middleware($dialogflow);
+//################################################################################################################################################
+//Intent: 2 - kontakt_Mitarbeiter
+  $botman->hears('say_mitarbeiter_Kontakt', 'App\Http\Controllers\mitarbeiter_Kontakt_Controller@conversation') ->middleware($dialogflow);
+
 //################################################################################################################################################
 //Intent: 8 - vorleistung_Klausur
   $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\vorleistung_Klausur@conversation') ->middleware($dialogflow);
