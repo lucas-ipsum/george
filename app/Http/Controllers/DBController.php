@@ -14,13 +14,15 @@ class DBController extends Controller
     public static function getDBRaum($veranstaltung, $veranstaltungsart)
     {
 
-      $dbraum = DB::table('veranstaltung')
-                        ->where('Name', $veranstaltung)
-                        ->where('Art', $veranstaltungsart)
-                        ->value('Raumnummer');
+      $dbraum = veranstaltung::getModelRaum($veranstaltung, $veranstaltungsart);
 
         return $dbraum;
     }
+
+
+
+
+
 
     // Funktion um die Uhrzeit einer Veranstaltung aus der DB zu holen
     public static function getDBUhrzeit($veranstaltung, $veranstaltungsart)
