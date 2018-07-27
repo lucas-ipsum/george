@@ -12,16 +12,14 @@ class veranstaltung extends Model
 
 
 
-
-
         // Funktion um das Datum einer Veranstaltung aus der DB zu holen
         public static function getModelDatum($veranstaltung, $veranstaltungsart)
         {
 
             $modeldatum = DB::table('veranstaltung')
-                            ->where('Name', $veranstaltung)
-                            ->where('Art', $veranstaltungsart)
-                            ->value('Datum');
+                                ->where('Name', $veranstaltung)
+                                ->where('Art', $veranstaltungsart)
+                                ->value('Datum');
 
             return $modeldatum;
         }
@@ -32,9 +30,9 @@ class veranstaltung extends Model
         {
 
               $modeluhrzeit = DB::table('veranstaltung')
-                          ->where('Name', $veranstaltung)
-                          ->where('Art', $veranstaltungsart)
-                          ->value('Uhrzeit');
+                                    ->where('Name', $veranstaltung)
+                                    ->where('Art', $veranstaltungsart)
+                                    ->value('Uhrzeit');
 
                return $modeluhrzeit;
          }
