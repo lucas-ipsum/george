@@ -115,7 +115,7 @@ header, header a, header a:hover, header a:visited, #navigation-container a {
 .logo-container {
 	padding-top: 24px;
 	padding-bottom: 24px;
-	background-image: url(/../img/redesign/siegel.svg);
+	background-image: url(/img/siegel.svg);
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: 8% 24px;
@@ -232,7 +232,7 @@ ul.mega-menu{
 /* ### -- breadcrumbs and aside links -- ### */
 
 #page-navigation {
-	padding: 8px 0; 
+	padding: 8px 0;
 	text-transform: uppercase;
 }
 
@@ -935,11 +935,11 @@ footer .list-unstyled > li {
 	#navigation {
 		display: block !important;
 	}
-	
+
 	#schulportal-event dt {
 		width: 30%
 	}
-	
+
 	#schulportal-event dd {
 		margin-left: 32%;
 	}
@@ -998,21 +998,21 @@ footer .list-unstyled > li {
 	#page-content article{
 		text-align:left;
 	}
-	
+
 	#breadcrumbs > ol > li:not(:first-child):not(:nth-last-child(2)) {
 		display: none;
 	}
-	
+
 	#breadcrumbs > ol > li:last-child {
 		flex-shrink: 1;
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
-	
+
 	#breadcrumbs > ol > li:nth-last-child(2):not(:first-child)::before {
 		content: "\2026";
 	}
-	
+
 	#breadcrumbs > ol > li:nth-last-child(2):not(:first-child)::after {
 		font: normal normal normal 14px/1 FontAwesome;
 		content: "\f105";
@@ -1063,25 +1063,25 @@ footer .list-unstyled > li {
 	header a[href]:after, .box a[href]:after, #breadcrumbs a[href]:after {
 		content: none;
 	}
-	
+
 	#breadcrumbs ol li:not(:last-child), #breadcrumbs ol li:first-child, #navigation-container, #search-lang-container, body > footer, #page-showcase, #logo {
 		display: none;
 	}
-	
+
 	#breadcrumbs ol li:last-child::before {
 		content:"\f15b";
 	}
-	
+
 	header span {
 		position: static;
 		margin: 0;
 	}
-	
+
 	hr {
 		border-top-width: 1px;
 		border-color: black !important;
 	}
-	
+
 	.box, .highlight {
 		padding: 8px 0;
 		border-color: black !important;
@@ -1090,7 +1090,7 @@ footer .list-unstyled > li {
 		word-break: break-all;
 		overflow: hidden;
 	}
-	
+
 	#print-logo {
 		display: block !important;
 		width: 50%;
