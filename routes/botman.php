@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\DBController;
 use BotMan\BotMan\Middleware\Dialogflow;         //Import Dialogflow Middleware API
+use Illuminate\Support\Facades\DB;               // nutze die Datenbank
 
 $botman = resolve('botman');
 
@@ -17,6 +19,8 @@ $botman->hears('sayHallo', function ($bot) {
 
 })->middleware($dialogflow);      //Hört nur auf Middleware Intents gibt der NUtzer den Intent als eingabe ein wird nicht gematcht
 
+
+
 //Intent: 4 - ort_Veranstaltung
 $botman->hears('sayOrt', function ($bot) {
 
@@ -32,9 +36,15 @@ elseif(strlen($veranstaltungsart) === 0){
 }
 else{
 //Antowort
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      // Rufe den Datenbankcontroller für die Abfrage auf
+      $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
+
+      //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
 }
 })->middleware($dialogflow);
+
+
 
 //Intent: 3 - termin_Veranstaltung
 $botman->hears('say_terminVeranstaltung', function ($bot) {
@@ -43,14 +53,19 @@ $botman->hears('say_terminVeranstaltung', function ($bot) {
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
 //Prompts
-if(strlen($veranstaltung) === 0) {      
+if(strlen($veranstaltung) === 0) {
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 elseif(strlen($veranstaltungsart) === 0){
     $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
 }
 else{
-//Antowort
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+//Antwort
+      // Rufe den Datenbankcontroller für die Abfrage auf
+      $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
+      $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
+
+      //Platzhalter für Raum/Uhrzeit abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am '.$datum.' um '.$uhrzeit.' statt');
 }
 })->middleware($dialogflow);
