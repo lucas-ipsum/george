@@ -120,12 +120,14 @@ class ApiAi implements MiddlewareInterface
         $actionIncomplete = isset($response->result->actionIncomplete) ? (bool) $response->result->actionIncomplete : false;
         $intent = isset($response->result->metadata->intentName) ? $response->result->metadata->intentName : '';
         $parameters = isset($response->result->parameters) ? (array) $response->result->parameters : [];
+        $context_Parameters = isset($response->contexts->parameters) ? (array) $response->contexts->parameters : [];
 
         $message->addExtras('apiReply', $reply);
         $message->addExtras('apiAction', $action);
         $message->addExtras('apiActionIncomplete', $actionIncomplete);
         $message->addExtras('apiIntent', $intent);
         $message->addExtras('apiParameters', $parameters);
+        $message->addExtras('apiContextParameters', $context_Parameters);
 
         return $next($message);
     }
