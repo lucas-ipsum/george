@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class veranstaltung extends Model
 {
     //
+    protected $table = 'veranstaltung';
+
+
+    
+
+
+
 }
