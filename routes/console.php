@@ -17,9 +17,11 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+/*
 // Test database connection
 try {
     DB::connection()->getPdo();
 } catch (\Exception $e) {
     die("Could not connect to the database.  Please check your configuration.");
 }
+*/
