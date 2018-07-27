@@ -467,33 +467,33 @@ Fax. +49 551 39 9735<br>
 style="border:0" alt=""/></p></noscript>
 
 
-<<<<<<< HEAD
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
+  var inaktZeit = 0;
+  var angezeigt = false;
+  $(document).ready(function () {
 
-var idleTime = 0;
-var angezeigt = false;
-$(document).ready(function () {
-    //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 1000); // 1 minute
+  //Erhöhe den Inaktivitätszähler jede Sekunde
+  var inaktInterval = setInterval(timerErhoehen, 1000); // 1000ms=1Sek
 
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-    });
+  //Bei Mausbewegung oder Tastatureingabe wird Timer auf 0 gesetzt
+  $(this).mousemove(function (e) {
+      inaktZeit = 0;
+  });
+  $(this).keypress(function (e) {
+      inaktZeit = 0;
+  });
 });
 
-function timerIncrement() {
-    idleTime = idleTime + 1;
-    if (idleTime == 5) { // 5 Sek
-        botmanChatWidget.sayAsBot("Feedback pls");
+//Timererhöhung und Ausgabe der Feedbackfrage
+function timerErhoehen() {
+    inaktZeit = inaktZeit + 1;
+    if (inaktZeit == 3 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+        botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
+        angezeigt = true;
     }
 }
 </script>
 
-=======
->>>>>>> parent of 89bc788... Inaktivität-Feedbackfrage
 
 </body></html>
