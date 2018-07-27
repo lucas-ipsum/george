@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use app\veranstaltung;
+use App\veranstaltung;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,10 @@ class DBController extends Controller
 
 
     // Funktion um den Raum einer Veranstaltung aus der DB zu holen
-    public static function getDBRaum($veranstaltung, $veranstaltungsart)
+    public static function getDBRaum($name, $art)
     {
 
-      $dbraum = veranstaltung::getModelRaum($veranstaltung, $veranstaltungsart);
+        $dbraum = veranstaltung::getModelRaum($name, $art);
 
         return $dbraum;
     }
