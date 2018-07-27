@@ -17,7 +17,7 @@ $botman = resolve('botman');
 
 // Dialogflow integration
 
-$dialogflow = Dialogflow::create('2995d36e25a74557b14f26acc6610a15')->listenForAction(); //Client access token Dialogflow eingefügt
+$dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForAction(); //Client access token Dialogflow eingefügt
 
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
@@ -38,11 +38,19 @@ $botman->hears('sayHallo', function ($bot) {
 
 //################################################################################################################################################
 //Intent: 4 - ort_Veranstaltung
-$botman->hears('sayOrt', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
+$botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 4 - ort_Veranstaltung_withContext
+$botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 3 - termin_Veranstaltung
-  $botman->hears('say_terminVeranstaltung', 'App\Http\Controllers\Intents_Controller@termin_Klausur')->middleware($dialogflow);
+  $botman->hears('say_terminVeranstaltung', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung')->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 3 - termin_Veranstaltung_withContext
+  $botman->hears('say_terminVeranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 5 - termin_Klausur

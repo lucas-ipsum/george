@@ -31,69 +31,79 @@ class Intents_Controller extends Controller
   }
 
 //###############################################################
+//Intent: 4 - ort_Veranstaltung
 public function ort_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
-//Speichern
-$bot->userStorage()->save([
-  'Veranstaltung' => $veranstaltung,
-  'Veranstaltungsart' => $veranstaltungsart
-  ]);
   //Prompts
   //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
-  if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
-  elseif(strlen($veranstaltungsart) ===  0 && strlen($veranstaltungsart_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
   }
-  elseif (strlen($veranstaltung) > 0 && strlen($veranstaltungsart) > 0) {
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');
-  }
-  elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart_context) > 0) {
-    $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart_context.') ist im Raum ZHG 103.');
-  }
-  elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart) > 0) {
-    $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');
-  }
   else{
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart_context.') ist im Raum ZHG 103.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
   }
 }
 //###############################################################
+//Intent: 4 - ort_Veranstaltung_withContext
+public function ort_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+//Prompts
+  if(strlen($veranstaltung) === 0){
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  elseif(strlen($veranstaltungsart) === 0){
+    $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+  }
+//Antworten auf Frage
+  else{
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');
+  }
+}
+//###############################################################
+//Intent: 3 - veranstaltung_Termin
 public function termin_Veranstaltung($bot){
-  $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');           //Lädt gespeicherten Inhalt (Context)
-  $veranstaltungsart_context = $bot->userStorage()->get('Veranstaltungsart');
   //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
-//Speichern der Nutzereingaben
-  $bot->userStorage()->save([
-    'Veranstaltung' => $veranstaltung,
-    'Veranstaltungsart' => $veranstaltungsart
-  ]);
 //Prompts
 //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
-if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
   $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
-elseif(strlen($veranstaltungsart) ===  0 && strlen($veranstaltungsart_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
   $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
-}
-elseif (strlen($veranstaltung) > 0 && strlen($veranstaltungsart) > 0) {
-  $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');
-}
-elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart_context) > 0) {
-  $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart_context.') findet am Dienstag von 12:15 bis 13:45 statt');
-}
-elseif (strlen($veranstaltung_context) > 0 && strlen($veranstaltungsart) > 0) {
-  $bot->reply($veranstaltung_context.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');
 }
 else{
 //Antowort
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart_context.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung . ' ' . '(' . $veranstaltungsart . ') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+}
+}
+//###############################################################
+//Intent: 3 - veranstaltung_Termin_withContext
+public function termin_Veranstaltung_withContext($bot){
+  //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+//Prompts
+//Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
+if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+}
+elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+}
+else{
+//Antowort
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 }
 //###############################################################
