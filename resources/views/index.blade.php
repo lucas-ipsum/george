@@ -97,10 +97,11 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    //chatServer: The URL of the BotMan route / server to use. Default ist /botman. Hier eventuell änderung Vornehmen um Problem bei localhost zu beheben
+    chatServer: '/george/public/botman',
+    frameEndpoint: '/george/public/botman/chat',
     bubbleAvatarUrl:'img/Chatbot.png',
     bubbleBackground:'#FFFFFF',
-    mainColor: '#8ab8cf'
+    mainColor: '#13306A', <!-- ist zwar die richtige Farbe, aber Ka wie man die Schriftfarbe �ndert-->
   };
   </script>
   <!-- Aufruf Web Widget -->
