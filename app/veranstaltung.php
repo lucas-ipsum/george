@@ -18,7 +18,7 @@ class veranstaltung extends Model
         public static function getModelDatum($veranstaltung, $veranstaltungsart)
         {
 
-        $modeldatum = DB::table('veranstaltung')
+            $modeldatum = DB::table('veranstaltung')
                             ->where('Name', $veranstaltung)
                             ->where('Art', $veranstaltungsart)
                             ->value('Datum');
@@ -31,9 +31,7 @@ class veranstaltung extends Model
         public static function getModelUhrzeit($veranstaltung, $veranstaltungsart)
         {
 
-
-
-        $modeluhrzeit = DB::table('veranstaltung')
+              $modeluhrzeit = DB::table('veranstaltung')
                           ->where('Name', $veranstaltung)
                           ->where('Art', $veranstaltungsart)
                           ->value('Uhrzeit');
