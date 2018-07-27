@@ -25,7 +25,7 @@ class DBController extends Controller
     public static function getDBUhrzeit($name, $art)
     {
 
-        $dbuhrzeit = veranstaltung::getModelRaum($name, $art);
+        $dbuhrzeit = veranstaltung::getModelUhrzeit($name, $art);
 
         return $dbuhrzeit;
     }
