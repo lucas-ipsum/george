@@ -13,7 +13,7 @@ class DBController extends Controller
 
       $dbraum = DB::table('veranstaltung')
                         ->where('Name', $veranstaltung)
-                        //->and('name', $veranstaltungsart)
+                        ->where('name', $veranstaltungsart)
                         ->value('Raumnummer');
 
         return $dbraum;
@@ -25,7 +25,7 @@ class DBController extends Controller
 
     $dbuhrzeit = DB::table('veranstaltung')
                         ->where('Name', $veranstaltung)
-                        //->and('name', $veranstaltungsart)
+                        ->where('name', $veranstaltungsart)
                         ->value('Uhrzeit');
 
         return $dbuhrzeit;
@@ -37,7 +37,7 @@ class DBController extends Controller
 
     $dbdatum = DB::table('veranstaltung')
                         ->where('Name', $veranstaltung)
-                        //->and('name', $veranstaltungsart)
+                        ->where('name', $veranstaltungsart)
                         ->value('Datum');
 
         return $dbdatum;
