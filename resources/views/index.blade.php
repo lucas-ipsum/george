@@ -467,5 +467,32 @@ Fax. +49 551 39 9735<br>
 style="border:0" alt=""/></p></noscript>
 
 
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
+<script type="text/javascript">
+  var inaktZeit = 0;
+  var angezeigt = false;
+  $(document).ready(function () {
+  //Erhöhe den Inaktivitätszähler jede Sekunde
+  var inaktInterval = setInterval(timerErhoehen, 1000); // 1000ms=1Sek
+
+  //Bei Mausbewegung oder Tastatureingabe wird Timer auf 0 gesetzt
+  $(this).mousemove(function (e) {
+      inaktZeit = 0;
+  });
+  $(this).keypress(function (e) {
+      inaktZeit = 0;
+  });
+});
+
+//Timererhöhung und Ausgabe der Feedbackfrage
+function timerErhoehen() {
+    inaktZeit = inaktZeit + 1;
+    if (inaktZeit == 30 && angezeigt == false) { //30 Sekunden
+        botmanChatWidget.sayAsBot(Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback);
+        angezeigt = true;
+    }
+}
+</script>
+
 
 </body></html>
