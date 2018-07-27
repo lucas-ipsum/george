@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 class DBController extends Controller
 {
 
+
+
     // Funktion um den Raum einer Veranstaltung aus der DB zu holen
     public static function getDBRaum($veranstaltung, $veranstaltungsart)
     {
@@ -23,6 +25,8 @@ class DBController extends Controller
     public static function getDBUhrzeit($veranstaltung, $veranstaltungsart)
     {
 
+
+
     $dbuhrzeit = DB::table('veranstaltung')
                         ->where('Name', $veranstaltung)
                         ->where('Art', $veranstaltungsart)
@@ -30,6 +34,8 @@ class DBController extends Controller
 
         return $dbuhrzeit;
     }
+
+
 
     // Funktion um das Datum einer Veranstaltung aus der DB zu holen
     public static function getDBDatum($veranstaltung, $veranstaltungsart)
