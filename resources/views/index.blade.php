@@ -487,7 +487,7 @@ $(document).ready(function () {
 function timerIncrement() {
     idleTime = idleTime + 1;
     if (idleTime == 5) { // 5 Sek
-        botmanChatWidget.sayAsBot(Feedback pls);
+        botmanChatWidget.sayAsBot("Feedback pls");
     }
 }
 </script>
