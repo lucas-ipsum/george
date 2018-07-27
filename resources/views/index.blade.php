@@ -21,7 +21,9 @@
 <!-- fancyBox -->
 <script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
-<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+
+<!--404 Error beheben, Line wird nicht gebraucht-->
+<!--<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>-->
 
 
     <!-- icons and theme colors for various OS -->
