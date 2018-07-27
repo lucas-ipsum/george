@@ -11,7 +11,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 //Import Controller
 use App\Http\Controllers\voraussetzungen_Veranstaltung;
 use App\Http\Controllers\Anmelderegeln;
-use App\Http\Controllers\ansprechpartner_Veranstaltung;
+use App\Http\Controllers\Intents_Controller;
 use App\Http\Controllers\beschreibung_Veranstaltung;
 use App\Http\Controllers\mitarbeiter_Kontakt_Controller;
 
@@ -130,27 +130,27 @@ else {
 })->middleware($dialogflow);
 //################################################################################################################################################
 //Intent: 2 - kontakt_Mitarbeiter
-  $botman->hears('say_mitarbeiter_Kontakt', 'App\Http\Controllers\mitarbeiter_Kontakt_Controller@conversation') ->middleware($dialogflow);
+  $botman->hears('say_mitarbeiter_Kontakt', 'App\Http\Controllers\Intents_Controller@mitarbeiter_Kontakt') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 8 - vorleistung_Klausur
-  $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\vorleistung_Klausur@conversation') ->middleware($dialogflow);
+  $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\Intents_Controller@vorleistung_Klausur') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 9 - beschreibung_Veranstaltung
-  $botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\beschreibung_Veranstaltung@conversation') ->middleware($dialogflow);
+  $botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\Intents_Controller@beschreibung_Veranstaltung') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 10 - Anmelderegeln
-  $botman->hears('say_anmelderegeln', 'App\Http\Controllers\Anmelderegeln@conversation') ->middleware($dialogflow);
+  $botman->hears('say_anmelderegeln', 'App\Http\Controllers\Intents_Controller@Anmelderegeln') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 11 - Voraussetzungen
-  $botman->hears('say_voraussetzungen', 'App\Http\Controllers\voraussetzungen_Veranstaltung@conversation') ->middleware($dialogflow);
+  $botman->hears('say_voraussetzungen', 'App\Http\Controllers\Intents_Controllerg@vorkenntnisse_Veranstaltung') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
-  $botman->hears('say_ansprechpartner', 'App\Http\Controllers\ansprechpartner_Veranstaltung@ansprechpartner_Start') ->middleware($dialogflow);
+  $botman->hears('say_ansprechpartner', 'App\Http\Controllers\Intents_Controller@ansprechpartner_Veranstaltung') ->middleware($dialogflow);
 
 
 //################################################################################################################################################
