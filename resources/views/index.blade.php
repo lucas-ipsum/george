@@ -467,6 +467,7 @@ Fax. +49 551 39 9735<br>
 style="border:0" alt=""/></p></noscript>
 
 
+<<<<<<< HEAD
 <script type="text/javascript">
 
 var idleTime = 0;
@@ -492,5 +493,7 @@ function timerIncrement() {
 }
 </script>
 
+=======
+>>>>>>> parent of 89bc788... Inaktivität-Feedbackfrage
 
 </body></html>
