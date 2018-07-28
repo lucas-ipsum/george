@@ -9,7 +9,7 @@ use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 //Import Controller
-use App\Http\Controllers\Intents_Controller;
+//use App\Http\Controllers\Intents_Controller;
 
 
 
@@ -22,27 +22,12 @@ $dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForA
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
 //################################################################################################################################################
-//Versuch Attachments
-$botman->hears('sayHallo', function ($bot) {
-  $message = OutgoingMessage::create('This is your video')->withAttachment(
-  		new Video('https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm')
-  	);
-  	$bot->reply($message);
-
-// Default Welcome Intent
-//$botman->hears('sayHallo', function ($bot) {
-
-  //  $bot->reply('Willkommen bei der Professur für Anwendnungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?');
-
-})->middleware($dialogflow);      //Hört nur auf Middleware Intents gibt der NUtzer den Intent als eingabe ein wird nicht gematcht
-
-//################################################################################################################################################
 //Intent: 4 - ort_Veranstaltung
 $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 4 - ort_Veranstaltung_withContext
-$botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung_withContext')->middleware($dialogflow);
+  $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 3 - termin_Veranstaltung
@@ -62,7 +47,11 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
 
 //################################################################################################################################################
 //Intent: 6 - credit_Anzahl
-  $botman->hears('say_creditAnzahl', 'App\Http\Controllers\Intents_Controller@credit_Anzahl') ->middleware($dialogflow);
+  $botman->hears('say_credit_Anzahl', 'App\Http\Controllers\Intents_Controller@credit_Anzahl') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 6 - credit_Anzahl_withContext
+  $botman->hears('say_credit_Anzahl_withContext', 'App\Http\Controllers\Intents_Controller@credit_Anzahl_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 2 - kontakt_Mitarbeiter
@@ -73,7 +62,7 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
   $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\Intents_Controller@vorleistung_Klausur') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 8 - vorleistung_Klausur
+//Intent: 8 - vorleistung_Klausur_withContext
   $botman->hears('say_vorleistung_Klausur_withContext', 'App\Http\Controllers\Intents_Controller@vorleistung_Klausur_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
@@ -81,16 +70,32 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
   $botman->hears('say_beschreibung_Veranstaltung', 'App\Http\Controllers\Intents_Controller@beschreibung_Veranstaltung') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 10 - Anmelderegeln
-  $botman->hears('say_anmelderegeln', 'App\Http\Controllers\Intents_Controller@Anmelderegeln') ->middleware($dialogflow);
+//Intent: 9 - beschreibung_Veranstaltung_withContext
+  $botman->hears('say_beschreibung_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@beschreibung_Veranstaltung_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 10 - anmeldehilfe_Veranstaltung
+  $botman->hears('say_anmeldehilfe_Veranstaltung', 'App\Http\Controllers\Intents_Controller@anmeldehilfe_Veranstaltung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 10 - anmeldehilfe_Veranstaltung_withContext
+  $botman->hears('say_anmeldehilfe_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@anmeldehilfe_Veranstaltung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 11 - vorkenntnisse_Veranstaltung
-  $botman->hears('say_vorkenntnisse_Veranstaltung', 'App\Http\Controllers\Intents_Controllerg@vorkenntnisse_Veranstaltung') ->middleware($dialogflow);
+  $botman->hears('say_vorkenntnisse_Veranstaltung', 'App\Http\Controllers\Intents_Controller@vorkenntnisse_Veranstaltung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 11 - vorkenntnisse_Veranstaltung_withContext
+  $botman->hears('say_vorkenntnisse_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@vorkenntnisse_Veranstaltung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
-  $botman->hears('say_ansprechpartner', 'App\Http\Controllers\Intents_Controller@ansprechpartner_Veranstaltung') ->middleware($dialogflow);
+  $botman->hears('say_ansprechpartner_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ansprechpartner_Veranstaltung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 13 - ansprechpartner_Veranstaltung_withContext
+  $botman->hears('say_ansprechpartner_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ansprechpartner_Veranstaltung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: Default Fallback Intent
