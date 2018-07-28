@@ -101,7 +101,7 @@ piwikTracker.setDocumentTitle("Professur f√ºr Anwendungssysteme und E-Business")
     frameEndpoint: '/george/public/botman/chat',
     bubbleAvatarUrl:'img/Chatbot.png',
     bubbleBackground:'#FFFFFF',
-    mainColor: '#13306A', <!-- ist zwar die richtige Farbe, aber Ka wie man die Schriftfarbe ‰ndert-->
+    mainColor: '#13306A', <!-- ist zwar die richtige Farbe, aber Ka wie man die Schriftfarbe ÔøΩndert-->
   };
   </script>
   <!-- Aufruf Web Widget -->
