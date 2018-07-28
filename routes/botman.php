@@ -57,6 +57,10 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
   $botman->hears('say_termin_Klausur', 'App\Http\Controllers\Intents_Controller@termin_Klausur') ->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 5 - termin_Klausur_withContext
+  $botman->hears('say_termin_Klausur_withContext', 'App\Http\Controllers\Intents_Controller@termin_Klausur_withContext') ->middleware($dialogflow); //
+
+//################################################################################################################################################
 //Intent: 6 - credit_Anzahl
   $botman->hears('say_creditAnzahl', 'App\Http\Controllers\Intents_Controller@credit_Anzahl') ->middleware($dialogflow);
 
@@ -67,6 +71,10 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
 //################################################################################################################################################
 //Intent: 8 - vorleistung_Klausur
   $botman->hears('say_vorleistung_Klausur', 'App\Http\Controllers\Intents_Controller@vorleistung_Klausur') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 8 - vorleistung_Klausur
+  $botman->hears('say_vorleistung_Klausur_withContext', 'App\Http\Controllers\Intents_Controller@vorleistung_Klausur_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 9 - beschreibung_Veranstaltung

@@ -52,8 +52,8 @@ public function ort_Veranstaltung($bot){
 //Intent: 4 - ort_Veranstaltung_withContext
 public function ort_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext'][0]['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiContext'][0]['Veranstaltungsart'];
+  $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
 //Prompts
   if(strlen($veranstaltung) === 0){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -91,8 +91,8 @@ else{
 public function termin_Veranstaltung_withContext($bot){
   //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
   $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext'][0]['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiContext'][0]['Veranstaltungsart'];
+  $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
 //Prompts
 //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
 if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
@@ -107,27 +107,30 @@ else{
 }
 }
 //###############################################################
+// Intent: - termin_Klausur
 public function termin_Klausur($bot){
   $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-  //$klausurBool = $extras['apiParameters']['Klausur'];
-//Speichern
-  $bot->userStorage()->save([
-    'Veranstaltung' => $veranstaltung
-  ]);
-//Prompts + Antworten
-//if(strlen($klausurBool) === 0){
-//    $this->termin_Veranstaltung($bot);
-//}
+
+  if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+$bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+}
+else {
+$bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+}
+}
+//###############################################################
+// Intent: - termin_Klausur_withContext
+public function termin_Klausur_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+
   if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
-elseif (strlen($veranstaltung) > 0) {
-$bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
-}
 else {
-$bot->reply('Die Klausur in ' . $veranstaltung_context . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+$bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -240,25 +243,31 @@ public function vorkenntnisse_Veranstaltung($bot){
 
 }
 //###############################################################
+//Intent: 8 - vorleistung_Klausur
 public function vorleistung_Klausur($bot){
-  $veranstaltung_context = $bot->userStorage()->get('Veranstaltung');
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Speichern
-  $bot->userStorage()->save([
-    'Veranstaltung' => $veranstaltung
-  ]);
 //Prompts
-  if(strlen($veranstaltung) ===  0 && strlen($veranstaltung_context) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+  if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
-  elseif (strlen($veranstaltung) > 0) {
+  else {
     $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
   }
-  else {
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung_context . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
-  }
 
+}
+//###############################################################
+//Intent: 8 - vorleistung_Klausur_withContext
+public function vorleistung_Klausur_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
+  }
 }
 //###############################################################
 
