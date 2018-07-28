@@ -46,11 +46,11 @@ $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intent
 
 //################################################################################################################################################
 //Intent: 3 - termin_Veranstaltung
-  $botman->hears('say_terminVeranstaltung', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung')->middleware($dialogflow);
+  $botman->hears('say_termin_Veranstaltung', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 3 - termin_Veranstaltung_withContext
-  $botman->hears('say_terminVeranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung_withContext')->middleware($dialogflow);
+  $botman->hears('say_termin_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 5 - termin_Klausur

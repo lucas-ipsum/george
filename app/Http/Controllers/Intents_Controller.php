@@ -52,8 +52,8 @@ public function ort_Veranstaltung($bot){
 //Intent: 4 - ort_Veranstaltung_withContext
 public function ort_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+  $veranstaltung = $extras['apiContext'][0]['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiContext'][0]['Veranstaltungsart'];
 //Prompts
   if(strlen($veranstaltung) === 0){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -91,8 +91,8 @@ else{
 public function termin_Veranstaltung_withContext($bot){
   //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
   $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+  $veranstaltung = $extras['apiContext'][0]['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiContext'][0]['Veranstaltungsart'];
 //Prompts
 //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
 if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
