@@ -21,7 +21,7 @@ class veranstaltung extends Model
 
             $modelAnmeldung = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
-                                ->where('Art', 'Vorlesung')
+                                ->where('VeranstaltungsArt', 'Vorlesung')
                                 ->value('Voraussetzung');
 
             return $modelAnmeldung;
@@ -34,7 +34,7 @@ class veranstaltung extends Model
 
             $modelbeschreibung = DB::table('veranstaltung')
                                         ->where('Name', $veranstaltung)
-                                        ->where('Art', 'Vorlesung')
+                                        ->where('VeranstaltungsArt', 'Vorlesung')
                                         ->value('Inhalt');
 
             return $modelbeschreibung;
@@ -46,7 +46,7 @@ class veranstaltung extends Model
 
             $modelklausurtermin = DB::table('veranstaltung')
                                   ->where('Name', $veranstaltung)
-                                  ->where('Art', 'Vorlesung')
+                                  ->where('VeranstaltungsArt', 'Vorlesung')
                                   ->value('Klausurtermin');
 
             return $modelklausurtermin;
@@ -59,7 +59,7 @@ class veranstaltung extends Model
 
             $modelcredits = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
-                                ->where('Art', 'Vorlesung')
+                                ->where('VeranstaltungsArt', 'Vorlesung')
                                 ->value('Credits');
 
             return $modelcredits;
@@ -73,7 +73,7 @@ class veranstaltung extends Model
 
             $modeldatum = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
-                                ->where('Art', $veranstaltungsart)
+                                ->where('VeranstaltungsArt', $veranstaltungsart)
                                 ->value('Datum');
 
             return $modeldatum;
@@ -86,7 +86,7 @@ class veranstaltung extends Model
 
               $modeluhrzeit = DB::table('veranstaltung')
                                     ->where('Name', $veranstaltung)
-                                    ->where('Art', $veranstaltungsart)
+                                    ->where('VeranstaltungsArt', $veranstaltungsart)
                                     ->value('Uhrzeit');
 
                return $modeluhrzeit;
@@ -99,7 +99,7 @@ class veranstaltung extends Model
 
               $modelraum = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
-                                ->where('Art', $veranstaltungsart)
+                                ->where('VeranstaltungsArt', $veranstaltungsart)
                                 ->value('Raumnummer');
 
               //$modelraum = "ZHG 2018";
