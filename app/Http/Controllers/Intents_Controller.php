@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DBController;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 //use BotMan\BotMan\Middleware\Dialogflow;
