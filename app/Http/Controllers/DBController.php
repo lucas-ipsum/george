@@ -9,7 +9,14 @@ use Illuminate\Http\Request;
 class DBController extends Controller
 {
 
+    // Funktion um den Raum einer Veranstaltung aus dem model zu holen
+    public static function getDBCredits($name)
+    {
 
+        $dbcredits = veranstaltung::getModelCredits($name);
+
+        return $dbcredits;
+    }
 
     // Funktion um den Raum einer Veranstaltung aus dem model zu holen
     public static function getDBRaum($name, $art)

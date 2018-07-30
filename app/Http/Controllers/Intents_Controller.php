@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DBController;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 //use BotMan\BotMan\Middleware\Dialogflow;
@@ -19,6 +20,7 @@ class Intents_Controller extends Controller
   $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
+  $credits = DBController::getDBCredits($veranstaltung);  
   $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt 6 Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
   }
 }
@@ -32,7 +34,8 @@ public function credit_Anzahl_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
     }
     else {
-    $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt 6 Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
+    $credits = DBController::getDBCredits($veranstaltung);
+    $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt '.$credits.' Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
     }
   }
 //###############################################################
@@ -50,7 +53,8 @@ public function ort_Veranstaltung($bot){
     $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
   }
   else{
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+    $raum = DBController::getDBRaum($veranstaltung,$veranstaltungsart);
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
   }
 }
 //###############################################################
@@ -68,9 +72,27 @@ public function ort_Veranstaltung_withContext($bot){
   }
 //Antworten auf Frage
   else{
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum ZHG 103.');
+    $raum = DBController::getDBRaum($veranstaltung,$veranstaltungsart);
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //###############################################################
 //Intent: 3 - veranstaltung_Termin
 public function termin_Veranstaltung($bot){

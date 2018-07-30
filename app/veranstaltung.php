@@ -12,6 +12,21 @@ class veranstaltung extends Model
 
 
 
+
+
+        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        public static function getModelCredits($veranstaltung, $veranstaltungsart)
+        {
+
+            $modelcredits = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('Art', 'Vorlesung')
+                                ->value('Credits');
+
+            return $modelcredits;
+        }
+
+
         // Funktion um das Datum einer Veranstaltung aus der DB zu holen
         public static function getModelDatum($veranstaltung, $veranstaltungsart)
         {
