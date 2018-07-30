@@ -80,23 +80,6 @@ public function ort_Veranstaltung_withContext($bot){
     $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //###############################################################
 //Intent: 3 - veranstaltung_Termin
 public function termin_Veranstaltung($bot){
@@ -114,7 +97,10 @@ elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen,
 }
 else{
 //Antowort
-      $bot->reply($veranstaltung . ' ' . '(' . $veranstaltungsart . ') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      // Rufe den Datenbankcontroller für die Abfrage auf
+      $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
+      $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 }
 //###############################################################
@@ -134,7 +120,10 @@ elseif(strlen($veranstaltungsart) === 0) {       //Dieser Fall wird aufgerufen, 
 }
 else{
 //Antowort
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am Dienstag von 12:15 bis 13:45 statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      // Rufe den Datenbankcontroller für die Abfrage auf
+      $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
+      $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 }
 //###############################################################
@@ -147,7 +136,8 @@ public function termin_Klausur($bot){
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
+      $bot->reply('Die Klausur in ' . $veranstaltung . ' ist am '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -160,7 +150,8 @@ public function termin_Klausur_withContext($bot){
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$bot->reply('Die Klausur in ' . $veranstaltung . ' ist am 13.08.2018'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
+      $bot->reply('Die Klausur in ' . $veranstaltung . ' ist am '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -173,7 +164,8 @@ public function beschreibung_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Die Veranstaltung Management der Informationssysteme beschäftigt sich mit der produktorientierten Gestaltung der betrieblichen Informationsverarbeitung. Unter Produkt wird hier das Anwendungssystem bzw. eine ganze Landschaft aus Anwendungssystemen verstanden, die es zu gestalten und organisieren gilt. Der Fokus der Veranstaltung liegt auf der Vermittlung von vorgehensweisen sowie Methoden und konkreten Instrumenten, welche es erlauben, Anwendungssysteme logisch-konzeptionell zu gestalten.');
+        $beschreibung = DBController::getDBBeschreibung($veranstaltung);
+        $bot->reply('Die Veranstaltung '.$veranstaltung.' beschäftigt sich mit:  '.$beschreibung.'.');
     }
   }
 //###############################################################
@@ -186,7 +178,8 @@ public function beschreibung_Veranstaltung_withContext($bot){
       $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
     }
     else {
-      $bot->reply('Die Veranstaltung Management der Informationssysteme beschäftigt sich mit der produktorientierten Gestaltung der betrieblichen Informationsverarbeitung. Unter Produkt wird hier das Anwendungssystem bzw. eine ganze Landschaft aus Anwendungssystemen verstanden, die es zu gestalten und organisieren gilt. Der Fokus der Veranstaltung liegt auf der Vermittlung von vorgehensweisen sowie Methoden und konkreten Instrumenten, welche es erlauben, Anwendungssysteme logisch-konzeptionell zu gestalten.');
+          $beschreibung = DBController::getDBBeschreibung($veranstaltung);
+          $bot->reply('Die Veranstaltung '.$veranstaltung.' beschäftigt sich mit:  '.$beschreibung.'.');
       }
     }
 //###############################################################
@@ -207,6 +200,13 @@ public function mitarbeiter_Kontakt($bot){
   }
 
   }
+
+
+
+
+
+
+
 //###############################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
 public function ansprechpartner_Veranstaltung($bot){
@@ -235,6 +235,10 @@ else {
 $bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
 }
 }
+
+
+
+
 //###############################################################
 //Intent: 10 - Anmelderegeln
 public function anmeldehilfe_Veranstaltung($bot){
@@ -245,7 +249,8 @@ public function anmeldehilfe_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Anmelderegeln');
+        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
+        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
   }
 }
 //###############################################################
@@ -258,9 +263,16 @@ public function anmeldehilfe_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Anmelderegeln mit Context');
+        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
+        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
   }
 }
+
+
+
+
+
+
 //###############################################################
 //Intent: 11 - vorkenntnisse_Veranstaltung
 public function vorkenntnisse_Veranstaltung($bot){
@@ -271,7 +283,8 @@ public function vorkenntnisse_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Vorkenntnisse');
+  //  $vorkenntnisse =
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
   }
 }
 //###############################################################
@@ -284,9 +297,13 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Vorkenntnisse mit Context');
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
   }
 }
+
+
+
+
 //###############################################################
 //Intent: 8 - vorleistung_Klausur
 public function vorleistung_Klausur($bot){

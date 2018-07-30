@@ -12,7 +12,45 @@ use Illuminate\Http\Request;
 class DBController extends Controller
 {
 
-    // Funktion um den Raum einer Veranstaltung aus dem model zu holen
+
+
+
+
+
+
+
+
+    // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
+    public static function getDBAnmeldung($name)
+    {
+
+        $dbbeschreibung = veranstaltung::getModelAnmeldung($name);
+
+        return $dbbeschreibung;
+    }
+
+
+    // Funktion um die Beschreibung einer Veranstaltung aus dem model zu holen
+    public static function getDBBeschreibung($name)
+    {
+
+        $dbbeschreibung = veranstaltung::getModelBeschreibung($name);
+
+        return $dbbeschreibung;
+    }
+
+
+    // Funktion um den Klausurtermin einer Veranstaltung aus dem model zu holen
+    public static function getDBKlausurtermin($name)
+    {
+
+        $dbklausurtermin = veranstaltung::getModelKlausurtermin($name);
+
+        return $dbklausurtermin;
+    }
+
+
+    // Funktion um die Creditanzahl einer Veranstaltung aus dem model zu holen
     public static function getDBCredits($name)
     {
 
@@ -24,8 +62,8 @@ class DBController extends Controller
     // Funktion um den Raum einer Veranstaltung aus dem model zu holen
     public static function getDBRaum($name, $art)
     {
-          $dbraum = "wiese"
-      //  $dbraum = veranstaltung::getModelRaum($name, $art);
+
+        $dbraum = veranstaltung::getModelRaum($name, $art);
 
         return $dbraum;
     }

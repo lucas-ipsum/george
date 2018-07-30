@@ -16,7 +16,45 @@ class veranstaltung extends Model
 
 
         // Funktion um das Datum einer Veranstaltung aus der DB zu holen
-        public static function getModelCredits($veranstaltung, $veranstaltungsart)
+        public static function getModelAnmeldung($veranstaltung)
+        {
+
+            $modelAnmeldung = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('Art', 'Vorlesung')
+                                ->value('Voraussetzung');
+
+            return $modelAnmeldung;
+        }
+
+
+        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        public static function getModelBeschreibung($veranstaltung)
+        {
+
+            $modelbeschreibung = DB::table('veranstaltung')
+                                        ->where('Name', $veranstaltung)
+                                        ->where('Art', 'Vorlesung')
+                                        ->value('Inhalt');
+
+            return $modelbeschreibung;
+        }
+
+        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        public static function getModelKlausurtermin($veranstaltung)
+        {
+
+            $modelklausurtermin = DB::table('veranstaltung')
+                                  ->where('Name', $veranstaltung)
+                                  ->where('Art', 'Vorlesung')
+                                  ->value('Klausurtermin');
+
+            return $modelklausurtermin;
+        }
+
+
+        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        public static function getModelCredits($veranstaltung)
         {
 
             $modelcredits = DB::table('veranstaltung')
@@ -63,6 +101,7 @@ class veranstaltung extends Model
                                 ->where('Art', $veranstaltungsart)
                                 ->value('Raumnummer');
 
+              //$modelraum = "ZHG 2018";
               return $modelraum;
         }
 
