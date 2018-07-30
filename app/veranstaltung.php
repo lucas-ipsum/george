@@ -15,16 +15,19 @@ class veranstaltung extends Model
 
 
 
+  
+
+
         // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
         public static function getModelAnmeldung($veranstaltung)
         {
 
-            $modelAnmeldung = DB::table('veranstaltung')
+            $modelanmeldung = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', 'Vorlesung')
                                 ->value('Voraussetzung');
 
-            return $modelAnmeldung;
+            return $modelanmeldung;
         }
 
 

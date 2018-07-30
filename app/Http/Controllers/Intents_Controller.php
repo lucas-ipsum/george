@@ -180,7 +180,7 @@ public function beschreibung_Veranstaltung_withContext($bot){
     else {
           $beschreibung = DBController::getDBBeschreibung($veranstaltung);
           $bot->reply('Die Veranstaltung '.$veranstaltung.' beschäftigt sich mit:  '.$beschreibung.'.');
-      }
+          }
     }
 //###############################################################
 //Intent: 2 - mitarbeiter_Kontakt
@@ -193,13 +193,29 @@ public function mitarbeiter_Kontakt($bot){
   $bot->reply('Welchen Mitarbeiter möchten Sie kontaktieren?');
   }
   elseif (strlen($kontaktart) === 0) {    //Nachfrage Kontaktart falls diese nicht eingegeben wurde
-  $bot->reply('Wie möchten Sie ' . $mitarbeiter . ' kontaktieren?');
+          $bot->reply('Wie möchten Sie ' . $mitarbeiter . ' kontaktieren?');
   }
   else {
-  $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: Tel. ...');
-  }
+        $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
+        $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: '.$Contact.'.');
+        }
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -221,7 +237,6 @@ $bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
 }
 
 }
-
 //###############################################################
 //Intent: 13 - ansprechpartner_Veranstaltung_withContext
 public function ansprechpartner_Veranstaltung_withContext($bot){
@@ -235,10 +250,6 @@ else {
 $bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
 }
 }
-
-
-
-
 //###############################################################
 //Intent: 10 - Anmelderegeln
 public function anmeldehilfe_Veranstaltung($bot){
@@ -251,7 +262,7 @@ public function anmeldehilfe_Veranstaltung($bot){
   else {
         $anmeldung = DBController::getDBAnmeldung($veranstaltung);
         $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
-  }
+        }
 }
 //###############################################################
 //Intent: 10 - anmeldehilfe_Veranstaltung_withContext
@@ -267,12 +278,6 @@ public function anmeldehilfe_Veranstaltung_withContext($bot){
         $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
   }
 }
-
-
-
-
-
-
 //###############################################################
 //Intent: 11 - vorkenntnisse_Veranstaltung
 public function vorkenntnisse_Veranstaltung($bot){
@@ -300,10 +305,6 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
     $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
   }
 }
-
-
-
-
 //###############################################################
 //Intent: 8 - vorleistung_Klausur
 public function vorleistung_Klausur($bot){

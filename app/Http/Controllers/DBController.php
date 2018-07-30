@@ -13,20 +13,24 @@ class DBController extends Controller
 {
 
 
+;
+    // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
+    public static function getDBKontaktart($art, $name)
+    {
 
-
-
-
-
+        //$dbcontact = mitarbeiter::getModelKontaktart($art, $name);
+        $dbcontact = "Furz"
+        return $dbcontact;
+    }
 
 
     // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
     public static function getDBAnmeldung($name)
     {
 
-        $dbbeschreibung = veranstaltung::getModelAnmeldung($name);
+        $dbanmeldung = veranstaltung::getModelAnmeldung($name);
 
-        return $dbbeschreibung;
+        return $dbanmeldung;
     }
 
 
