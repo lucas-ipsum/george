@@ -15,7 +15,7 @@ class veranstaltung extends Model
 
 
 
-  
+
 
 
         // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
@@ -99,13 +99,13 @@ class veranstaltung extends Model
         // Funktion um den Raum einer Veranstaltung aus der DB zu holen
         public static function getModelRaum($veranstaltung, $veranstaltungsart)
         {
-
+/*
               $modelraum = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', $veranstaltungsart)
                                 ->value('Raumnummer');
-
-              //$modelraum = "ZHG 2018";
+*/
+              $modelraum = "ZHG 2018";
               return $modelraum;
         }
 

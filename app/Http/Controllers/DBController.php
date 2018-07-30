@@ -87,7 +87,7 @@ class DBController extends Controller
     public static function getDBDatum($name, $art)
     {
 
-    $dbdatum = veranstaltung::getModelDatum($name, $art);
+        $dbdatum = veranstaltung::getModelDatum($name, $art);
 
         return $dbdatum;
     }
