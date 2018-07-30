@@ -98,8 +98,8 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     title: 'George',
     aboutText: '',
     introMessage: 'Willkommen bei der Professur für Anwendnungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
-  //  chatServer: '/Users/lucastiedemann/mamp/george/public/botman',
-  //  frameEndpoint: '/Users/lucastiedemann/mamp/george/public/botman/chat',
+    chatServer: '/george/public/botman',
+    frameEndpoint: '/george/public/botman/chat',
     bubbleAvatarUrl:'img/Chatbot.png',
     bubbleBackground:'#FFFFFF',
     mainColor: '#8ab8cf'
