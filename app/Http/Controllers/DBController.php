@@ -19,7 +19,7 @@ class DBController extends Controller
     {
 
         //$dbcontact = mitarbeiter::getModelKontaktart($art, $name);
-        $dbcontact = "Furz"
+        $dbcontact = "Telegramm"
         return $dbcontact;
     }
 
