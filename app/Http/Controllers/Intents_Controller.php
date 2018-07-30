@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\veranstaltung;
+use App\mitarbeiter;
+use App\betreuung;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DBController;
 use Illuminate\Database\Eloquent\Model;
@@ -55,7 +57,7 @@ public function ort_Veranstaltung($bot){
     $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
   }
   else{
-    $raum = DBController::getDBRaum($veranstaltung,$veranstaltungsart);
+    $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
     $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
   }
 }
@@ -74,8 +76,8 @@ public function ort_Veranstaltung_withContext($bot){
   }
 //Antworten auf Frage
   else{
-    $raum = DBController::getDBRaum($veranstaltung,$veranstaltungsart);
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum Raum '.$raum.'.');
+    $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
   }
 }
 

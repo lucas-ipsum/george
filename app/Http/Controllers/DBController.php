@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\veranstaltung;
+use App\mitarbeiter;
+use App\betreuung;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +24,8 @@ class DBController extends Controller
     // Funktion um den Raum einer Veranstaltung aus dem model zu holen
     public static function getDBRaum($name, $art)
     {
-
-        $dbraum = veranstaltung::getModelRaum($name, $art);
+          $dbraum = "wiese"
+      //  $dbraum = veranstaltung::getModelRaum($name, $art);
 
         return $dbraum;
     }
