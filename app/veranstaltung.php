@@ -15,7 +15,7 @@ class veranstaltung extends Model
 
 
 
-        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
         public static function getModelAnmeldung($veranstaltung)
         {
 
@@ -28,7 +28,7 @@ class veranstaltung extends Model
         }
 
 
-        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        // Funktion um die Beschreibung einer Veranstaltung aus der DB zu holen
         public static function getModelBeschreibung($veranstaltung)
         {
 
@@ -40,7 +40,7 @@ class veranstaltung extends Model
             return $modelbeschreibung;
         }
 
-        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        // Funktion um den Klausurtermin einer Veranstaltung aus der DB zu holen
         public static function getModelKlausurtermin($veranstaltung)
         {
 
@@ -53,7 +53,7 @@ class veranstaltung extends Model
         }
 
 
-        // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+        // Funktion um die Creditanzahl einer Veranstaltung aus der DB zu holen
         public static function getModelCredits($veranstaltung)
         {
 
@@ -93,6 +93,7 @@ class veranstaltung extends Model
          }
 
 
+        // Funktion um den Raum einer Veranstaltung aus der DB zu holen
         public static function getModelRaum($veranstaltung, $veranstaltungsart)
         {
 
