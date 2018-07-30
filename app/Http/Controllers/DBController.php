@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\veranstaltung;
+use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;

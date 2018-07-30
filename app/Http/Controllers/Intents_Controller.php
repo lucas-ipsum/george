@@ -75,7 +75,7 @@ public function ort_Veranstaltung_withContext($bot){
 //Antworten auf Frage
   else{
     $raum = DBController::getDBRaum($veranstaltung,$veranstaltungsart);
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
+    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum Raum '.$raum.'.');
   }
 }
 
