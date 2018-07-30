@@ -16,6 +16,7 @@ class veranstaltung extends Model
         public static function getModelDatum($veranstaltung, $veranstaltungsart)
         {
 
+
             $modeldatum = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('Art', $veranstaltungsart)
