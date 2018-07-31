@@ -202,27 +202,6 @@ public function mitarbeiter_Kontakt($bot){
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //###############################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
 public function ansprechpartner_Veranstaltung($bot){
@@ -302,7 +281,7 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse  mit context.');
   }
 }
 //###############################################################
@@ -332,5 +311,81 @@ public function vorleistung_Klausur_withContext($bot){
   }
 }
 //###############################################################
-
+//Intent 14 - turnus_Veranstaltung
+public function turnus_Veranstaltung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ': Turnus');
+  }
+}
+//###############################################################
+//Intent 14 - turnus_Veranstaltung_withContext
+public function turnus_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ': Turnus Context');
+  }
+}
+//###############################################################
+//Intent 15 - literatur_Veranstaltung
+public function literatur_Veranstaltung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': Literatur');
+  }
+}
+//###############################################################
+//Intent 15 - literatur_Veranstaltung_withContext
+public function literatur_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': Literatur Context');
+  }
+}
+//###############################################################
+//Intent 16 - klausur_Anmeldung
+public function klausur_Anmeldung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Klausuranmeldung in ' . $veranstaltung . ': https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
+  }
+}
+//###############################################################
+//Intent 16 - klausur_Anmeldung_withContext
+public function klausur_Anmeldung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
+  }
+}
 }

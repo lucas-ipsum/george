@@ -98,6 +98,30 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
   $botman->hears('say_ansprechpartner_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ansprechpartner_Veranstaltung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 14 - turnus_Veranstaltung
+  $botman->hears('say_turnus_Veranstaltung', 'App\Http\Controllers\Intents_Controller@turnus_Veranstaltung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 14 - turnus_Veranstaltung_withContext
+  $botman->hears('say_turnus_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@turnus_Veranstaltung_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 15 - literatur_Veranstaltung
+  $botman->hears('say_literatur_Veranstaltung', 'App\Http\Controllers\Intents_Controller@literatur_Veranstaltung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 15 - literatur_Veranstaltung_withContext
+  $botman->hears('say_literatur_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@literatur_Veranstaltung_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 16 - klausur_Anmeldung
+  $botman->hears('say_klausur_Anmeldung', 'App\Http\Controllers\Intents_Controller@klausur_Anmeldung') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 16 - klausur_Anmeldung_withContext
+  $botman->hears('say_klausur_Anmeldung_withContext', 'App\Http\Controllers\Intents_Controller@klausur_Anmeldung_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
 //Intent: Default Fallback Intent
 $botman->hears('input.unknown', function ($bot) {
   $bot->startConversation(new App\Http\Conversations\Fallback);
