@@ -58,7 +58,7 @@ public function ort_Veranstaltung($bot){
   }
   else{
     $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+    $bot->reply($veranstaltung . ' (' . $veranstaltungsart . ') ist im Raum ' .  $raum . '.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
   }
 }
 //###############################################################
@@ -197,7 +197,7 @@ public function mitarbeiter_Kontakt($bot){
   }
   else {
         $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
-        $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: '.$Contact.'.');
+        $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: '. $Contact.'.');
         }
 
   }
