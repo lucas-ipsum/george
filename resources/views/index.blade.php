@@ -91,7 +91,6 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
 <style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
 
 
-
 <body>
 
   <!-- Anpassung des Web Widgets -->
@@ -99,16 +98,18 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    introMessage: 'Willkommen bei der Professur für Anwendnungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
-  //  chatServer: '/Users/lucastiedemann/mamp/george/public/botman',
-  //  frameEndpoint: '/Users/lucastiedemann/mamp/george/public/botman/chat',
-    bubbleAvatarUrl:'img/Chatbot.png',
-    bubbleBackground:'#FFFFFF',
-    mainColor: '#8ab8cf'
+    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
+    chatServer: '/george/public/botman',
+    frameEndpoint: '/george/public/chat',
+    bubbleAvatarUrl: 'img/Chatbot.png',
+    headerTextColor: '#FFFFFF',
+    bubbleBackground: '#FFFFFF',
+    mainColor: '#13306A'
   };
   </script>
-  <!-- Aufruf Web Widget -->
- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
+<!-- Aufruf Web Widget -->
+<script id="botmanWidget" src='js/widget.js'></script>
 
 <header>
     <div class="container-fluid logo-container">

@@ -13,6 +13,11 @@ class BotManController extends Controller
   {
       return view('index');
   }
+
+    public function chat()
+  {
+      return view('chat');
+  }
     /**
      * Place your BotMan logic here.
      */
