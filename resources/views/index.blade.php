@@ -41,7 +41,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <!-- GCMS default styles -->
-    <link href="css/default.css" rel="stylesheet">
+    <link href="css/default.min.css" rel="stylesheet">
 
     <!-- jQuery 3.1.1 library -->
     <script src="js/jquery-3.1.1.min.js"></script>
