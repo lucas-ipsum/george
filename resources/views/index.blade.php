@@ -104,7 +104,8 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     bubbleAvatarUrl: 'img/Chatbot.png',
     headerTextColor: '#FFFFFF',
     bubbleBackground: '#FFFFFF',
-    mainColor: '#13306A'
+    mainColor: '#13306A',
+    placeholderText: 'Nachricht eingeben..'
   };
   </script>
 
