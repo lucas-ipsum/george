@@ -467,8 +467,26 @@ Fax. +49 551 39 9735<br>
         </div>
             </div>
 </footer>
+
+<!--Popup zum Aufmerksam machen-->
+<div class="fixed-bottom">
+  <div class="row">
+    <div class="col-md-7">
+    </div>
+    <div class="col-md-2">
+      <img id="popup" src="https://i.lensdump.com/i/8yyolT.png" style="display:none" />
+    </div>
+  </div>
+</div>
 <noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
 style="border:0" alt=""/></p></noscript>
+
+<!--Script zum Sichtbar machen-->
+<script type="text/javascript">
+setTimeout(function(){
+    document.getElementById('myimage').style.display = 'block';
+},10000);
+</script>
 
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
