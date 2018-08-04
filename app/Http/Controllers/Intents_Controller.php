@@ -38,7 +38,7 @@ public function credit_Anzahl_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
     }
     else {
-    $credits = DBController::getDBCredits($veranstaltung);
+    //$credits = DBController::getDBCredits($veranstaltung);
     $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt '.$credits.' Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
     }
   }

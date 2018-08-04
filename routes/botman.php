@@ -9,7 +9,7 @@ use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 //Import Controller
-//use App\Http\Controllers\Intents_Controller;
+use App\Http\Controllers\Intents_Controller;
 
 
 
