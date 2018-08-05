@@ -262,6 +262,23 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //###############################################################
 //Intent: 8 - vorleistung_Klausur
 public function vorleistung_Klausur($bot){
@@ -289,17 +306,6 @@ public function vorleistung_Klausur_withContext($bot){
   }
 }
 //###############################################################
-
-
-
-
-
-
-
-
-
-
-
 
 
 
