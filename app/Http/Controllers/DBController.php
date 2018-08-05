@@ -13,13 +13,21 @@ class DBController extends Controller
 {
 
 
+<<<<<<< HEAD
 
+=======
+    //;
+>>>>>>> e287b29f4ba8ac6eef02573c5b3d6afa2316d284
     // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
     public static function getDBKontaktart($art, $name)
     {
 
         $dbcontact = mitarbeiter::getModelKontaktart($art, $name);
+<<<<<<< HEAD
 
+=======
+      //  $dbcontact = "Telegramm";
+>>>>>>> e287b29f4ba8ac6eef02573c5b3d6afa2316d284
         return $dbcontact;
     }
 
