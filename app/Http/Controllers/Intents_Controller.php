@@ -25,7 +25,7 @@ class Intents_Controller extends Controller
   }
   else {
   $credits = DBController::getDBCredits($veranstaltung);
-  $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt 6 Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
+  $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt '.$credits.' Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
   }
 }
 //###############################################################
@@ -38,7 +38,7 @@ public function credit_Anzahl_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
     }
     else {
-    //$credits = DBController::getDBCredits($veranstaltung);
+    $credits = DBController::getDBCredits($veranstaltung);
     $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt '.$credits.' Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
     }
   }
@@ -201,8 +201,94 @@ public function mitarbeiter_Kontakt($bot){
         }
 
   }
+#######################################################################################################################
+//Intent: 10 - Anmelderegeln
+public function anmeldehilfe_Veranstaltung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts + Antworten
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
+        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
+        }
+}
+//###############################################################
+//Intent: 10 - anmeldehilfe_Veranstaltung_withContext
+public function anmeldehilfe_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts + Antworten
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
+        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
+  }
+}
+
+//###############################################################
+//Intent: 11 - vorkenntnisse_Veranstaltung
+public function vorkenntnisse_Veranstaltung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+  //  $vorkenntnisse =
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
+  }
+}
+//###############################################################
+//Intent: 11 - vorkenntnisse_Veranstaltung_withContext
+public function vorkenntnisse_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
+  }
+}
 
 
+
+
+
+//###############################################################
+//Intent: 8 - vorleistung_Klausur
+public function vorleistung_Klausur($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
+  }
+}
+//###############################################################
+//Intent: 8 - vorleistung_Klausur_withContext
+public function vorleistung_Klausur_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+//Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
+    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
+  }
+}
+//###############################################################
 
 
 
@@ -250,87 +336,5 @@ else {
 $bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
 }
 }
-//###############################################################
-//Intent: 10 - Anmelderegeln
-public function anmeldehilfe_Veranstaltung($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
-        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
-        }
-}
-//###############################################################
-//Intent: 10 - anmeldehilfe_Veranstaltung_withContext
-public function anmeldehilfe_Veranstaltung_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext']['Veranstaltung'];
-//Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
-        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
-  }
-}
-//###############################################################
-//Intent: 11 - vorkenntnisse_Veranstaltung
-public function vorkenntnisse_Veranstaltung($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-  //  $vorkenntnisse =
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
-  }
-}
-//###############################################################
-//Intent: 11 - vorkenntnisse_Veranstaltung_withContext
-public function vorkenntnisse_Veranstaltung_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
-  }
-}
-//###############################################################
-//Intent: 8 - vorleistung_Klausur
-public function vorleistung_Klausur($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
-  }
-}
-//###############################################################
-//Intent: 8 - vorleistung_Klausur_withContext
-public function vorleistung_Klausur_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
-  }
-}
-//###############################################################
 
 }
