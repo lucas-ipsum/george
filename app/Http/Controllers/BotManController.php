@@ -8,6 +8,11 @@ use App\Conversations\ExampleConversation;
 
 class BotManController extends Controller
 {
+  //Aufruf vom Index View (Lehrstuhl Website + Bot)
+  public function index()
+  {
+      return view('index');
+  }
     /**
      * Place your BotMan logic here.
      */
@@ -34,4 +39,5 @@ class BotManController extends Controller
     {
         $bot->startConversation(new ExampleConversation());
     }
+
 }
