@@ -510,7 +510,7 @@ setTimeout(function(){
 //Timererhöhung und Ausgabe der Feedbackfrage
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 30 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
         botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
         angezeigt = true;
     }
