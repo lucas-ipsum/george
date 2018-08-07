@@ -155,14 +155,14 @@ class DBController extends Controller
 
         $dbbetreuung = betreuung::getModelBetreuung($name);
 
-        $ausgabe = array();
+      /*  $ausgabe = array();
 
-        foreach ($dbbetreuung as $mitarbeiter) {
-            $ausgabe[] = $mitarbeiter;
+        foreach ($dbbetreuung as $person) {
+            $ausgabe[] = $person;
 
-        }
+        }*/
 
-        return $ausgabe;
+        return $dbbetreuung;
     }
 
 }

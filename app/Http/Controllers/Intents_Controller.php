@@ -438,9 +438,9 @@ public function veranstaltungen_Mitarbeiter($bot){
     $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
   }
   else {
-    //$betreuer = DBController::getDBBetreuung($mitarbeiter);
-    $string = array(1,2,3,4,5);
-    $string1 = implode('|',$string);
+    $betreuer = DBController::getDBBetreuung($mitarbeiter);
+  //  $string = array(1,2,3,4,5);
+    $string1 = implode('|',$betreuer);
     $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': ' . $string1);
   }
 }

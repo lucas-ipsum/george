@@ -13,15 +13,13 @@ class betreuung extends Model
     public static function getModelBetreuung($mitarbeiter)
     {
 
-    /*    $modelbetreuung = DB::table('betreuung')
-                              ->where('Name', $mitarbeiter)
-                              ->first();
-                            //  ->value('ID_Veranstaltung')->get(); */
-
       $modelbetreuung = DB::table('betreuung')
-                      ->lists('Betreuer');
-                    //  ->where('Betreuer', $mitarbeiter)->get();
+                        ->where('Betreuer', '=' ,$mitarbeiter)
+                        ->get();
 
+        $array = get_object_vars($modelbetreuung);
+        //$array = (array) $modelbetreuung;
 
-        return $modelbetreuung;
+        return $array;
     }
+}
