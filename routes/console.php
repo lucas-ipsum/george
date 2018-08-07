@@ -17,6 +17,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+/*
 // Test database connection
 try {
     DB::connection()->getPdo();

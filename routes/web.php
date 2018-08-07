@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'BotManController@index');
+Route::get('/chat', 'BotManController@chat');   
 
 /*Route::get('/', function () {
     return view('welcome');

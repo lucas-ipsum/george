@@ -21,7 +21,9 @@
 <!-- fancyBox -->
 <script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
-<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+
+<!--404 Error beheben, Line wird nicht gebraucht-->
+<!--<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>-->
 
 
     <!-- icons and theme colors for various OS -->
@@ -39,7 +41,7 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <!-- GCMS default styles -->
-    <link href="css/default.css" rel="stylesheet">
+    <link href="css/default.min.css" rel="stylesheet">
 
     <!-- jQuery 3.1.1 library -->
     <script src="js/jquery-3.1.1.min.js"></script>
@@ -89,7 +91,6 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
 <style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
 
 
-
 <body>
 
   <!-- Anpassung des Web Widgets -->
@@ -97,16 +98,19 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen dir gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für dich tun?',
+    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
     chatServer: '/george/public/botman',
-    frameEndpoint: '/george/public/botman/chat',
-    bubbleAvatarUrl:'img/Chatbot.png',
-    bubbleBackground:'#FFFFFF',
-    mainColor: '#8ab8cf'
+    frameEndpoint: '/george/public/chat',
+    bubbleAvatarUrl: 'img/Chatbot.png',
+    headerTextColor: '#FFFFFF',
+    bubbleBackground: '#FFFFFF',
+    mainColor: '#13306A',
+    placeholderText: 'Nachricht eingeben..'
   };
   </script>
-  <!-- Aufruf Web Widget -->
- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
+<!-- Aufruf Web Widget -->
+<script id="botmanWidget" src='js/widget.js'></script>
 
 <header>
     <div class="container-fluid logo-container">
@@ -463,9 +467,55 @@ Fax. +49 551 39 9735<br>
         </div>
             </div>
 </footer>
+
+<!--Popup zum Aufmerksam machen-->
+<div class="fixed-bottom">
+  <div class="row">
+    <div class="col-md-7">
+    </div>
+    <div class="col-md-2">
+      <img id="popup" src="https://i.lensdump.com/i/8yyolT.png" style="display:none" />
+    </div>
+  </div>
+</div>
 <noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
 style="border:0" alt=""/></p></noscript>
 
+<!--Script zum Sichtbar machen-->
+<script type="text/javascript">
+setTimeout(function(){
+    document.getElementById('myimage').style.display = 'block';
+},10000);
+</script>
+
+
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
+<script type="text/javascript">
+  var inaktZeit = 0;
+  var angezeigt = false;
+  $(document).ready(function () {
+
+  //Erhöhe den Inaktivitätszähler jede Sekunde
+  var inaktInterval = setInterval(timerErhoehen, 1000); // 1000ms=1Sek
+
+  //Bei Mausbewegung oder Tastatureingabe wird Timer auf 0 gesetzt
+  $(this).mousemove(function (e) {
+      inaktZeit = 0;
+  });
+  $(this).keypress(function (e) {
+      inaktZeit = 0;
+  });
+});
+
+//Timererhöhung und Ausgabe der Feedbackfrage
+function timerErhoehen() {
+    inaktZeit = inaktZeit + 1;
+    if (inaktZeit == 30 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+        botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
+        angezeigt = true;
+    }
+}
+</script>
 
 
 </body></html>
