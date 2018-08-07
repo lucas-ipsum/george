@@ -24,7 +24,7 @@ class mitarbeiter extends Model
     return $modelcontact;
     }
 
-
+}
 
 
 

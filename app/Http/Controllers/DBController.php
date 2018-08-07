@@ -150,8 +150,20 @@ class DBController extends Controller
         return $dbdatum;
     }
 
+    public static function getDBBetruung($name)
+    {
 
+        $dbbetreuung = betreuung::getModelBetreuung($name);
 
+        $ausgabe = array();
+
+        foreach ($dbbetreuung as $mitarbeiter) {
+            $ausgabe[] = $mitarbeiter;
+
+        }
+
+        return $ausgabe;
+    }
 
 }
 ?>

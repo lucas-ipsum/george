@@ -97,7 +97,7 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    introMessage: 'Willkommen bei der Professur für Anwendnungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
+    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen dir gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für dich tun?',
     chatServer: '/george/public/botman',
     frameEndpoint: '/george/public/botman/chat',
     bubbleAvatarUrl:'img/Chatbot.png',
