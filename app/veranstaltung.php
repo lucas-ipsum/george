@@ -16,6 +16,66 @@ class veranstaltung extends Model
 
 
 
+        public static function getModelVorleistung($veranstaltung)
+        {
+
+            $modelanmeldung = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('VeranstaltungsArt', 'Vorlesung')
+                                ->value('Klausurvorleistung');
+
+            return $modelanmeldung;
+        }
+
+
+        // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
+        public static function getModelVoraussetzung($veranstaltung)
+        {
+
+            $modelanmeldung = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('VeranstaltungsArt', 'Vorlesung')
+                                ->value('Voraussetzung');
+
+            return $modelanmeldung;
+        }
+
+
+        public static function getModelUeberblick($veranstaltung)
+        {
+
+            $modelueberblick = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('VeranstaltungsArt', 'Vorlesung')
+                                ->value('Hyperlink');
+
+        return $modelueberblick;
+        }
+
+
+        public static function getModelLiteratur($veranstaltung)
+        {
+
+            $modelliteratur = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('VeranstaltungsArt', 'Vorlesung')
+                                ->value('Literatur');
+
+        return $modelliteratur;
+        }
+
+
+        // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
+        public static function getModelTurnus($veranstaltung)
+        {
+
+            $modelturnus = DB::table('veranstaltung')
+                                ->where('Name', $veranstaltung)
+                                ->where('VeranstaltungsArt', 'Vorlesung')
+                                ->value('Semester');
+
+            return $modelturnus;
+        }
 
 
         // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
@@ -25,7 +85,7 @@ class veranstaltung extends Model
             $modelanmeldung = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', 'Vorlesung')
-                                ->value('Voraussetzung');
+                                ->value('Anmeldung');
 
             return $modelanmeldung;
         }
@@ -50,7 +110,7 @@ class veranstaltung extends Model
             $modelklausurtermin = DB::table('veranstaltung')
                                   ->where('Name', $veranstaltung)
                                   ->where('VeranstaltungsArt', 'Vorlesung')
-                                  ->value('Klausurtermin');
+                                  ->value('Klausur');
 
             return $modelklausurtermin;
         }
@@ -77,7 +137,7 @@ class veranstaltung extends Model
             $modeldatum = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', $veranstaltungsart)
-                                ->value('Datum');
+                                ->value('Wochentag');
 
             return $modeldatum;
         }
@@ -105,7 +165,7 @@ class veranstaltung extends Model
                                 ->where('VeranstaltungsArt', $veranstaltungsart)
                                 ->value('Raumnummer');
 
-            
+
               return $modelraum;
         }
 

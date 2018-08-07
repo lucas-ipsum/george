@@ -13,21 +13,71 @@ class DBController extends Controller
 {
 
 
-<<<<<<< HEAD
 
-=======
-    //;
->>>>>>> e287b29f4ba8ac6eef02573c5b3d6afa2316d284
-    // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
+
+
+
+
+    public static function getDBVorleistung($art)
+    {
+
+          $dbVoraussetzunge = veranstaltung::getModelVorleistung($art);
+
+          return $dbVoraussetzung;
+    }
+
+
+
+    public static function getDBVoraussetzung($art)
+    {
+
+          $dbVoraussetzunge = veranstaltung::getModelVoraussetzung($art);
+
+          return $dbVoraussetzung;
+    }
+
+
+    public static function getDBProjekte($art)
+    {
+
+          $dbprojekte = projekte::getModelProjekte($art);
+
+          return $dbprojekte;
+    }
+
+
+    public static function getDBUeberblick($art)
+    {
+
+        $dbueberblick = veranstaltung::getModelUeberblick($art);
+
+        return $dbueberblick;
+    }
+
+
+    public static function getDBLiteratur($art)
+    {
+
+        $dbliteratur = veranstaltung::getModelLiteratur($art);
+
+        return $dbliteratur;
+    }
+
+
+    public static function getDBTurnus($art)
+    {
+
+        $dbturnus = veranstaltung::getModelTurnus($art);
+
+        return $dbturnus;
+    }
+
+
     public static function getDBKontaktart($art, $name)
     {
 
         $dbcontact = mitarbeiter::getModelKontaktart($art, $name);
-<<<<<<< HEAD
 
-=======
-      //  $dbcontact = "Telegramm";
->>>>>>> e287b29f4ba8ac6eef02573c5b3d6afa2316d284
         return $dbcontact;
     }
 

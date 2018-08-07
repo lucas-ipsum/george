@@ -100,7 +100,7 @@ else{
       // Rufe den Datenbankcontroller für die Abfrage auf
       $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
       $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 }
 //###############################################################
@@ -123,7 +123,7 @@ else{
       // Rufe den Datenbankcontroller für die Abfrage auf
       $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
       $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet am '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
 }
 }
 //###############################################################
@@ -267,8 +267,8 @@ public function vorkenntnisse_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-  //  $vorkenntnisse =
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse.');
+    $vorkenntnisse = DBController::getDBVoraussetzung($veranstaltung);
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  '.$vorkenntnisse.'.');
   }
 }
 //###############################################################
@@ -281,7 +281,8 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  vorkenntnisse  mit context.');
+    $vorkenntnisse = DBController::getDBVoraussetzung($veranstaltung);
+    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  '.$vorkenntnisse.'.');
   }
 }
 //###############################################################
@@ -294,7 +295,8 @@ public function vorleistung_Klausur($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
+    $vorleistung = DBController::getDBVorleistung($veranstaltung);
+    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': '.$vorleistung.'.');
   }
 }
 //###############################################################
@@ -307,7 +309,8 @@ public function vorleistung_Klausur_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': Die Übung stellt eine Vorleistung zur Klausur dar. Während des Semesters müssen drei Aufgaben zu den Inhalten Vorlesung bearbeitet werden. Alle Aufgaben müssen bestanden sein, um an der Klausur am Ende des Semesters teilzunehmen.');
+    $vorleistung = DBController::getDBVorleistung($veranstaltung);
+    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': '.$vorleistung.'.');
   }
 }
 //###############################################################
@@ -320,7 +323,8 @@ public function turnus_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ': Turnus');
+    $turnus = DBController::getDBTurnus($veranstaltung);
+    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ' ist: '.$turnus.'.');
   }
 }
 //###############################################################
@@ -333,7 +337,8 @@ public function turnus_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ': Turnus Context');
+    $turnus = DBController::getDBTurnus($veranstaltung);
+    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ' ist: '.$turnus.'.');
   }
 }
 //###############################################################
@@ -346,7 +351,8 @@ public function literatur_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': Literatur');
+    $literatur = DBController::getDBLiteratur($veranstaltung);
+    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ' ist: '.$literatur.'.');
   }
 }
 //###############################################################
@@ -359,7 +365,8 @@ public function literatur_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': Literatur Context');
+    $literatur = DBController::getDBLiteratur($veranstaltung);
+    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ' ist: '.$literatur.'.');
   }
 }
 //###############################################################
@@ -398,7 +405,8 @@ public function gesamtueberblick_Veranstaltung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Zusammenfassung Organisatorisches ' . $veranstaltung . ': ');
+    $ueberblick = DBController::getDBUeberblick($veranstaltung);
+    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
   }
 }
 //###############################################################
@@ -411,7 +419,8 @@ public function gesamtueberblick_Veranstaltung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Zusammenfassung Organisatorisches ' . $veranstaltung . ':  ');
+    $ueberblick = DBController::getDBUeberblick($veranstaltung);
+    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
   }
 }
 //###############################################################
@@ -469,6 +478,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 //###############################################################
 //Intent 20 - projekte_Lehrstuhl
   public function projekte_Lehrstuhl($bot){
-    $bot->reply('Projekte Lehrstuhl');
+    $projekte = DBController::getDBProjekte($veranstaltung);
+    $bot->reply($projekte);
   }
 }
