@@ -154,3 +154,7 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
 $botman->hears('input.unknown', function ($bot) {
   $bot->startConversation(new App\Http\Conversations\Fallback);
 })->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 21 - test_Intent
+  $botman->hears('say_test_Intent', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);

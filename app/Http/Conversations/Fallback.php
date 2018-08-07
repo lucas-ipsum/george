@@ -27,7 +27,7 @@ class Fallback extends Conversation
       $this->ask($question, function ($answer) {
           $buttonAnswer = $answer->getValue();
       if($buttonAnswer === 'beispiel'){
-        $this->say()->url('www.uni-goettingen.de'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
+        $this->say('Test <br> Test'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
       }
       else{
         $this->contact();

@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\DBController;
+use App\Http\Controllers\BotManController;
 
 
 class veranstaltung extends Model
@@ -138,7 +139,13 @@ class veranstaltung extends Model
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', $veranstaltungsart)
                                 ->value('Wochentag');
-
+  /*          if($modeldatum === 0){
+              $richtige_veranstaltungsarten = DB::table('veranstaltung')->pluck('VeranstaltungsArt');
+              foreach ($richtige_veranstaltungsarten as $richtige_veranstaltungsart) {
+                $bot->reply($richtige_veranstaltungsart);
+              }
+            }
+            else{}*/
             return $modeldatum;
         }
 

@@ -57,8 +57,13 @@ public function ort_Veranstaltung($bot){
     $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
   }
   else{
-    $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
-    $bot->reply($veranstaltung . ' (' . $veranstaltungsart . ') ist im Raum ' .  $raum . '.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
+      if(strlen($raum) === 0) {
+        $bot->reply('Diese Veranstaltungsart ist in ' . $veranstaltung . ' leider nicht verfügbar.');
+      }
+      else{
+        $bot->reply($veranstaltung . ' (' . $veranstaltungsart . ') ist im Raum ' .  $raum . '.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      }
   }
 }
 //###############################################################
@@ -165,7 +170,7 @@ public function beschreibung_Veranstaltung($bot){
   }
   else {
         $beschreibung = DBController::getDBBeschreibung($veranstaltung);
-        $bot->reply('Die Veranstaltung '.$veranstaltung.' beschäftigt sich mit:  '.$beschreibung.'.');
+        $bot->reply($veranstaltung .': <br><br>' . $beschreibung);
     }
   }
 //###############################################################
@@ -179,7 +184,7 @@ public function beschreibung_Veranstaltung_withContext($bot){
     }
     else {
           $beschreibung = DBController::getDBBeschreibung($veranstaltung);
-          $bot->reply('Die Veranstaltung '.$veranstaltung.' beschäftigt sich mit:  '.$beschreibung.'.');
+          $bot->reply($veranstaltung .': <br><br>' . $beschreibung);
           }
     }
 //###############################################################
@@ -192,7 +197,7 @@ public function mitarbeiter_Kontakt($bot){
   if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn kein Mitarbeiter eingegeben wurde
   $bot->reply('Welchen Mitarbeiter möchten Sie kontaktieren?');
   }
-  elseif (strlen($kontaktart) === 0) {    //Nachfrage Kontaktart falls diese nicht eingegeben wurde
+  elseif(strlen($kontaktart) === 0) {    //Nachfrage Kontaktart falls diese nicht eingegeben wurde
           $bot->reply('Wie möchten Sie ' . $mitarbeiter . ' kontaktieren?');
   }
   else {
@@ -480,5 +485,10 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   public function projekte_Lehrstuhl($bot){
     $projekte = DBController::getDBProjekte($veranstaltung);
     $bot->reply($projekte);
+  }
+  //###############################################################
+  //Intent 21 - projekte_Lehrstuhl
+  public function test_Intent($bot){
+    $bot->reply('Test <br> Test');
   }
 }
