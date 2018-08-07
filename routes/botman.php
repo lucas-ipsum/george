@@ -150,7 +150,12 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
   $botman->hears('say_projekte_Lehrstuhl', 'App\Http\Controllers\Intents_Controller@projekte_Lehrstuhl') ->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 21 - studienplan_WiInf
+  $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@studienplan_WiInf') ->middleware($dialogflow);
+
+//################################################################################################################################################
 //Intent: Default Fallback Intent
 $botman->hears('input.unknown', function ($bot) {
   $bot->startConversation(new App\Http\Conversations\Fallback);
 })->middleware($dialogflow);
+//################################################################################################################################################

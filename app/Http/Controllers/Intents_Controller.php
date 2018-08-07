@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 //use BotMan\BotMan\Middleware\Dialogflow;
+//Versuch Attachments
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Attachments\File;
 
 class Intents_Controller extends Controller
 {
@@ -470,5 +474,15 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 //Intent 20 - projekte_Lehrstuhl
   public function projekte_Lehrstuhl($bot){
     $bot->reply('Projekte Lehrstuhl');
+  }
+//###############################################################
+//Intent 20 - studienplan_WiInf
+  public function studienplan_WiInf($bot){    //https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg
+    $attachment = new File('http://africau.edu/images/default/sample.pdf', [
+    'custom_payload' => true,
+]);      //https://placehold.it/120x120&text=image1 /../../../public/img/Chatbot.png
+    $message = OutgoingMessage::create('Test')->
+      withAttachment($attachment);
+    $bot->reply($message);
   }
 }

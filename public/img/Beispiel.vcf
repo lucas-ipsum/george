@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//Mac OS X 10.14//EN
+N:;Beispiel;;;
+FN:Beispiel
+EMAIL;type=INTERNET;type=HOME;type=pref:beispiel@mail.com
+TEL;type=CELL;type=VOICE;type=pref:0125628623974
+UID:90a19702-c14e-4d48-8b80-83b1d7f2177c
+X-ABUID:BA2AC2D4-51A2-4ACD-805F-E745DBF700E0:ABPerson
+END:VCARD
