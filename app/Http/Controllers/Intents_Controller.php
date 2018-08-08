@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
+use App\termine;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DBController;
 use Illuminate\Database\Eloquent\Model;
@@ -217,7 +218,10 @@ if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
+$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+$mitarbeiter = (string) $mitarbeiter;
+//$mitarbeiter1 = implode('|',$mitarbeiter);
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist ' . $mitarbeiter);
 }
 
 }
@@ -231,9 +235,11 @@ if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist Pascal Freier');
+$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist '.$mitarbeiter);
 }
 }
+
 //###############################################################
 //Intent: 10 - Anmelderegeln
 public function anmeldehilfe_Veranstaltung($bot){
@@ -491,7 +497,153 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   }
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
-  public function test_Intent($bot){
+  /*public function test_Intent($bot){
     $bot->reply('Test <br> Test');
+  }*/
+//###############################################################
+//Intent 22 - termin_Seminar
+  public function termin_Seminar($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiParameters']['Seminar'];
+    $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
+  //Prompts
+    if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welches Seminar möchtest du diese Information?');
+    }
+    elseif(strlen($seminar_Veranstaltung) === 0){
+      $bot->reply('Pflicht-Blockkurs , Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
+    }
+    else {
+      $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
+      $datum_Seminar = DBController::getDBDatumSeminar($seminar, $seminar_Veranstaltung);
+      $bot->reply($seminar.' '.'('.$seminar_Veranstaltung.') findet '.$datum_Seminar.' um '.$uhrzeit_Seminar.' statt');
+    }
   }
+//###############################################################
+//Intent 22 - termin_Seminar_withContext
+    public function termin_Seminar_withContext($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $seminar = $extras['apiContext']['Seminar'];
+      $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
+    //Prompts
+      if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+        $bot->reply('Für welches Seminar möchtest du diese Information?');
+      }
+      elseif(strlen($seminar_Veranstaltung) === 0){
+        $bot->reply('Pflicht-Blockkurs , Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
+      }
+      else {
+        $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
+        $datum_Seminar = DBController::getDBDatumSeminar($seminar, $seminar_Veranstaltung);
+        $bot->reply($seminar.' '.'('.$seminar_Veranstaltung.') findet '.$datum_Seminar.' um '.$uhrzeit_Seminar.' statt');
+      }
+    }
+  //###############################################################
+  //Intent 23 - ort_Seminar
+    public function ort_Seminar($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $seminar = $extras['apiParameters']['Seminar'];
+      $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
+    //Prompts
+      if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+        $bot->reply('Für welches Seminar möchtest du diese Information?');
+      }
+      elseif(strlen($seminar_Veranstaltung) === 0){
+        $bot->reply('Für welche der Veranstaltungen möchtest du dies Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
+      }
+      else {
+        $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+        $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $raum_Seminar . '.');
+      }
+    }
+
+//###############################################################
+//Intent 23 - ort_Seminar_withContext
+  public function ort_Seminar_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiContext']['Seminar'];
+    $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
+      //Prompts
+        if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+          $bot->reply('Für welches Seminar möchtest du diese Information?');
+        }
+        elseif(strlen($seminar_Veranstaltung) === 0){
+          $bot->reply('Für welche der Veranstaltungen möchtest du dies Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
+        }
+        else {
+          $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+          $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $raum_Seminar . '.');
+        }
+      }
+
+//###############################################################
+//Intent 24 - themen_Seminar
+    public function themen_Seminar($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $seminar = $extras['apiParameters']['Seminar'];
+      //Prompts
+        if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+          $bot->reply('Für welches Seminar möchtest du diese Information?');
+        }
+        else {
+        //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+          $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
+                'Betreuer: J.Anke: <br> Thema: <br>
+                1. Literaturbasierte Systematisierung von E-Learning Werkzeugen sowie deren Eignung für den Einsatz zum Aufbau von Kompetenzen <br>
+                2. Einsatzgebiete von IT-gestützten Kompetenzmessungswerkzeugen in der Aus- und Weiterbildung <br>
+                3. State of the Art von E-Learning für die Bildung für eine nachhaltige Entwicklung <br><br>
+                Betreuer: J.Busse <br> Thema: <br>
+                4. Potentiale und Grenzen des Einsatzes von Micro Learning in der technisch-gewerblichen Berufsausbildung <br>
+                5. Möglichkeiten zum Einsatz von User-Generated Content im Bereich von Micro Learning <br>
+                6. Trends und Herausforderungen von Micro Training in der betrieblichen Weiterbildung '
+                );
+        }
+      }
+
+//###############################################################
+//Intent 25 - themen_Seminar_nachMitarbeiter
+          public function themen_Seminar_nachMitarbeiter($bot){
+            $extras = $bot->getMessage()->getExtras();
+            $seminar = $extras['apiParameters']['Seminar'];
+            $mitarbeiter= $extras['apiParameters']['Mitarbeiter'];
+            //Prompts
+              if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+                $bot->reply('Für welches Seminar möchtest du diese Information?');
+              }
+              elseif(strlen($mitarbeiter) === 0){
+                $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
+              }
+              else {
+              //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+                $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
+                      'Betreuer: J.Anke: <br> Thema: <br>
+                      1. Literaturbasierte Systematisierung von E-Learning Werkzeugen sowie deren Eignung für den Einsatz zum Aufbau von Kompetenzen <br>
+                      2. Einsatzgebiete von IT-gestützten Kompetenzmessungswerkzeugen in der Aus- und Weiterbildung <br>
+                      3. State of the Art von E-Learning für die Bildung für eine nachhaltige Entwicklung ');
+              }
+            }
+
+
+//###############################################################
+//Intent 26 - themen_Seminar_nachMitarbeiter_withContext
+    public function themen_Seminar_nachMitarbeiter_withContext($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $seminar = $extras['apiParameters']['Seminar'];
+      $mitarbeiter= $extras['apiParameters']['Mitarbeiter'];
+                        //Prompts
+        if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+            $bot->reply('Für welches Seminar möchtest du diese Information?');
+       }
+       elseif(strlen($mitarbeiter) === 0){
+            $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
+       }
+      else {
+                          //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+        $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
+                    'Betreuer: Pascal Freier <br> Thema: <br>
+                    7. Rahmenbedingungen des Einsatzes von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von Cyber-physichen Systemen <br>
+                    8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
+      }
+    }
+
 }
