@@ -156,7 +156,6 @@ $botman->hears('input.unknown', function ($bot) {
 })->middleware($dialogflow);
 
 //################################################################################################################################################
-<<<<<<< HEAD
 //Intent: 21 - studienplan_WinInf
   $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
 
@@ -205,8 +204,3 @@ $botman->hears('say_feedback_Intent', function ($bot) {
   $bot->startConversation(new App\Http\Conversations\Feedback);
 })->middleware($dialogflow);
 */
-
-=======
-//Intent: 21 - test_Intent
-  $botman->hears('say_test_Intent', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
->>>>>>> parent of a0e35cf... feedback (auskommentiert)
