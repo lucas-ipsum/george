@@ -505,7 +505,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
   public function test_Intent($bot){
-    $message = OutgoingMessage::create('Test')->withAttachment(new Image('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));
+    $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));
 	   $bot->reply($message);
    }
 //###############################################################
@@ -624,10 +624,9 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
               else {
               //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
                 $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
-                      'Betreuer: J.Anke: <br> Thema: <br>
-                      1. Literaturbasierte Systematisierung von E-Learning Werkzeugen sowie deren Eignung für den Einsatz zum Aufbau von Kompetenzen <br>
-                      2. Einsatzgebiete von IT-gestützten Kompetenzmessungswerkzeugen in der Aus- und Weiterbildung <br>
-                      3. State of the Art von E-Learning für die Bildung für eine nachhaltige Entwicklung ');
+                            'Betreuer: Pascal Freier <br> Thema: <br>
+                            7. Rahmenbedingungen des Einsatzes von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von Cyber-physichen Systemen <br>
+                            8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
               }
             }
 
