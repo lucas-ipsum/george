@@ -5,6 +5,8 @@ use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
+use BotMan\BotMan\Messages\Conversations\Conversation;
+use App\Http\Controllers\Conversations;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DBController;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +14,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 //use BotMan\BotMan\Middleware\Dialogflow;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Attachments\Image;
+
 
 class Intents_Controller extends Controller
 {
@@ -219,9 +224,11 @@ $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
 $mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-$mitarbeiter = (string) $mitarbeiter;
-//$mitarbeiter1 = implode('|',$mitarbeiter);
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist ' . $mitarbeiter);
+
+$marke = 'Betreuer';
+//$mitarbeiter = $mitarbeiter->Betreuer;
+$mitarbeiter = (string) $mitarbeiter->$marke;
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist ' . $mitarbieter);
 }
 
 }
@@ -497,9 +504,10 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   }
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
-  /*public function test_Intent($bot){
-    $bot->reply('Test <br> Test');
-  }*/
+  public function test_Intent($bot){
+    $message = OutgoingMessage::create('Test')->withAttachment(new Image('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));
+	   $bot->reply($message);
+   }
 //###############################################################
 //Intent 22 - termin_Seminar
   public function termin_Seminar($bot){
@@ -645,5 +653,16 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
                     8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
       }
     }
+
+//###############################################################
+//Smalltalk
+//###############################################################
+  public function smalltalk_Danke($bot){
+    $bot->reply('Kein Problem ich helfe dir doch gerne!');
+    $this->conversation($bot);
+  }
+  public function conversation($bot) {
+    $bot->startConversation(new App\Http\Conversations\Fallback);
+  }
 
 }

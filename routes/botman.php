@@ -150,12 +150,14 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
   $botman->hears('say_projekte_Lehrstuhl', 'App\Http\Controllers\Intents_Controller@projekte_Lehrstuhl') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: Fallback Intent
-  $botman->hears('input.unknown', 'App\Http\Controllers\Fallback@Fallback_Intent') ->middleware($dialogflow);
+//Intent: Default Fallback Intent
+$botman->hears('input.unknown', function ($bot) {
+  $bot->startConversation(new App\Http\Conversations\Fallback);
+})->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 21 - test_Intent
-  $botman->hears('say_test_Intent', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
+  $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 22 - termin_Seminar
@@ -188,3 +190,10 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
 //################################################################################################################################################
 //Intent: 26 - terminuebersicht_Seminar_withContext
   $botman->hears('say_terminuebersicht_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@terminuebersicht_Seminar_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Smalltalk
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);
+
+$botman->hears('say_feedback_Intent', 'App\Http\Controllers\Intents_Controller@test') ->middleware($dialogflow);
