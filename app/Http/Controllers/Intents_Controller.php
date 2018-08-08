@@ -201,14 +201,14 @@ public function mitarbeiter_Kontakt($bot){
   $kontaktart = $extras['apiParameters']['Kontaktart'];
   //Prompts
   if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn kein Mitarbeiter eingegeben wurde
-  $bot->reply('Welchen Mitarbeiter möchten Sie kontaktieren?');
+  $bot->reply('Welchen Mitarbeiter möchtest du kontaktieren?');
   }
   elseif(strlen($kontaktart) === 0) {    //Nachfrage Kontaktart falls diese nicht eingegeben wurde
-          $bot->reply('Wie möchten Sie ' . $mitarbeiter . ' kontaktieren?');
+          $bot->reply('Wie möchtest du ' . $mitarbeiter . ' kontaktieren?');
   }
   else {
-        $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
-        $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: '. $Contact.'.');
+        $Contact = 'pfreier@uni-goettingen.de';//DBController::getDBKontaktart($kontaktart, $mitarbeiter);
+        $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: ' . $Contact . '.');
         }
 
   }
@@ -657,11 +657,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 //Smalltalk
 //###############################################################
   public function smalltalk_Danke($bot){
-    $bot->reply('Kein Problem ich helfe dir doch gerne!');
-    $this->conversation($bot);
-  }
-  public function conversation($bot) {
-    $bot->startConversation(new App\Http\Conversations\Fallback);
+    $bot->reply('Kein Problem ich helfe dir doch gerne!'); 
   }
 
 }

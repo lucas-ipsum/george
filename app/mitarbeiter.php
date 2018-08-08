@@ -1,9 +1,10 @@
 <?php
-
 namespace App;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\DBController;
+use App\Http\Controllers\BotManController;
 
 class mitarbeiter extends Model
 {

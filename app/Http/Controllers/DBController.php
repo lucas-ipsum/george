@@ -14,11 +14,6 @@ class DBController extends Controller
 {
 
 
-
-
-
-
-
     public static function getDBVorleistung($art)
     {
 
