@@ -158,3 +158,10 @@ $botman->hears('input.unknown', function ($bot) {
 //################################################################################################################################################
 //Intent: 21 - test_Intent
   $botman->hears('say_test_Intent', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
+/*
+//################################################################################################################################################
+//Intent: 00 - feedback_Intent
+$botman->hears('say_feedback_Intent', function ($bot) {
+  $bot->startConversation(new App\Http\Conversations\Feedback);
+})->middleware($dialogflow);
+*/

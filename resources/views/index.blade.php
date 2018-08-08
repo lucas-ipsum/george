@@ -468,7 +468,7 @@ Fax. +49 551 39 9735<br>
             </div>
 </footer>
 
-<!--Popup zum Aufmerksam machen-->
+<!--Popup zum Aufmerksam machen
 <div class="fixed-bottom">
   <div class="row">
     <div class="col-md-7">
@@ -481,15 +481,15 @@ Fax. +49 551 39 9735<br>
 <noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
 style="border:0" alt=""/></p></noscript>
 
-<!--Script zum Sichtbar machen-->
+Script zum Sichtbar machen
 <script type="text/javascript">
 setTimeout(function(){
     document.getElementById('myimage').style.display = 'block';
 },10000);
 </script>
+-->
 
-
-<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
+<!--Bei Inaktivität soll Feedbackfrage erscheinen
 <script type="text/javascript">
   var inaktZeit = 0;
   var angezeigt = false;
@@ -507,15 +507,16 @@ setTimeout(function(){
   });
 });
 
+
 //Timererhöhung und Ausgabe der Feedbackfrage
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
-        botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
+    if (inaktZeit == 5 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+        botmanChatWidget.whisper('bananenkanu');
         angezeigt = true;
     }
 }
 </script>
-
+-->
 
 </body></html>

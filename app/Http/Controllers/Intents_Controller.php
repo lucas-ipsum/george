@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
+use BotMan\BotMan\Messages\Conversations\Conversation;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Outgoing\Question;
 //use BotMan\BotMan\Middleware\Dialogflow;
 
 class Intents_Controller extends Controller
