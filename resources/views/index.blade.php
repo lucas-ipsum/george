@@ -105,7 +105,8 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     headerTextColor: '#FFFFFF',
     bubbleBackground: '#FFFFFF',
     mainColor: '#13306A',
-    placeholderText: 'Nachricht eingeben..'
+    placeholderText: 'Nachricht eingeben..',
+    mobileHeight: '95%'
   };
   </script>
 
@@ -489,7 +490,7 @@ setTimeout(function(){
 </script>
 
 
-<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-
 <script type="text/javascript">
   var inaktZeit = 0;
   var angezeigt = false;
@@ -516,6 +517,6 @@ function timerErhoehen() {
     }
 }
 </script>
-
+-->
 
 </body></html>
