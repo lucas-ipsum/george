@@ -3,6 +3,7 @@
 html, body {
     background-color: #f9f9f9;
     background-repeat: no-repeat;
+    background-position: center;
     background-size: 320px 568px;
     background-image: url('/george/public/img/siegel-blass.svg');
     font-family: 'Ubuntu', "Helvetica Neue", Arial, sans-serif;
