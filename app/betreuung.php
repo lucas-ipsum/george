@@ -3,23 +3,33 @@
 namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\DBController;
+use App\Http\Controllers\BotManController;
 
 class betreuung extends Model
 {
-    //
 
     protected $table = 'betreuung';
 
-    public static function getModelBetreuung($mitarbeiter)
-    {
+    public static function getModelAnsprechpartner($veranstaltung){
 
-      $modelbetreuung = DB::table('betreuung')
-                        ->where('Betreuer', '=' ,$mitarbeiter)
-                        ->get();
+    $modelAnsprechpartner = DB::table('betreuung')
+                     ->join('Veranstaltung','Betreuung.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+                     ->where('Veranstaltung.Name', '=', $veranstaltung)
+                     ->select('Betreuung.Betreuer')->get();
 
-        $array = get_object_vars($modelbetreuung);
-        //$array = (array) $modelbetreuung;
 
-        return $array;
+                    foreach($modelAnsprechpartner as $betreuer_)
+                         {
+                           while ($obj = $modelAnsprechpartner -> fetch_object())
+                           {
+                           $betreuer_ =  ("%s /n, $obj -> Betreuer");
+                           }
+                         }
+                     /*->where('Veranstaltung.Name', '=', $veranstaltung)
+                     ->select('Betreuung.Betreuer')
+                     ->get();*/
+
+      return $betreuer_;
     }
 }

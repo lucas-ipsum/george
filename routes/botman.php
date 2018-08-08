@@ -156,8 +156,47 @@ $botman->hears('input.unknown', function ($bot) {
 })->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 21 - test_Intent
-  $botman->hears('say_test_Intent', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
+//Intent: 21 - studienplan_WinInf
+  $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 22 - termin_Seminar
+  $botman->hears('say_termin_Seminar', 'App\Http\Controllers\Intents_Controller@termin_Seminar') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 22 - termin_Seminar_withContext
+  $botman->hears('say_termin_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@termin_Seminar_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 23 - ort_Seminar
+  $botman->hears('say_ort_Seminar', 'App\Http\Controllers\Intents_Controller@ort_Seminar') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 23 - ort_Seminar_withContext
+  $botman->hears('say_ort_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@ort_Seminar_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 24 - themen_Seminar
+  $botman->hears('say_themen_Seminar', 'App\Http\Controllers\Intents_Controller@themen_Seminar') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 25 - themen_Seminar_nachMitarbeiter
+  $botman->hears('say_themen_Seminar_nachMitarbeiter', 'App\Http\Controllers\Intents_Controller@themen_Seminar_nachMitarbeiter') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 25 - themen_Seminar_nachMitarbeiter_withContext
+  $botman->hears('say_themen_Seminar_nachMitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@themen_Seminar_nachMitarbeiter_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 26 - terminuebersicht_Seminar_withContext
+  $botman->hears('say_terminuebersicht_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@terminuebersicht_Seminar_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Smalltalk
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);
+
+$botman->hears('say_feedback_Intent', 'App\Http\Controllers\Intents_Controller@test') ->middleware($dialogflow);
 /*
 //################################################################################################################################################
 //Intent: 00 - feedback_Intent
@@ -165,3 +204,4 @@ $botman->hears('say_feedback_Intent', function ($bot) {
   $bot->startConversation(new App\Http\Conversations\Feedback);
 })->middleware($dialogflow);
 */
+

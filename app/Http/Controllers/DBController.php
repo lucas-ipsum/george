@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
+use App\termine;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -150,7 +151,7 @@ class DBController extends Controller
         return $dbdatum;
     }
 
-    public static function getDBBetruung($name)
+  /*  public static function getDBBetruung($name)
     {
 
         $dbbetreuung = betreuung::getModelBetreuung($name);
@@ -160,10 +161,48 @@ class DBController extends Controller
         foreach ($dbbetreuung as $person) {
             $ausgabe[] = $person;
 
-        }*/
+        }
 
         return $dbbetreuung;
+    } */
+
+  public static function getDBansprechpartner($name){
+
+    $dbansprechpartner = betreuung::getModelAnsprechpartner($name);
+
+        return $dbansprechpartner;
+
+  }
+//#########################################################################################
+//Seminare
+
+    // Funktion um die Uhrzeit einer Veranstaltung aus dem model zu holen
+    public static function getDBUhrzeitSeminar($name, $art)
+    {
+
+        $dbuhrzeit_Seminar = termine::getModelUhrzeitSeminar($name, $art);
+
+        return $dbuhrzeit_Seminar;
     }
+
+
+    // Funktion um das Datum einer Veranstaltung aus der DB zu holen
+    public static function getDBDatumSeminar($name, $art)
+    {
+
+        $dbdatum_Seminar = termine::getModelDatumSeminar($name, $art);
+
+        return $dbdatum_Seminar;
+    }
+
+    public static function getDBRaumSeminar($name, $art)
+    {
+
+        $dbraum_Seminar = termine::getModelRaumSeminar($name, $art);
+
+        return $dbraum_Seminar;
+    }
+
 
 }
 ?>
