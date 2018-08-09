@@ -19,7 +19,7 @@ class betreuung extends Model
                      ->select('Betreuung.Betreuer')->get();
 
 
-                    foreach($modelAnsprechpartner as $betreuer_)
+                /*    foreach($modelAnsprechpartner as $betreuer_)
                          {
                            while ($obj = $modelAnsprechpartner -> fetch_object())
                            {
@@ -30,6 +30,6 @@ class betreuung extends Model
                      ->select('Betreuung.Betreuer')
                      ->get();*/
 
-      return $betreuer_;
+      return $modelAnsprechpartner;
     }
 }
