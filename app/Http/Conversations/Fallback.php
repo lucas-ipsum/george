@@ -74,7 +74,7 @@ class Fallback extends Conversation
       $this->ask($kontaktart, function($answer){
         $kontaktart = $answer->getValue();
         if($kontaktart === 'Telefonnummer'){
-          $kontaktinfo = DBController::getDBKontaktart($kontaktart, $mitarbeiter); //Veranstaltungsabfrage funktioniert nicht, auch nicht mit anderen Abfragen
+          $kontaktinfo = DBController::getDBKontaktart($kontaktart, $mitarbeiter); //Veranstaltungsabfrage funzt nicht, auch nicht mit anderen Abfragen
           $this->say($kontaktart);
         }
         else {
