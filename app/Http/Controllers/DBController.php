@@ -198,6 +198,12 @@ class DBController extends Controller
         return $dbraum_Seminar;
     }
 
+    //Funktion um Feedback in DB zu speichern
+    public static function getModelFeedback($u_id,$antwort,$begründung)
+    {
+      return $db_deedback = feedback::getModelFeedback($u_id,$antwort,$begründung);
+    }
+
 
 }
 ?>
