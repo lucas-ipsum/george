@@ -16,20 +16,27 @@ class betreuung extends Model
     $modelAnsprechpartner = DB::table('betreuung')
                      ->join('Veranstaltung','Betreuung.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
                      ->where('Veranstaltung.Name', '=', $veranstaltung)
-                     ->select('Betreuung.Betreuer')->get();
-
-
-                /*    foreach($modelAnsprechpartner as $betreuer_)
-                         {
-                           while ($obj = $modelAnsprechpartner -> fetch_object())
-                           {
-                           $betreuer_ =  ("%s /n, $obj -> Betreuer");
-                           }
-                         }
-                     /*->where('Veranstaltung.Name', '=', $veranstaltung)
                      ->select('Betreuung.Betreuer')
-                     ->get();*/
+                     ->get();
+
 
       return $modelAnsprechpartner;
     }
 }
+
+/*   $json_array = array();
+
+   while($row = mysqli_fetch_assoc($modelAnsprechpartner)){
+     $json_array[] = $row;
+   }
+   $modelAnsprechpartner = json_encode($json_array);
+/*    foreach($modelAnsprechpartner as $betreuer_)
+       {
+         while ($obj = $modelAnsprechpartner -> fetch_object())
+         {
+         $betreuer_ =  ("%s /n, $obj -> Betreuer");
+         }
+       }
+   /*->where('Veranstaltung.Name', '=', $veranstaltung)
+   ->select('Betreuung.Betreuer')
+   ->get();*/

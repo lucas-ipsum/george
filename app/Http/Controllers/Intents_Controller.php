@@ -223,10 +223,14 @@ if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-//$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-//$mitarbeiter = (string) $mitarbeiter;
-$mitarbeiter = 'Pascal Freier, Julian Busse';
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $mitarbeiter );
+$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+
+$ausgabe = '';
+for($index=0; $index < count($mitarbeiter); $index++){           
+  $test = $mitarbeiter[$index]->Betreuer;
+  $ausgabe .= $test . '<br> ';
+}
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $ausgabe);
 }
 
 }

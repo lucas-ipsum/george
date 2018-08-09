@@ -26,15 +26,3 @@ class mitarbeiter extends Model
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-}
