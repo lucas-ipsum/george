@@ -28,7 +28,10 @@ class Fallback extends Conversation
       $this->ask($question, function ($answer) {
           $buttonAnswer = $answer->getValue();
       if($buttonAnswer === 'beispiel'){
-        $this->say('Beispiel'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
+        $this->say('Was sind die Lernziele in U&M? <br><br>
+                    Wird MIS im Sommersemester angeboten? <br><br>
+                    Wird MIS im Sommersemester angeboten? <br><br>
+                    Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
       }
       else{
         $this->contact();

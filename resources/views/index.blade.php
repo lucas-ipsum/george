@@ -106,7 +106,7 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     bubbleBackground: '#FFFFFF',
     mainColor: '#13306A',
     placeholderText: 'Nachricht eingeben..',
-    mobileHeight: '95%'
+    mobileHeight: '98%'
   };
   </script>
 

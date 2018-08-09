@@ -148,7 +148,7 @@ $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
       $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
-      $bot->reply('Die Klausur in ' . $veranstaltung . ' ist am '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $bot->reply('Klausurtermine in ' . $veranstaltung . ': '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -162,7 +162,7 @@ $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
       $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
-      $bot->reply('Die Klausur in ' . $veranstaltung . ' ist am '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -223,12 +223,10 @@ if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-
-$marke = 'Betreuer';
-//$mitarbeiter = $mitarbeiter->Betreuer;
-$mitarbeiter = (string) $mitarbeiter->$marke;
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist ' . $mitarbieter);
+//$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+//$mitarbeiter = (string) $mitarbeiter;
+$mitarbeiter = 'Pascal Freier, Julian Busse';
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $mitarbeiter );
 }
 
 }
@@ -242,8 +240,9 @@ if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die
 $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
-$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ' ist '.$mitarbeiter);
+//$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+$mitarbeiter = 'Pascal Freier, Julian Busse';
+$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $mitarbieter);
 }
 }
 
@@ -505,21 +504,21 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
   public function test_Intent($bot){
-    $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));
+    $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/482ba95f3c327436fe9593a18587d4c3.jpg'));
 	   $bot->reply($message);
    }
 //###############################################################
 //Intent 22 - termin_Seminar
   public function termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();
-    $seminar = $extras['apiParameters']['Seminar'];
+    $seminar = $extras['apiContext']['Seminar'];
     $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
   //Prompts
     if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
       $bot->reply('Für welches Seminar möchtest du diese Information?');
     }
     elseif(strlen($seminar_Veranstaltung) === 0){
-      $bot->reply('Pflicht-Blockkurs , Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
+      $bot->reply('Welchen Seminartermin möchtest du? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
     }
     else {
       $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
@@ -538,7 +537,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
         $bot->reply('Für welches Seminar möchtest du diese Information?');
       }
       elseif(strlen($seminar_Veranstaltung) === 0){
-        $bot->reply('Pflicht-Blockkurs , Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
+        $bot->reply('Welchen Seminartermin möchtest du? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
       }
       else {
         $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
@@ -557,7 +556,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
         $bot->reply('Für welches Seminar möchtest du diese Information?');
       }
       elseif(strlen($seminar_Veranstaltung) === 0){
-        $bot->reply('Für welche der Veranstaltungen möchtest du dies Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
+        $bot->reply('Für welche der Veranstaltungen möchtest du diese Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
       }
       else {
         $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
@@ -576,7 +575,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
           $bot->reply('Für welches Seminar möchtest du diese Information?');
         }
         elseif(strlen($seminar_Veranstaltung) === 0){
-          $bot->reply('Für welche der Veranstaltungen möchtest du dies Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
+          $bot->reply('Für welche der Veranstaltungen möchtest du diese Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
         }
         else {
           $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
@@ -632,7 +631,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 
 
 //###############################################################
-//Intent 26 - themen_Seminar_nachMitarbeiter_withContext
+//Intent 25 - themen_Seminar_nachMitarbeiter_withContext
     public function themen_Seminar_nachMitarbeiter_withContext($bot){
       $extras = $bot->getMessage()->getExtras();
       $seminar = $extras['apiParameters']['Seminar'];
@@ -652,12 +651,35 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
                     8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
       }
     }
-
+//###############################################################
+//Intent 26 - terminuebersicht_Seminar_withContext
+        public function terminuebersicht_Seminar_withContext($bot){
+          $extras = $bot->getMessage()->getExtras();
+          $seminar = $extras['apiContext']['Seminar'];
+      //    $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
+        //Prompts
+          if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+            $bot->reply('Für welches Seminar möchtest du diese Information?');
+          }
+          else {
+            $bot->reply('Termine Seminar zu Themen der Wirtschaftsinformatik und BWL: <br>
+            Pflicht-Blockkurs: <br<br>
+            Freitag, 22.06.2018, 13.00-18.00 Uhr, <br>
+            Freitag, 29.06.2018, 13.00-18.00 Uhr <br><br>
+            Abgabe der Seminararbeit: <br>
+            Donnerstag, 01.11.2018 <br><br>
+            Abgabe der Präsentationen:	<br>
+            Donnerstag, 15.11.2018 <br><br>
+            Präsentation: <br>
+            Freitag, 23.11.2018, 08.00-18.00 Uhr <br>
+            Montag, 26.11.2018, 08.00-18.00 Uhr');
+          }
+        }
 //###############################################################
 //Smalltalk
 //###############################################################
   public function smalltalk_Danke($bot){
-    $bot->reply('Kein Problem ich helfe dir doch gerne!'); 
+    $bot->reply('Kein Problem ich helfe dir doch gerne!');
   }
 
 }
