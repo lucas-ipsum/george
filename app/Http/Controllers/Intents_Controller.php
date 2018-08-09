@@ -226,7 +226,7 @@ else {
 $mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
 
 $ausgabe = '';
-for($index=0; $index < count($mitarbeiter); $index++){           
+for($index=0; $index < count($mitarbeiter); $index++){
   $test = $mitarbeiter[$index]->Betreuer;
   $ausgabe .= $test . '<br> ';
 }
@@ -597,17 +597,14 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
           $bot->reply('Für welches Seminar möchtest du diese Information?');
         }
         else {
-        //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-          $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
-                'Betreuer: J.Anke: <br> Thema: <br>
-                1. Literaturbasierte Systematisierung von E-Learning Werkzeugen sowie deren Eignung für den Einsatz zum Aufbau von Kompetenzen <br>
-                2. Einsatzgebiete von IT-gestützten Kompetenzmessungswerkzeugen in der Aus- und Weiterbildung <br>
-                3. State of the Art von E-Learning für die Bildung für eine nachhaltige Entwicklung <br><br>
-                Betreuer: J.Busse <br> Thema: <br>
-                4. Potentiale und Grenzen des Einsatzes von Micro Learning in der technisch-gewerblichen Berufsausbildung <br>
-                5. Möglichkeiten zum Einsatz von User-Generated Content im Bereich von Micro Learning <br>
-                6. Trends und Herausforderungen von Micro Training in der betrieblichen Weiterbildung '
-                );
+          $seminar_themen = DBController::getDBThemen($seminar);
+// Schleife für Ausgaben
+         $ausgabe_seminar_themen = '';
+          for($index=0; $index < count($seminar_themen); $index++){
+            $thema = $seminar_themen[$index]->Thema;
+            $ausgabe_seminar_themen .= $index+1 .'. ' .$thema . '<br><br> ';
+          }
+          $bot->reply('Folgende Themen werden im angeboten: <br><br>'. $ausgabe_seminar_themen);  //.$seminar .
         }
       }
 

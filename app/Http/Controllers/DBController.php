@@ -5,6 +5,7 @@ use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
+use App\themen_im_bachelorseminar;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -198,6 +199,11 @@ class DBController extends Controller
         return $dbraum_Seminar;
     }
 
+    public static function getDBThemen($veranstaltung)
+    {
+      $dbthemen_seminar = themen_im_bachelorseminar::getModelThemen($veranstaltung);
+       return $dbthemen_seminar;
+    }
 
 }
 ?>
