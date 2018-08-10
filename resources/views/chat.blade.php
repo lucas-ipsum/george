@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<script src="js/chat.js"></script>
+<script src="js/chat.min.js"></script>
 
 </body>
 </html>
