@@ -5,6 +5,7 @@ use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
+use App\projekte;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Http\Controllers\Conversations;
 use App\Http\Controllers\Controller;
@@ -499,12 +500,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
     $bot->reply('Abschlussarbeiten von ' . $mitarbeiter . ': ');
   }
 }
-//###############################################################
-//Intent 20 - projekte_Lehrstuhl
-  public function projekte_Lehrstuhl($bot){
-    $projekte = DBController::getDBProjekte($veranstaltung);
-    $bot->reply($projekte);
-  }
+
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
   public function test_Intent($bot){
@@ -653,15 +649,16 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
           $seminar_themen_nachMitarbeiter = DBController::getDBThemen_nachMitarbeiter($seminar, $mitarbeiter);    //Daten werden aus DB Controller geholt
 // Schleife für Ausgaben
          $ausgabe_seminar_themen_nachMitarbeiter = '';
+
           for($index=0; $index < count($seminar_themen_nachMitarbeiter); $index++){             //Index wird so lange erhöht bis letztes Element erreicht
-            $nummer = $seminar_themen_nachMitarbeiter[$index]->Nummer;                          //Speichert den Wert für Nummer der aus der DB übergeben wurde
-            $thema = $seminar_themen_nachMitarbeiter[$index]->Thema;
-            $ausgabe_seminar_themen_nachMitarbeiter .= $nummer .'. ' .$thema . '<br><br> ';     //hier werden jeweils das Thema und die Nummer pro Schleifendurchlauf eingespeichert
+              $nummer = $seminar_themen_nachMitarbeiter[$index]->Nummer;                          //Speichert den Wert für Nummer der aus der DB übergeben wurde
+              $thema = $seminar_themen_nachMitarbeiter[$index]->Thema;
+              $ausgabe_seminar_themen_nachMitarbeiter .= $nummer .'. ' .$thema . '<br><br> ';     //hier werden jeweils das Thema und die Nummer pro Schleifendurchlauf eingespeichert
           }
-//Ausgabe
+          //Ausgabe
           $bot->reply('Folgende Themen werden von ' . $mitarbeiter .' im ' .  $seminar . ' angeboten: <br><br>'. $ausgabe_seminar_themen_nachMitarbeiter);
-        }
       }
+    }
 
 //###############################################################
 //Intent 26 - terminuebersicht_Seminar_withContext
@@ -687,6 +684,52 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
             Montag, 26.11.2018, 08.00-18.00 Uhr');
           }
         }
+//###############################################################
+//Projeke
+//###############################################################
+//Intent 20 - projekte_Lehrstuhl
+  public function projekte_Lehrstuhl($bot){
+    $projekte = DBController::getDBProjekte();
+    $ausgabe_projekte = '';
+    for($index=0; $index < count($projekte); $index++){
+       $projekt = $projekte[$index]->Name;
+       $id = $projekte[$index]->ID;
+       $ausgabe_projekte .= $id .'. ' .$projekt . '<br><br> ';
+     }
+
+    $bot->reply($ausgabe_projekte);
+  }
+//###############################################################
+//Intent 27 - beschreibung_Projekt
+  public function beschreibung_Projekt($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $projekt = $extras['apiParameters']['Projekt'];
+  //Prompts
+    if(strlen($projekt) === 0) {
+      $bot->reply('Zu welchem Projekt möchtest du weitere Informationen haben?');
+    }
+    $projekt_Beschreibung = DBController::getDBprojektBeschreibung($projekt);
+    //$test = (string)$projekt_Beschreibung;
+    $bot->reply($projekt_Beschreibung);
+  }
+
+//###############################################################
+//Intent 28 - kontaktperson_Projekt
+  public function kontaktperson_Projekt($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $projekt = $extras['apiParameters']['Projekt'];
+  //Prompts
+    if(strlen($projekt) === 0) {
+      $bot->reply('Zu welchem Projekt möchtest du einen Mitarbeiter kontaktieren?');
+    }
+    $projekt_Kontaktperson = DBController::getDBprojektKontaktperson($projekt);
+    $mail = $projekt_Kontaktperson[0]->Kontakt_Email;
+    $tel = $projekt_Kontaktperson[0]->Kontakt_Telefonnummer;
+    $name = $projekt_Kontaktperson[0]->Kontaktperson;
+
+    $bot->reply('Die Kontaktperson im Projekt ' .$projekt. ' ist ' . $name . '<br><br>'.
+                'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
+    }
 //###############################################################
 //Smalltalk
 //###############################################################

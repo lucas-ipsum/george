@@ -190,6 +190,15 @@ $botman->hears('input.unknown', function ($bot) {
 //################################################################################################################################################
 //Intent: 26 - terminuebersicht_Seminar_withContext
   $botman->hears('say_terminuebersicht_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@terminuebersicht_Seminar_withContext') ->middleware($dialogflow);
+//################################################################################################################################################
+//Projekte
+//################################################################################################################################################
+//Intent: 27 - beschreibung_Projekt
+  $botman->hears('say_beschreibung_Projekt', 'App\Http\Controllers\Intents_Controller@beschreibung_Projekt') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 28 - kontaktperson_Projekt
+  $botman->hears('say_kontaktperson_Projekt', 'App\Http\Controllers\Intents_Controller@kontaktperson_Projekt') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Smalltalk

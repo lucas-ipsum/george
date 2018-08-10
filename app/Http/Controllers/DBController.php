@@ -5,6 +5,7 @@ use App\veranstaltung;
 use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
+use App\projekte;
 use App\themen_im_bachelorseminar;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
@@ -34,13 +35,6 @@ class DBController extends Controller
     }
 
 
-    public static function getDBProjekte($art)
-    {
-
-          $dbprojekte = projekte::getModelProjekte($art);
-
-          return $dbprojekte;
-    }
 
 
     public static function getDBUeberblick($art)
@@ -210,5 +204,26 @@ class DBController extends Controller
       $dbthemen_seminar_nachMitarbeiter = themen_im_bachelorseminar::getModelThemen_nachMitarbeiter($seminar, $mitarbeiter);
        return $dbthemen_seminar_nachMitarbeiter;
     }
+//#######################################################################################################################
+//Projekte
+//#######################################################################################################################
+  public static function getDBProjekte()
+    {
+      $dbprojekte = projekte::getModelProjekte();
+
+          return $dbprojekte;
+    }
+
+  public static function getDBprojektBeschreibung($projekt){
+    $db_projekt_Beschreibung = projekte::getModelProjektBeschreibung($projekt);
+
+      return $db_projekt_Beschreibung;
+  }
+   public static function getDBprojektKontaktperson($projekt){
+     $db_projekt_Kontaktperson = projekte::getModelProjektKontaktperson($projekt);
+
+     return $db_projekt_Kontaktperson;
+   }
+
 }
 ?>

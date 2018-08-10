@@ -30,7 +30,6 @@ class Fallback extends Conversation
       if($buttonAnswer === 'beispiel'){
         $this->say('Was sind die Lernziele in U&M? <br><br>
                     Wird MIS im Sommersemester angeboten? <br><br>
-                    Wird MIS im Sommersemester angeboten? <br><br>
                     Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
       }
       else{
