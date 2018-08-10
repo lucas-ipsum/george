@@ -17,7 +17,7 @@ use App\mitarbeiter;
 class Fallback extends Conversation
 {
 
-    protected $buttonAnswer;
+
 
    // $Beispielfragen = array ('Wo ist die IKS Vorlesung?', 'Wer ist der Ansprechpartner für MIS?', 'Wann ist die U&M Klausur?');
     /**
@@ -63,6 +63,7 @@ class Fallback extends Conversation
         else{
           $this->mitarbeiterKontaktieren($name);
         }
+        return($name);
     });
   }
     public function mitarbeiterKontaktieren($name){
@@ -71,11 +72,11 @@ class Fallback extends Conversation
         Button::create('Telefon')->value('Telefonnummer'),
         Button::create('E-Mail')->value('E-Mail'),
       ]);
-      $this->ask($art, function($answer, $name){
+      $this->ask($art, function($answer){
         $art = $answer->getValue();
         $name = 'Pascal Freier';
         $kontaktinfo = DBController::getDBKontaktart($art, $name);
-        $this->say($art . ': ' . $kontaktinfo);
+        $this->say($kontaktinfo);
       });
 
     }
