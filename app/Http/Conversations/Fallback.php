@@ -50,7 +50,7 @@ class Fallback extends Conversation
       ->addButtons([
         Button::create('Pascal Freier')->value('Pascal Freier'),
         Button::create('Steffen Zenker')->value('Stefen Zenker'),
-        Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'), //henrik.wesseloh@uni-goettingen.de
+        Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'),
         Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
         //Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter'), //Muss noch zu neuer Frage gelinkt werden!
       ]);
@@ -71,17 +71,12 @@ class Fallback extends Conversation
         Button::create('Telefon')->value('Telefonnummer'),
         Button::create('E-Mail')->value('E-Mail'),
       ]);
-      $this->ask($art, function($answer){
+      $this->ask($art, function($answer, $name){
         $art = $answer->getValue();
-        if($art === 'Telefonnummer'){
-          $name = 'Pascal Freier';
-          $kontaktinfo = DBController::getDBKontaktart($art, $name);
-          $this->say($kontaktinfo);
-        }
-        else {
-          $kontaktinfo = DBController::getDBKontaktart($art, $name);
-          $this->say($kontaktart . ': ' . $kontaktinfo);
-        }
+        $name = 'Pascal Freier';
+        $kontaktinfo = DBController::getDBKontaktart($art, $name);
+        $this->say($art . ': ' . $kontaktinfo);
       });
+
     }
 }
