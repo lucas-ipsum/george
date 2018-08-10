@@ -115,11 +115,7 @@ header, header a, header a:hover, header a:visited, #navigation-container a {
 .logo-container {
 	padding-top: 24px;
 	padding-bottom: 24px;
-<<<<<<< HEAD:public/css/default.css
-	background-image: url(/img/siegel-blass.svg);
-=======
 	background-image: url('/george/public/img/siegel.svg');
->>>>>>> Michi:public/css/default.min.css
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: 8% 24px;
