@@ -205,5 +205,10 @@ class DBController extends Controller
        return $dbthemen_seminar;
     }
 
+    public static function getDBThemen_nachMitarbeiter($seminar, $mitarbeiter)
+    {
+      $dbthemen_seminar_nachMitarbeiter = themen_im_bachelorseminar::getModelThemen_nachMitarbeiter($seminar, $mitarbeiter);
+       return $dbthemen_seminar_nachMitarbeiter;
+    }
 }
 ?>

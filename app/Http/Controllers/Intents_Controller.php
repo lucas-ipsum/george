@@ -622,11 +622,16 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
                 $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
               }
               else {
-              //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-                $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
-                            'Betreuer: Pascal Freier <br> Thema: <br>
-                            7. Rahmenbedingungen des Einsatzes von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von Cyber-physichen Systemen <br>
-                            8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
+                $seminar_themen_nachMitarbeiter = DBController::getDBThemen_nachMitarbeiter($seminar, $mitarbeiter);    //Daten werden aus DB Controller geholt
+      // Schleife für Ausgaben
+               $ausgabe_seminar_themen_nachMitarbeiter = '';
+                for($index=0; $index < count($seminar_themen_nachMitarbeiter); $index++){             //Index wird so lange erhöht bis letztes Element erreicht
+                  $nummer = $seminar_themen_nachMitarbeiter[$index]->Nummer;                          //Speichert den Wert für Nummer der aus der DB übergeben wurde
+                  $thema = $seminar_themen_nachMitarbeiter[$index]->Thema;
+                  $ausgabe_seminar_themen_nachMitarbeiter .= $nummer .'. ' .$thema . '<br><br> ';     //hier werden jeweils das Thema und die Nummer pro Schleifendurchlauf eingespeichert
+                }
+      //Ausgabe
+                $bot->reply('Folgende Themen werden von ' . $mitarbeiter .' im ' .  $seminar . ' angeboten: <br><br>'. $ausgabe_seminar_themen_nachMitarbeiter);
               }
             }
 
@@ -635,23 +640,29 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 //Intent 25 - themen_Seminar_nachMitarbeiter_withContext
     public function themen_Seminar_nachMitarbeiter_withContext($bot){
       $extras = $bot->getMessage()->getExtras();
-      $seminar = $extras['apiParameters']['Seminar'];
-      $mitarbeiter= $extras['apiParameters']['Mitarbeiter'];
-                        //Prompts
+      $seminar = $extras['apiContext']['Seminar'];
+      $mitarbeiter= $extras['apiContext']['Mitarbeiter'];
+      //Prompts
         if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-            $bot->reply('Für welches Seminar möchtest du diese Information?');
-       }
-       elseif(strlen($mitarbeiter) === 0){
-            $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
-       }
-      else {
-                          //  $themen_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-        $bot->reply('Folgende Themen werden im '.$seminar . ' angeboten: <br><br>'.
-                    'Betreuer: Pascal Freier <br> Thema: <br>
-                    7. Rahmenbedingungen des Einsatzes von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von Cyber-physichen Systemen <br>
-                    8. Einsatzgebiete von Entscheidungsunterstützungssystemen in der Ablaufplanung im Kontext von cyberphysischen Systemen');
+          $bot->reply('Für welches Seminar möchtest du diese Information?');
+        }
+        elseif(strlen($mitarbeiter) === 0){
+          $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
+        }
+        else {
+          $seminar_themen_nachMitarbeiter = DBController::getDBThemen_nachMitarbeiter($seminar, $mitarbeiter);    //Daten werden aus DB Controller geholt
+// Schleife für Ausgaben
+         $ausgabe_seminar_themen_nachMitarbeiter = '';
+          for($index=0; $index < count($seminar_themen_nachMitarbeiter); $index++){             //Index wird so lange erhöht bis letztes Element erreicht
+            $nummer = $seminar_themen_nachMitarbeiter[$index]->Nummer;                          //Speichert den Wert für Nummer der aus der DB übergeben wurde
+            $thema = $seminar_themen_nachMitarbeiter[$index]->Thema;
+            $ausgabe_seminar_themen_nachMitarbeiter .= $nummer .'. ' .$thema . '<br><br> ';     //hier werden jeweils das Thema und die Nummer pro Schleifendurchlauf eingespeichert
+          }
+//Ausgabe
+          $bot->reply('Folgende Themen werden von ' . $mitarbeiter .' im ' .  $seminar . ' angeboten: <br><br>'. $ausgabe_seminar_themen_nachMitarbeiter);
+        }
       }
-    }
+
 //###############################################################
 //Intent 26 - terminuebersicht_Seminar_withContext
         public function terminuebersicht_Seminar_withContext($bot){
