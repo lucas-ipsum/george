@@ -46,7 +46,7 @@ class Fallback extends Conversation
     }
 
     public function contact(){
-      $mitarbeiter = Question::create('Welchen Mitarbeiter möchten Sie kontaktieren?')
+      $name = Question::create('Welchen Mitarbeiter möchten Sie kontaktieren?')
       ->addButtons([
         Button::create('Pascal Freier')->value('Pascal Freier'),
         Button::create('Steffen Zenker')->value('Stefen Zenker'),
@@ -54,31 +54,32 @@ class Fallback extends Conversation
         Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
         //Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter'), //Muss noch zu neuer Frage gelinkt werden!
       ]);
-      $this->ask($mitarbeiter, function($answer) {
-        $mitarbeiter = $answer->getValue();
+      $this->ask($name, function($answer) {
+        $name = $answer->getValue();
 
-        if($mitarbeiter === 'Anderer Mitarbeiter'){
+        if($name === 'Anderer Mitarbeiter'){
           $this->mehrereMitarbeiter();
         }
         else{
-          $this->mitarbeiterKontaktieren($mitarbeiter);
+          $this->mitarbeiterKontaktieren($name);
         }
     });
   }
-    public function mitarbeiterKontaktieren($mitarbeiter){
-      $kontaktart = Question::create('Wie möchtest du ' . $mitarbeiter . ' kontaktieren?')
+    public function mitarbeiterKontaktieren($name){
+      $art = Question::create('Wie möchtest du ' . $name . ' kontaktieren?')
       ->addButtons([
         Button::create('Telefon')->value('Telefonnummer'),
         Button::create('E-Mail')->value('E-Mail'),
       ]);
-      $this->ask($kontaktart, function($answer){
-        $kontaktart = $answer->getValue();
-        if($kontaktart === 'Telefonnummer'){
-          $kontaktinfo = DBController::getDBKontaktart($kontaktart, $mitarbeiter); //Veranstaltungsabfrage funzt nicht, auch nicht mit anderen Abfragen
-          $this->say($kontaktart);
+      $this->ask($art, function($answer){
+        $art = $answer->getValue();
+        if($art === 'Telefonnummer'){
+          $name = 'Pascal Freier';
+          $kontaktinfo = DBController::getDBKontaktart($art, $name);
+          $this->say($kontaktinfo);
         }
         else {
-          $kontaktinfo = DBController::getDBKontaktart($kontaktart, $mitarbeiter); //s.o.
+          $kontaktinfo = DBController::getDBKontaktart($art, $name);
           $this->say($kontaktart . ': ' . $kontaktinfo);
         }
       });
