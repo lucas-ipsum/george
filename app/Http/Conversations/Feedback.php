@@ -36,8 +36,8 @@ use App\Http\Controllers\BotManController;
          $this->begruendung = '';
 
          //Einspeichern der Feedbackinformationen in DB
-         DB::table('feedback')->insert(
-          ['session_id' => $session_id, 'zufrieden' => $this->zufrieden, 'begruendung' => $this->begruendung]
+         DB::table('Feedback')->insert(
+          ['User_ID' => $session_id, 'Antwort' => $this->zufrieden, 'begruendung' => $this->begruendung]
           );
        }
        else{
@@ -46,8 +46,8 @@ use App\Http\Controllers\BotManController;
            $this->begruendung = $answer->getText();
            $session_id = 111;
            $this->say('Danke für dein Feedback!');
-           DB::table('feedback')->insert(
-            ['session_id' => $session_id, 'zufrieden' => $this->zufrieden, 'begruendung' => $this->begruendung]
+           DB::table('Feedback')->insert(
+            ['User_ID' => $session_id, 'Antwort' => $this->zufrieden, 'begruendung' => $this->begruendung]
             );
          });
        }
