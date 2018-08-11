@@ -51,5 +51,14 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
 
       return $modelraum_Seminar;
 }
-
+//Alle Termine fürs Seminar im Überblick
+    public static function getModel_Termine_Seminar($seminar)
+    {
+        $model_Termine_Seminar = DB::table('termine')
+        ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
+        ->where('Veranstaltung.Name', $seminar)
+        ->select('Termine.Datum', 'Termine.Uhrzeit', 'Termine.Veranstaltungsart')
+        ->get();
+    return $model_Termine_Seminar;
+    }
 }

@@ -204,6 +204,12 @@ class DBController extends Controller
       $dbthemen_seminar_nachMitarbeiter = themen_im_bachelorseminar::getModelThemen_nachMitarbeiter($seminar, $mitarbeiter);
        return $dbthemen_seminar_nachMitarbeiter;
     }
+// Überblick Termine Seminar
+    public static function getDB_Termine_Seminar($seminar){
+      $db_termine_Seminar = termine::getModel_Termine_Seminar($seminar);
+
+        return $db_termine_Seminar;
+    }
 //#######################################################################################################################
 //Projekte
 //#######################################################################################################################
@@ -224,6 +230,7 @@ class DBController extends Controller
 
      return $db_projekt_Kontaktperson;
    }
+
 
 }
 ?>

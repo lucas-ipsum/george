@@ -6,6 +6,7 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\projekte;
+use App\themen_im_bachelorseminar;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Http\Controllers\Conversations;
 use App\Http\Controllers\Controller;
@@ -665,23 +666,33 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
         public function terminuebersicht_Seminar_withContext($bot){
           $extras = $bot->getMessage()->getExtras();
           $seminar = $extras['apiContext']['Seminar'];
-      //    $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
         //Prompts
           if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
             $bot->reply('Für welches Seminar möchtest du diese Information?');
           }
           else {
-            $bot->reply('Termine Seminar zu Themen der Wirtschaftsinformatik und BWL: <br>
-            Pflicht-Blockkurs: <br<br>
-            Freitag, 22.06.2018, 13.00-18.00 Uhr, <br>
-            Freitag, 29.06.2018, 13.00-18.00 Uhr <br><br>
-            Abgabe der Seminararbeit: <br>
-            Donnerstag, 01.11.2018 <br><br>
-            Abgabe der Präsentationen:	<br>
-            Donnerstag, 15.11.2018 <br><br>
-            Präsentation: <br>
-            Freitag, 23.11.2018, 08.00-18.00 Uhr <br>
-            Montag, 26.11.2018, 08.00-18.00 Uhr');
+            $termine_Seminar = DBController::getDB_Termine_Seminar($seminar);
+              $ausgabe_termine_Seminar = '';
+            for($index = 0; $index < count($termine_Seminar); $index++){
+              $datum = $termine_Seminar[$index]->Datum;
+              $zeit = $termine_Seminar[$index]->Uhrzeit;
+              $art = $termine_Seminar[$index]->Veranstaltungsart;
+              $artAlt = '';
+              if($index > 0){
+                $test = $index - 1;
+                $artAlt = $termine_Seminar[$test]->Veranstaltungsart;
+              }
+                if(strcmp($art, $artAlt) === 0){         //Wenn artdoppel gleich art
+                $art_ausgabe = '';
+                }
+                else{
+                  $art_ausgabe = $art . ': <br>';
+                }
+
+              $ausgabe_termine_Seminar .= $art_ausgabe . $datum .' '. $zeit . '<br>';
+            }
+
+            $bot->reply($ausgabe_termine_Seminar);
           }
         }
 //###############################################################

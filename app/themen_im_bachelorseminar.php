@@ -28,4 +28,5 @@ class themen_im_bachelorseminar extends Model
         ->get();
     return $modelthemen_nachMitarbeiter;
     }
+
 }
