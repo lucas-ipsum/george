@@ -104,19 +104,7 @@ class veranstaltung extends Model
             return $modelbeschreibung;
         }
 
-        // Funktion um den Klausurtermin einer Veranstaltung aus der DB zu holen
-        public static function getModelKlausurtermin($veranstaltung)
-        {
-
-            $modelklausurtermin = DB::table('veranstaltung')
-                                  ->where('Name', $veranstaltung)
-                                  ->where('VeranstaltungsArt', 'Vorlesung')
-                                  ->value('Klausur');
-
-            return $modelklausurtermin;
-        }
-
-
+      
         // Funktion um die Creditanzahl einer Veranstaltung aus der DB zu holen
         public static function getModelCredits($veranstaltung)
         {
