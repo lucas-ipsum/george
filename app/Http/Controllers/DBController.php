@@ -6,6 +6,7 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\Http\Controllers\Intents_Controller;
+use App\Http\Conversations\Feedback;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;

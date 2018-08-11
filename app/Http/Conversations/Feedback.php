@@ -32,7 +32,7 @@ use App\Http\Controllers\BotManController;
        $this->ask($feedback, function ($answer) {
            $this->antwort = $answer->getValue();
        if($this->antwort === 'Ja'){
-         $this->say('Danke');
+         $this->say('Danke für dein Feedback!');
          $this->begruendung = '';
 
          //Einspeichern der Feedbackinformationen in DB
@@ -41,7 +41,7 @@ use App\Http\Controllers\BotManController;
           );
        }
        elseif($this->antwort === 'Nein'){
-         $this->ask('Schade, kannst du mir Feedback geben, damit ich verbessert werden kann?', function ($answer){
+         $this->ask('Schade, kannst du mir Feedback geben? Schreib mir, was ich verbessern kann!', function ($answer){
           //Speichern des Nutzerinputs
            $this->begruendung = $answer->getText();
            $this->say('Danke für dein Feedback!');

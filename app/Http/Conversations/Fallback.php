@@ -32,8 +32,11 @@ protected $name;
                     Wird MIS im Sommersemester angeboten? <br><br>
                     Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
       }
-      else{
+      elseif($buttonAnswer === 'kontakt'){
         $this->contact();
+      }
+      else{
+        $this->say("Ich kann dich leider nicht verstehen..");
       }
     });
     }
@@ -50,7 +53,7 @@ protected $name;
         ->addButtons([
         Button::create('Pascal Freier')->value('Pascal Freier'),
         Button::create('Steffen Zenker')->value('Steffen Zenker'),
-        Button::create('Raphael Meyer von Wolf')->value('Raphael Meyer von Wolf'),
+        Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'),
         Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
         Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter') //Muss noch zu neuer Frage gelinkt werden!
       ]);

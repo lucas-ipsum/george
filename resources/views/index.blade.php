@@ -446,6 +446,13 @@ Fax. +49 551 39 9735<br>
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
+document.getElementById.onkeydown = function(event){
+  if (event.keyCode == 13){
+    feedbackTimer();
+  }
+}
+
+function feedbackTimer(){
   var inaktZeit = 0;
   var angezeigt = false;
   $(document).ready(function () {
@@ -465,13 +472,14 @@ Fax. +49 551 39 9735<br>
 //Timererhöhung und Ausgabe der Feedbackfrage
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+    if (inaktZeit == 5 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
         botmanChatWidget.whisper("bananenkanu");
         angezeigt = true;
     }
+  }
 }
-</script>
 
+</script>
 
 
 </body></html>
