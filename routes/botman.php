@@ -156,8 +156,8 @@ $botman->hears('input.unknown', function ($bot) {
 })->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 21 - studienplan_WinInf
-  $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
+//Intent: 21 - foto_Mitarbeiter
+  $botman->hears('say_foto_Mitarbeiter', 'App\Http\Controllers\Intents_Controller@foto_Mitarbeiter') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 7 - naechster_Termin_Seminar

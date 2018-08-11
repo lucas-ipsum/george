@@ -28,20 +28,14 @@ class Intents_Controller extends Controller
   public function credit_Anzahl($bot){
     $extras = $bot->getMessage()->getExtras();
     $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-  //Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+    $this->credit_Anzahl_Logik($bot, $veranstaltung);
   }
-  else {
-  $credits = DBController::getDBCredits($veranstaltung);
-  $bot->reply('Die Veranstaltung ' . $veranstaltung . ' bringt '.$credits.' Credits');         //Dieser Fall wird aufgerufen, wenn die Veranstaltung in der Anfrage mit eingegeben wurde
-  }
-}
-//###############################################################
-//Intent: 6 - credit_Anzahl_withContext
-public function credit_Anzahl_withContext($bot){
+  public function credit_Anzahl_withContext($bot){
     $extras = $bot->getMessage()->getExtras();
     $veranstaltung = $extras['apiContext']['Veranstaltung'];
+    $this->credit_Anzahl_Logik($bot, $veranstaltung);
+  }
+  public function credit_Anzahl_Logik($bot, $veranstaltung){
     //Prompts + Antworten
     if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -57,6 +51,15 @@ public function ort_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+  $this->ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
+}
+public function ort_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+  $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
+  $this->ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
+}
+  public function ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart){
   //Prompts
   //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
   if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
@@ -75,25 +78,7 @@ public function ort_Veranstaltung($bot){
       }
   }
 }
-//###############################################################
-//Intent: 4 - ort_Veranstaltung_withContext
-public function ort_Veranstaltung_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
-//Prompts
-  if(strlen($veranstaltung) === 0){
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  elseif(strlen($veranstaltungsart) === 0){
-    $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
-  }
-//Antworten auf Frage
-  else{
-    $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
-    $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') ist im Raum '.$raum.'.');
-  }
-}
+
 //###############################################################
 //Intent: 3 - veranstaltung_Termin
 public function termin_Veranstaltung($bot){
@@ -101,78 +86,50 @@ public function termin_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
-//Prompts
-//Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
-if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  $this->termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
 }
-elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-  $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
-}
-else{
-//Antowort
-      // Rufe den Datenbankcontroller für die Abfrage auf
-      $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
-      $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
-}
-}
-//###############################################################
-//Intent: 3 - veranstaltung_Termin_withContext
 public function termin_Veranstaltung_withContext($bot){
   //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
   $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
+  $this->termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
+}
+  public function termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart){
 //Prompts
 //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
-if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-  $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-}
-elseif(strlen($veranstaltungsart) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-  $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
-}
-else{
-//Antowort
+    if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+    }
+    elseif(strlen($veranstaltungsart) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
+    }
+    else{
+      //Antowort
       // Rufe den Datenbankcontroller für die Abfrage auf
       $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
       $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
       $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
-}
-}
+    }
+  }
 //###############################################################
 // Intent: 5 - termin_Klausur
 public function termin_Klausur($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-$bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  $this->termin_Klausur_Logik($bot, $veranstaltung);
 }
-else {
-      $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
-      $ausgabe_klausuren='';
-      for($index=0; $index < count($klausurtermin); $index++)
-      {
-        $datum = $klausurtermin[$index]->Datum1;
-        $wochentag = $klausurtermin[$index]->Wochentag;
-        $uhrzeit= $klausurtermin[$index]->Uhrzeit;
-        $raum = $klausurtermin[$index]->Raum;
-        $ausgabe_klausuren .= $datum . ' ' . $wochentag . ' ' . $uhrzeit . '<br>'.$raum . '<br>';
-      }
-      $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$ausgabe_klausuren); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
-}
-}
-//###############################################################
-// Intent: 5 - termin_Klausur_withContext
 public function termin_Klausur_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
-
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-$bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  $this->termin_Klausur_Logik($bot, $veranstaltung);
 }
-else {
+public function termin_Klausur_Logik($bot, $veranstaltung){
+  //Prompts
+  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  }
+  else {
       $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
       $ausgabe_klausuren='';
       for($index=0; $index < count($klausurtermin); $index++)
@@ -184,27 +141,21 @@ else {
         $ausgabe_klausuren .= $datum . ' ' . $wochentag . ' ' . $uhrzeit . '<br>'.$raum .'<br>';
       }
       $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$ausgabe_klausuren); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
-}
+  }
 }
 //###############################################################
 //Intent: 9 - beschreibung_Veranstaltung
 public function beschreibung_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+  $this->beschreibung_Veranstaltung_Logik($bot, $veranstaltung);
   }
-  else {
-        $beschreibung = DBController::getDBBeschreibung($veranstaltung);
-        $bot->reply($veranstaltung .': <br><br>' . $beschreibung);
-    }
-  }
-//###############################################################
-//Intent: 9 - beschreibung_Veranstaltung_withContext
 public function beschreibung_Veranstaltung_withContext($bot){
     $extras = $bot->getMessage()->getExtras();
     $veranstaltung = $extras['apiContext']['Veranstaltung'];
+      $this->beschreibung_Veranstaltung_Logik($bot, $veranstaltung);
+}
+public function beschreibung_Veranstaltung_Logik($bot, $veranstaltung){
   //Prompts + Antworten
     if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
       $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -231,93 +182,72 @@ public function mitarbeiter_Kontakt($bot){
         $Contact = 'pfreier@uni-goettingen.de';//DBController::getDBKontaktart($kontaktart, $mitarbeiter);
         $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: ' . $Contact . '.');
         }
-
   }
 
 //###############################################################
 //Intent: 13 - ansprechpartner_Veranstaltung
-public function ansprechpartner_Veranstaltung($bot){
-$extras = $bot->getMessage()->getExtras();
-$veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-$bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-}
-else {
-$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-
-$ausgabe = '';
-for($index=0; $index < count($mitarbeiter); $index++){
-  $test = $mitarbeiter[$index]->Betreuer;
-  $ausgabe .= $test . '<br> ';
-}
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $ausgabe);
+ public function ansprechpartner_Veranstaltung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+  $this->ansprechpartner_Veranstaltung_Logik($bot, $veranstaltung);
 }
 
+ public function ansprechpartner_Veranstaltung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->ansprechpartner_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent: 13 - ansprechpartner_Veranstaltung_withContext
-public function ansprechpartner_Veranstaltung_withContext($bot){
-$extras = $bot->getMessage()->getExtras();
-$veranstaltung = $extras['apiContext']['Veranstaltung'];
-//Prompts
-if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-$bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-}
-else {
-//$mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
-$mitarbeiter = 'Pascal Freier, Julian Busse';
-$bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $mitarbieter);
-}
+ public function ansprechpartner_Veranstaltung_Logik($bot, $veranstaltung){
+   //Prompts
+   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+   }
+   else {
+     $mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
+     $ausgabe = '';
+   for($index=0; $index < count($mitarbeiter); $index++){
+     $test = $mitarbeiter[$index]->Betreuer;
+     $ausgabe .= $test . '<br> ';
+   }
+    $bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $ausgabe);
+   }
 }
 
 //###############################################################
-//Intent: 10 - Anmelderegeln
+//Intent: 10 - anmeldehilfe_Veranstaltung
 public function anmeldehilfe_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-        $anmeldung = DBController::getDBAnmeldung($veranstaltung);
-        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
-        }
+  $this->anmeldehilfe_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent: 10 - anmeldehilfe_Veranstaltung_withContext
 public function anmeldehilfe_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->anmeldehilfe_Veranstaltung_Logik($bot, $veranstaltung);
+}
+public function anmeldehilfe_Veranstaltung_Logik($bot, $veranstaltung){
 //Prompts + Antworten
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
+    if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+    }
+    else {
         $anmeldung = DBController::getDBAnmeldung($veranstaltung);
-        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  '.$anmeldung.'.');
-  }
+        $bot->reply('Die Anmelderegeln für '.$veranstaltung.' sind:  <br>'.$anmeldung.'.');
+    }
 }
 //###############################################################
 //Intent: 11 - vorkenntnisse_Veranstaltung
 public function vorkenntnisse_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $vorkenntnisse = DBController::getDBVoraussetzung($veranstaltung);
-    $bot->reply('Die Vorkenntnisse für '.$veranstaltung.' sind:  '.$vorkenntnisse.'.');
-  }
+  $this->vorkenntnisse_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent: 11 - vorkenntnisse_Veranstaltung_withContext
 public function vorkenntnisse_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->vorkenntnisse_Veranstaltung_Logik($bot, $veranstaltung);
+}
+public function vorkenntnisse_Veranstaltung_Logik($bot, $veranstaltung){
 //Prompts
   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -332,20 +262,14 @@ public function vorkenntnisse_Veranstaltung_withContext($bot){
 public function vorleistung_Klausur($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $vorleistung = DBController::getDBVorleistung($veranstaltung);
-    $bot->reply('Vorleistung zur Klausur in ' . $veranstaltung . ': '.$vorleistung.'.');
-  }
+  $this->vorleistung_Klausur_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent: 8 - vorleistung_Klausur_withContext
 public function vorleistung_Klausur_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->vorleistung_Klausur_Logik($bot, $veranstaltung);
+}
+public function vorleistung_Klausur_Logik($bot, $veranstaltung){
 //Prompts
   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -360,20 +284,14 @@ public function vorleistung_Klausur_withContext($bot){
 public function turnus_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $turnus = DBController::getDBTurnus($veranstaltung);
-    $bot->reply('Turnus der Veranstaltung ' . $veranstaltung . ' ist: '.$turnus.'.');
-  }
+  $this->turnus_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent 14 - turnus_Veranstaltung_withContext
 public function turnus_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->turnus_Veranstaltung_Logik($bot, $veranstaltung);
+}
+public function turnus_Veranstaltung_Logik($bot, $veranstaltung){
 //Prompts
   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -388,47 +306,36 @@ public function turnus_Veranstaltung_withContext($bot){
 public function literatur_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $literatur = DBController::getDBLiteratur($veranstaltung);
-    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ' ist: '.$literatur.'.');
-  }
+  $this->literatur_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent 15 - literatur_Veranstaltung_withContext
 public function literatur_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $literatur = DBController::getDBLiteratur($veranstaltung);
-    $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ' ist: '.$literatur.'.');
-  }
+  $this->literatur_Veranstaltung_Logik($bot, $veranstaltung);
 }
+  public function literatur_Veranstaltung_Logik($bot, $veranstaltung){
+    //Prompts
+      if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+        $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+      }
+      else {
+        $literatur = DBController::getDBLiteratur($veranstaltung);
+        $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': <br>'.$literatur.'.');
+      }
+  }
 //###############################################################
 //Intent 16 - klausur_Anmeldung
 public function klausur_Anmeldung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $bot->reply('Klausuranmeldung in ' . $veranstaltung . ': https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
-  }
+  $this->klausur_Anmeldung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent 16 - klausur_Anmeldung_withContext
 public function klausur_Anmeldung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->klausur_Anmeldung_Logik($bot, $veranstaltung);
+}
+public function klausur_Anmeldung_Logik($bot, $veranstaltung){
 //Prompts
   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -442,20 +349,14 @@ public function klausur_Anmeldung_withContext($bot){
 public function gesamtueberblick_Veranstaltung($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
-//Prompts
-  if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  else {
-    $ueberblick = DBController::getDBUeberblick($veranstaltung);
-    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
-  }
+  $this->gesamtueberblick_Veranstaltung_Logik($bot, $veranstaltung);
 }
-//###############################################################
-//Intent 17 - gesamtueberblick_Veranstaltung_withContext
 public function gesamtueberblick_Veranstaltung_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->gesamtueberblick_Veranstaltung_Logik($bot, $veranstaltung);
+}
+public function gesamtueberblick_Veranstaltung_Logik($bot, $veranstaltung){
 //Prompts
   if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
@@ -470,25 +371,14 @@ public function gesamtueberblick_Veranstaltung_withContext($bot){
 public function veranstaltungen_Mitarbeiter($bot){
   $extras = $bot->getMessage()->getExtras();
   $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
-//Prompts
-  if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
-  }
-  else {
-    $betreuer_Veranstaltungen = DBController::getDBBetreuung($mitarbeiter);
-    $ausgabe_betreuer_Veranstaltungen = '';
-    for($index=0; $index < count($betreuer_Veranstaltungen); $index++){
-      $veranstaltung = $betreuer_Veranstaltungen[$index]->Name;
-      $ausgabe_betreuer_Veranstaltungen .= $index+1 .'. '. $veranstaltung . '<br>';
-    }
-    $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': <br>' . $ausgabe_betreuer_Veranstaltungen);  //' . $mitarbeiter . '
-  }
+  $this->veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter);
 }
-//###############################################################
-//Intent 18 - veranstaltungen_Mitarbeiter_withContext
 public function veranstaltungen_Mitarbeiter_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+  $this->veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter);
+}
+public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
 //Prompts
   if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
@@ -508,19 +398,14 @@ public function veranstaltungen_Mitarbeiter_withContext($bot){
 public function abschlussarbeiten_Mitarbeiter($bot){
   $extras = $bot->getMessage()->getExtras();
   $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
-//Prompts
-  if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
-  }
-  else {
-    $bot->reply('Abschlussarbeiten von ' . $mitarbeiter . ': ');
-  }
+  $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
 }
-//###############################################################
-//Intent 19 - abschlussarbeiten_Mitarbeiter_withContext
 public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   $extras = $bot->getMessage()->getExtras();
   $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+  $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
+}
+public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
 //Prompts
   if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
     $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
@@ -529,13 +414,22 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
     $bot->reply('Abschlussarbeiten von ' . $mitarbeiter . ': ');
   }
 }
-
   //###############################################################
-  //Intent 21 - projekte_Lehrstuhl
-  public function test_Intent($bot){
-    $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/482ba95f3c327436fe9593a18587d4c3.jpg'));
+  //Intent 21 - foto_Mitarbeiter
+  public function foto_Mitarbeiter($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
+//Prompts
+    if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
+    }
+    else{
+    $url_Foto = DBController::getDB_fotoMitarbeiter($mitarbeiter);
+
+    $message = OutgoingMessage::create('Hier ist ein Foto von '. $mitarbeiter)->withAttachment(Image::url(''.$url_Foto .''));  //URL Mitarbeiter Foto wird eingefügt
 	   $bot->reply($message);
    }
+  }
 //###############################################################
 //Intent 7 - naechster_Termin_Seminar
   public function naechster_Termin_Seminar($bot){
@@ -561,27 +455,17 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
 //Intent 22 - termin_Seminar
   public function termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();
-    $seminar = $extras['apiContext']['Seminar'];
+    $seminar = $extras['apiParameters']['Seminar'];
     $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
-  //Prompts
-    if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-      $bot->reply('Für welches Seminar möchtest du diese Information?');
-    }
-    elseif(strlen($seminar_Veranstaltung) === 0){
-      $bot->reply('Welchen Seminartermin möchtest du? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
-    }
-    else {
-      $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
-      $datum_Seminar = DBController::getDBDatumSeminar($seminar, $seminar_Veranstaltung);
-      $bot->reply($seminar.' '.'('.$seminar_Veranstaltung.') findet '.$datum_Seminar.' um '.$uhrzeit_Seminar.' statt');
-    }
+    $this->termin_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
   }
-//###############################################################
-//Intent 22 - termin_Seminar_withContext
-    public function termin_Seminar_withContext($bot){
+  public function termin_Seminar_withContext($bot){
       $extras = $bot->getMessage()->getExtras();
       $seminar = $extras['apiContext']['Seminar'];
       $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
+      $this->termin_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
+  }
+  public function termin_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung){
     //Prompts
       if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
         $bot->reply('Für welches Seminar möchtest du diese Information?');
@@ -590,17 +474,32 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
         $bot->reply('Welchen Seminartermin möchtest du? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation, Präsentation');
       }
       else {
-        $uhrzeit_Seminar = DBController::getDBUhrzeitSeminar($seminar, $seminar_Veranstaltung);
-        $datum_Seminar = DBController::getDBDatumSeminar($seminar, $seminar_Veranstaltung);
-        $bot->reply($seminar.' '.'('.$seminar_Veranstaltung.') findet '.$datum_Seminar.' um '.$uhrzeit_Seminar.' statt');
+        $termine_Seminar = DBController::getDB_termin_Seminar($seminar, $seminar_Veranstaltung);
+        $ausgabe_termin_Seminar = '';
+       for($index=0; $index < count($termine_Seminar); $index++){
+          $datum_Seminar = $termine_Seminar[$index]->Datum1;
+          $datum_Seminar = Carbon::parse($datum_Seminar)->format('d.m.y');
+          $uhrzeit_Seminar = $termine_Seminar[$index]->Uhrzeit;
+          $ausgabe_termin_Seminar .= $datum_Seminar . ' von ' . $uhrzeit_Seminar . '<br>';
       }
+      $bot->reply('Termin: ' . $seminar.' '.'('.$seminar_Veranstaltung.'): <br>'. $ausgabe_termin_Seminar);
     }
+  }
   //###############################################################
   //Intent 23 - ort_Seminar
     public function ort_Seminar($bot){
       $extras = $bot->getMessage()->getExtras();
       $seminar = $extras['apiParameters']['Seminar'];
       $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
+      $this->ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
+}
+      public function ort_Seminar_withContext($bot){
+        $extras = $bot->getMessage()->getExtras();
+        $seminar = $extras['apiContext']['Seminar'];
+        $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
+        $this->ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
+    }
+    public function ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung){
     //Prompts
       if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
         $bot->reply('Für welches Seminar möchtest du diese Information?');
@@ -609,30 +508,15 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
         $bot->reply('Für welche der Veranstaltungen möchtest du diese Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
       }
       else {
-        $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-        $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $raum_Seminar . '.');
+        $raeume_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
+        $ausgabe_raum_Seminar = '';
+       for($index=0; $index < count($raeume_Seminar); $index++){
+          $raum_Seminar = $raeume_Seminar[$index]->Raum;
+          $ausgabe_raum_Seminar .= $raum_Seminar;
       }
+      $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $ausgabe_raum_Seminar . '.');
     }
-
-//###############################################################
-//Intent 23 - ort_Seminar_withContext
-  public function ort_Seminar_withContext($bot){
-    $extras = $bot->getMessage()->getExtras();
-    $seminar = $extras['apiContext']['Seminar'];
-    $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
-      //Prompts
-        if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-          $bot->reply('Für welches Seminar möchtest du diese Information?');
-        }
-        elseif(strlen($seminar_Veranstaltung) === 0){
-          $bot->reply('Für welche der Veranstaltungen möchtest du diese Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
-        }
-        else {
-          $raum_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-          $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $raum_Seminar . '.');
-        }
-      }
-
+}
 //###############################################################
 //Intent 24 - themen_Seminar
     public function themen_Seminar($bot){
@@ -660,34 +544,15 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
             $extras = $bot->getMessage()->getExtras();
             $seminar = $extras['apiParameters']['Seminar'];
             $mitarbeiter= $extras['apiParameters']['Mitarbeiter'];
-            //Prompts
-              if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-                $bot->reply('Für welches Seminar möchtest du diese Information?');
-              }
-              elseif(strlen($mitarbeiter) === 0){
-                $bot->reply('Für welchen Mitarbeiter möchtest du diese Information?');
-              }
-              else {
-                $seminar_themen_nachMitarbeiter = DBController::getDBThemen_nachMitarbeiter($seminar, $mitarbeiter);    //Daten werden aus DB Controller geholt
-      // Schleife für Ausgaben
-               $ausgabe_seminar_themen_nachMitarbeiter = '';
-                for($index=0; $index < count($seminar_themen_nachMitarbeiter); $index++){             //Index wird so lange erhöht bis letztes Element erreicht
-                  $nummer = $seminar_themen_nachMitarbeiter[$index]->Nummer;                          //Speichert den Wert für Nummer der aus der DB übergeben wurde
-                  $thema = $seminar_themen_nachMitarbeiter[$index]->Thema;
-                  $ausgabe_seminar_themen_nachMitarbeiter .= $nummer .'. ' .$thema . '<br><br> ';     //hier werden jeweils das Thema und die Nummer pro Schleifendurchlauf eingespeichert
-                }
-      //Ausgabe
-                $bot->reply('Folgende Themen werden von ' . $mitarbeiter .' im ' .  $seminar . ' angeboten: <br><br>'. $ausgabe_seminar_themen_nachMitarbeiter);
-              }
-            }
-
-
-//###############################################################
-//Intent 25 - themen_Seminar_nachMitarbeiter_withContext
+            $this->themen_Seminar_nachMitarbeiter_Logik($bot, $seminar, $mitarbeiter);
+  }
     public function themen_Seminar_nachMitarbeiter_withContext($bot){
       $extras = $bot->getMessage()->getExtras();
       $seminar = $extras['apiContext']['Seminar'];
       $mitarbeiter= $extras['apiContext']['Mitarbeiter'];
+      $this->themen_Seminar_nachMitarbeiter_Logik($bot, $seminar, $mitarbeiter);
+}
+    public function themen_Seminar_nachMitarbeiter_Logik($bot, $seminar, $mitarbeiter){
       //Prompts
         if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
           $bot->reply('Für welches Seminar möchtest du diese Information?');
@@ -796,5 +661,4 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   public function smalltalk_Danke($bot){
     $bot->reply('Kein Problem ich helfe dir doch gerne!');
   }
-
 }

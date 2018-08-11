@@ -24,5 +24,12 @@ class mitarbeiter extends Model
 
     return $modelcontact;
     }
+    public static function getModel_foto_Mitarbeiter($mitarbeiter){
 
+        $model_mitarbeiter_Foto = DB::table('mitarbeiter')
+                                  ->where('Name', $mitarbeiter)
+                                  ->value('Foto_Link');
+
+          return $model_mitarbeiter_Foto;
+    }
 }

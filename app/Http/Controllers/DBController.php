@@ -19,7 +19,7 @@ class DBController extends Controller
     public static function getDBVorleistung($art)
     {
 
-          $dbVoraussetzunge = veranstaltung::getModelVorleistung($art);
+          $dbVoraussetzung = veranstaltung::getModelVorleistung($art);
 
           return $dbVoraussetzung;
     }
@@ -29,7 +29,7 @@ class DBController extends Controller
     public static function getDBVoraussetzung($art)
     {
 
-          $dbVoraussetzunge = veranstaltung::getModelVoraussetzung($art);
+          $dbVoraussetzung = veranstaltung::getModelVoraussetzung($art);
 
           return $dbVoraussetzung;
     }
@@ -169,18 +169,17 @@ class DBController extends Controller
 
 
     // Funktion um das Datum einer Veranstaltung aus der DB zu holen
-    public static function getDBDatumSeminar($name, $art)
+    public static function getDB_termin_Seminar($seminar, $seminar_Veranstaltung)
     {
+        $db_termin_Seminar = termine::getModel_termin_Seminar($seminar, $seminar_Veranstaltung);
 
-        $dbdatum_Seminar = termine::getModelDatumSeminar($name, $art);
-
-        return $dbdatum_Seminar;
+        return $db_termin_Seminar;
     }
 
-    public static function getDBRaumSeminar($name, $art)
+    public static function getDBRaumSeminar($seminar, $seminar_Veranstaltung)
     {
 
-        $dbraum_Seminar = termine::getModelRaumSeminar($name, $art);
+        $dbraum_Seminar = termine::getModelRaumSeminar($seminar, $seminar_Veranstaltung);
 
         return $dbraum_Seminar;
     }
@@ -214,6 +213,12 @@ class DBController extends Controller
 
      return $db_Art_nachTermin;
   }
+    public static function getDB_fotoMitarbeiter($mitarbeiter){
+
+      $db_foto_Mitarbeiter = mitarbeiter::getModel_foto_Mitarbeiter($mitarbeiter);
+
+      return $db_foto_Mitarbeiter;
+    }
 //#######################################################################################################################
 //Projekte
 //#######################################################################################################################

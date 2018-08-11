@@ -28,15 +28,17 @@ class termine extends Model
   //#################################################################################
   //Seminar
           // Funktion um die Uhrzeit einer Veranstaltung aus der DB zu holen
-          public static function getModelUhrzeitSeminar($seminar, $seminar_Veranstaltung)
+          public static function getModel_termin_Seminar($seminar, $seminar_Veranstaltung)
           {
 
-                $modeluhrzeit_Seminar = DB::table('termine')
-                                      ->where('Veranstaltung', $seminar)
-                                      ->where('Veranstaltungsart', $seminar_Veranstaltung)
-                                      ->value('Uhrzeit');
+                $model_termin_Seminar = DB::table('termine')
+                                      ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
+                                      ->where('Veranstaltung.Name', $seminar)
+                                      ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
+                                      ->select('Termine.Datum1', 'Termine.Uhrzeit')
+                                      ->get();
 
-                 return $modeluhrzeit_Seminar;
+                 return $model_termin_Seminar;
            }
 //#######################################
 //raum_Seminar
@@ -44,9 +46,11 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
 {
 
       $modelraum_Seminar = DB::table('termine')
-                        ->where('Veranstaltung', $seminar)
-                        ->where('Veranstaltungsart', $seminar_Veranstaltung)
-                        ->value('Raum');
+                        ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
+                        ->where('Veranstaltung.Name', $seminar)
+                        ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
+                        ->select('Termine.Raum')
+                        ->get();
 
 
       return $modelraum_Seminar;
@@ -76,7 +80,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
         return $model_klausurtermin;
     }
 
-    
+
     public static function getModel_naechster_Termin_Seminar($seminar, $datum_heute)
       {
             $model_naechster_Termin_Seminar = DB::table('termine')
