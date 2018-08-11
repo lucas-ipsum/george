@@ -76,9 +76,9 @@
     introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
     chatServer: '/george/public/botman',
     frameEndpoint: '/george/public/chat',
-    bubbleAvatarUrl: 'img/Chatbot.png',
+    bubbleAvatarUrl: 'img/Chatbot_blase.png',
     headerTextColor: '#FFFFFF',
-    bubbleBackground: '#FFFFFF',
+    bubbleBackground: 'none',
     mainColor: '#13306A',
     placeholderText: 'Nachricht eingeben..',
     mobileHeight: '98%'
@@ -86,7 +86,7 @@
   </script>
 
 <!-- Aufruf Web Widget -->
-<script id="botmanWidget" src='js/widget.js'></script>
+<script id="botmanWidget" src='js/widget.min.js'></script>
 
 <header>
     <div class="container-fluid logo-container">
