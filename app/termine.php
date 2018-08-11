@@ -61,4 +61,30 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
         ->get();
     return $model_Termine_Seminar;
     }
+    //Alle Termine fürs Seminar im Überblick
+    public static function getModel_naechster_Termin_Seminar($seminar, $datum_heute)
+      {
+            $model_naechster_Termin_Seminar = DB::table('termine')
+            ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+            ->where('Veranstaltung.Name', $seminar)
+            ->where('Termine.Datum1', '>=', $datum_heute)
+            ->select('Termine.Datum1')
+            ->get();
+
+          return $model_naechster_Termin_Seminar;
+
+        }
+      //Veranstaltungsart zu Termin
+        public static function getModel_art_Veranstaltung_nachTermin($seminar, $termin_veranstaltung)
+          {
+                $model_art_Veranstaltung_nachTermin = DB::table('termine')
+                ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+                ->where('Veranstaltung.Name', $seminar)
+                ->where('Termine.Datum1', '=', $termin_veranstaltung)
+                ->value('Termine.Veranstaltungsart');
+
+
+              return $model_art_Veranstaltung_nachTermin;
+
+            }
 }
