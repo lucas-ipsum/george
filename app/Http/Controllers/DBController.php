@@ -146,6 +146,13 @@ class DBController extends Controller
         return $dbdatum;
     }
 
+    public static function getAlleMitarbeiter(){
+
+      $dbAlleMitarbeiter = mitarbeiter::getModelAlleMitarbeiter();
+
+      return $dbAlleMitarbeiter;
+    }
+
   /*  public static function getDBBetruung($name)
     {
 

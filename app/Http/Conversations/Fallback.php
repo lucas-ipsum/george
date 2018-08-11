@@ -17,16 +17,9 @@ use App\mitarbeiter;
 class Fallback extends Conversation
 {
 
+protected $name;
 
-
-   // $Beispielfragen = array ('Wo ist die IKS Vorlesung?', 'Wer ist der Ansprechpartner für MIS?', 'Wann ist die U&M Klausur?');
-    /**
-     * Start the conversation.
-     *
-     * @return mixed
-     */
-    public function run()
-    {
+    public function run(){
       $question = Question::create('Entschuldige bitte, ich habe deine Frage nicht verstanden.')
       ->addButtons([
         Button::create('Beispielfragen')->value('beispiel'),
@@ -45,28 +38,35 @@ class Fallback extends Conversation
     });
     }
 
+    //Funktion die anfragt, wecher Mitarbeiter kontaktiert werden sollte
     public function contact(){
+      $alleMitarbeiter = DBController::getAlleMitarbeiter();
+      /*for($index=0; $index<3; $index++){
+        $mitarbeiter = $alleMitarbeiter[$index]->Name;
+        ->addButtons([
+        Button::create($mitarbeiter)->value($mitarbeiter),*/
+
       $name = Question::create('Welchen Mitarbeiter möchten Sie kontaktieren?')
-      ->addButtons([
+        ->addButtons([
         Button::create('Pascal Freier')->value('Pascal Freier'),
-        Button::create('Steffen Zenker')->value('Stefen Zenker'),
-        Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'),
+        Button::create('Steffen Zenker')->value('Steffen Zenker'),
+        Button::create('Raphael Meyer von Wolf')->value('Raphael Meyer von Wolf'),
         Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
-        //Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter'), //Muss noch zu neuer Frage gelinkt werden!
+        Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter') //Muss noch zu neuer Frage gelinkt werden!
       ]);
       $this->ask($name, function($answer) {
         $name = $answer->getValue();
-
+        $this->name = $name;
         if($name === 'Anderer Mitarbeiter'){
           $this->mehrereMitarbeiter();
         }
         else{
           $this->mitarbeiterKontaktieren($name);
         }
-        return($name);
     });
   }
     public function mitarbeiterKontaktieren($name){
+      $this->name = $name;
       $art = Question::create('Wie möchtest du ' . $name . ' kontaktieren?')
       ->addButtons([
         Button::create('Telefon')->value('Telefonnummer'),
@@ -74,10 +74,13 @@ class Fallback extends Conversation
       ]);
       $this->ask($art, function($answer){
         $art = $answer->getValue();
-        $name = 'Pascal Freier';
+        $name = $this->name;
         $kontaktinfo = DBController::getDBKontaktart($art, $name);
-        $this->say($kontaktinfo);
+        $this->say($art . ': ' . $kontaktinfo);
       });
+
+    }
+    public function mehrereMitarbeiter(){
 
     }
 }

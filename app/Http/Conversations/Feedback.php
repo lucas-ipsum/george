@@ -2,6 +2,10 @@
 
  namespace App\Http\Conversations;
 
+use BotMan\BotMan\Storages\Storage;
+use App\Http\Controllers\Intents_Controller;
+use App\Http\Controllers\BotManController;
+
  use BotMan\BotMan\Messages\Conversations\Conversation;
  use BotMan\BotMan\Messages\Outgoing\Actions\Button;
  use BotMan\BotMan\Messages\Outgoing\Question;
@@ -12,32 +16,41 @@
  class Feedback extends Conversation
  {
 
-     protected $buttonAnswer;
+     protected $begruendung;
+     protected $zufrienden;
+
+
+
 
      public function run()
      {
-       $feedback = Question::create('Bist du mit meiner Auskunft zufrieden, gib mir bitte Feedback!')
+       $feedback = Question::create('Bist du mit meiner Auskunft zufrieden?')
        ->addButtons([
          Button::create('Ja')->value('Ja'),
          Button::create('Nein')->value('Nein'),
        ]);
        $this->ask($feedback, function ($answer) {
-           $buttonAnswer = $answer->getValue();
-           $sessionid = 111;
-           $begruendung = '';
-       if($buttonAnswer === 'Ja'){
-
+           $this->zufrieden = $answer->getValue();
+       if($this->zufrieden === 'Ja'){
          $this->say('Danke');
+         $this->begruendung = '';
+
+         //Einspeichern der Feedbackinformationen in DB
+         DB::table('feedback')->insert(
+          ['session_id' => $session_id, 'zufrieden' => $this->zufrieden, 'begruendung' => $this->begruendung]
+          );
        }
        else{
-         $this->say('Schade, kannst du mir Feedback geben, damit ich verbessert werden kann?');
+         $this->ask('Schade, kannst du mir Feedback geben, damit ich verbessert werden kann?', function ($answer){
+          //Speichern des Nutzerinputs
+           $this->begruendung = $answer->getText();
+           $session_id = 111;
+           $this->say('Danke für dein Feedback!');
+           DB::table('feedback')->insert(
+            ['session_id' => $session_id, 'zufrieden' => $this->zufrieden, 'begruendung' => $this->begruendung]
+            );
+         });
        }
-       });
-       /*DB::table('feedback')->insert([
-         ['User_ID' => $sessionid, 'votes' => 0],
-         ['Antwort' => $buttonAnswer, 'votes' => 0],
-         ['Begründung' => '0', 'votes' => 0]
-         ]
-       );*/
+      });
    }
  }

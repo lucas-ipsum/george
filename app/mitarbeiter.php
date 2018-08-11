@@ -25,4 +25,13 @@ class mitarbeiter extends Model
     return $modelcontact;
     }
 
+    public static function getModelAlleMitarbeiter()
+    {
+
+        $AlleMitarbeiter = DB::table('mitarbeiter')
+                              ->select('Name')
+                              ->get();
+
+    return $AlleMitarbeiter;
+    }
 }
