@@ -160,6 +160,9 @@ $botman->hears('input.unknown', function ($bot) {
   $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@test_Intent') ->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 7 - naechster_Termin_Seminar
+  $botman->hears('say_naechster_Termin_Seminar', 'App\Http\Controllers\Intents_Controller@naechster_Termin_Seminar') ->middleware($dialogflow);
+//################################################################################################################################################
 //Intent: 22 - termin_Seminar
   $botman->hears('say_termin_Seminar', 'App\Http\Controllers\Intents_Controller@termin_Seminar') ->middleware($dialogflow);
 

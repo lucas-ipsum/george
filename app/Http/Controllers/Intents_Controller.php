@@ -18,6 +18,7 @@ use BotMan\BotMan\Storages\Storage;
 //use BotMan\BotMan\Middleware\Dialogflow;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\BotMan\Messages\Attachments\Image;
+use Carbon\Carbon;
 
 
 class Intents_Controller extends Controller
@@ -526,6 +527,27 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
     $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/482ba95f3c327436fe9593a18587d4c3.jpg'));
 	   $bot->reply($message);
    }
+//###############################################################
+//Intent 7 - naechster_Termin_Seminar
+  public function naechster_Termin_Seminar($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiParameters']['Seminar'];
+//Datum heute
+    $datum_heute = Carbon::now()->format('Y-m-d');            //Carbon holt das aktuelle Datum und bringt es In Format mit dem die DB auch arbeitet
+//Prompts
+    if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welches Seminar möchtest du diese Information?');
+    }
+    else{
+      $naechster_termin = DBController::getDB_naechster_Termin_seminar($seminar, $datum_heute);
+      $naechster_termin = $naechster_termin[0]->Datum1;
+      $veranstaltungsart_Termin = DBController::getDB_art_Veranstaltung_nachTermin($seminar, $naechster_termin);
+    //  $veranstaltungsart_Termin = $naechster_termin[0]->Veranstaltungsart;
+      $naechster_termin = Carbon::parse($naechster_termin)->format('d.m.y');
+
+      $bot->reply('Der nächste Termin in '. $seminar . ' ist die ' . $veranstaltungsart_Termin .' am ' . $naechster_termin);
+    }
+  }
 //###############################################################
 //Intent 22 - termin_Seminar
   public function termin_Seminar($bot){

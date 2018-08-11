@@ -210,6 +210,18 @@ class DBController extends Controller
 
         return $db_termine_Seminar;
     }
+//naechster_Termin_Seminar
+  public static function getDB_naechster_Termin_seminar($seminar, $datum_heute){
+    $db_naechster_Termin_Seminar = termine::getModel_naechster_Termin_Seminar($seminar, $datum_heute);
+
+        return $db_naechster_Termin_Seminar;
+  }
+  //art_Veranstaltung nach Termin
+  public static function getDB_art_Veranstaltung_nachTermin($seminar, $termin_veranstaltung){
+     $db_Art_nachTermin = termine::getModel_art_Veranstaltung_nachTermin($seminar, $termin_veranstaltung);
+
+     return $db_Art_nachTermin;
+  }
 //#######################################################################################################################
 //Projekte
 //#######################################################################################################################
