@@ -150,7 +150,16 @@ $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
       $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
-      $bot->reply('Klausurtermine in ' . $veranstaltung . ': '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $ausgabe_klausuren='';
+      for($index=0; $index < count($klausurtermin); $index++)
+      {
+        $datum = $klausurtermin[$index]->Datum1;
+        $wochentag = $klausurtermin[$index]->Wochentag;
+        $uhrzeit= $klausurtermin[$index]->Uhrzeit;
+        $raum = $klausurtermin[$index]->Raum;
+        $ausgabe_klausuren .= $datum . ' ' . $wochentag . ' ' . $uhrzeit . '<br>'.$raum . '<br>';
+      }
+      $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$ausgabe_klausuren); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################
@@ -164,7 +173,16 @@ $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
 }
 else {
       $klausurtermin = DBController::getDBKlausurtermin($veranstaltung);
-      $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$klausurtermin.'.'); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
+      $ausgabe_klausuren='';
+      for($index=0; $index < count($klausurtermin); $index++)
+      {
+        $datum = $klausurtermin[$index]->Datum1;
+        $wochentag = $klausurtermin[$index]->Wochentag;
+        $uhrzeit= $klausurtermin[$index]->Uhrzeit;
+        $raum = $klausurtermin[$index]->Raum;
+        $ausgabe_klausuren .= $datum . ' ' . $wochentag . ' ' . $uhrzeit . '<br>'.$raum .'<br>';
+      }
+      $bot->reply('Klausurtermine in ' . $veranstaltung . ': <br> '.$ausgabe_klausuren); //Dieser Fall wird aufgerufen, wenn die Veranstaltung aus dem Context geholt wird
 }
 }
 //###############################################################

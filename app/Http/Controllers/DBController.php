@@ -97,7 +97,7 @@ class DBController extends Controller
     public static function getDBKlausurtermin($name)
     {
 
-        $dbklausurtermin = veranstaltung::getModelKlausurtermin($name);
+        $dbklausurtermin = termine::getModel_Klausurtermin($name);
 
         return $dbklausurtermin;
     }
