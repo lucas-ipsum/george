@@ -33,8 +33,11 @@ class Fallback extends Conversation
                     Wird MIS im Sommersemester angeboten? <br><br>
                     Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
       }
-      else{
+      elseif($buttonAnswer === 'kontakt'){
         $this->contact();
+      }
+      else{
+      $this->repeat();
       }
     });
     }
@@ -62,8 +65,11 @@ class Fallback extends Conversation
       elseif ($buttonAnswer === 'Raphael Meyer von Wolff') {
         $this->rafael();
       }
-      else{
+      elseif($buttonAnswer === 'Henrik Wesseloh'){
         $this->henrik();
+      }
+      else{
+      $this->repeat();
       }
     });
   }
@@ -79,9 +85,12 @@ class Fallback extends Conversation
         if($buttonAnswer === 'Telefonnr'){
           $this->say($buttonAnswer .': +49 (0)551 / 39 - 7881');
         }
-        else {
+        elseif($buttonAnswer === 'E-Mail') {
           $this->say($buttonAnswer .': pfreier@uni-goettingen.de');
         }
+        else{
+      	$this->repeat();
+      }
       });
     }
     public function steffen(){
@@ -96,9 +105,12 @@ class Fallback extends Conversation
         if($buttonAnswer === 'Telefonnr'){
           $this->say($buttonAnswer .': +49 (0)551 / 39 - 4449');
         }
-        else {
+        elseif($buttonAnswer === 'E-Mail'){
           $this->say($buttonAnswer .': steffen.zenker@uni-goettingen.de');
         }
+        else{
+      $this->repeat();
+      }
       });
     }
     public function henrik(){
@@ -113,9 +125,12 @@ class Fallback extends Conversation
         if($buttonAnswer === 'Telefonnr'){
           $this->say($buttonAnswer .': +49 (0)551 / 39 - 7331');
         }
-        else {
+        elseif($buttonAnswer === 'E-Mail'){
           $this->say($buttonAnswer .': henrik.wesseloh@uni-goettingen.de');
         }
+        else{
+      $this->repeat();
+      }
       });
     }
     public function rafael(){
@@ -130,9 +145,12 @@ class Fallback extends Conversation
         if($buttonAnswer === 'Telefonnr'){
           $this->say($buttonAnswer .': +49 (0)551 / 39 - 4479');
         }
-        else {
+        elseif($buttonAnswer === 'E-Mail'){
           $this->say($buttonAnswer .': r.meyervonwolff@uni-goettingen.de');
         }
+        else{
+      $this->repeat();
+      }
       });
     }
 }
