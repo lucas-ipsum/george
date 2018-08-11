@@ -22,8 +22,7 @@
 <script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
 
-<!--404 Error beheben, Line wird nicht gebraucht-->
-<!--<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>-->
+
 
 
     <!-- icons and theme colors for various OS -->
@@ -61,30 +60,6 @@
             border-color: #2579B5;
         }
     </style>
-
-
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = "https://piwik.gwdg.de/";
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 5);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business");
-} catch( err ) {}
-</script>
-<!-- End Piwik Tag -->
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="/lib/bootstrap/js/html5shiv.min.js"></script>
-    <script src="/lib/bootstrap/js/respond.min.js"></script>
-    <![endif]-->
-
-
 
 
     <!-- Template:  inst_start -->
@@ -469,28 +444,7 @@ Fax. +49 551 39 9735<br>
             </div>
 </footer>
 
-<!--Popup zum Aufmerksam machen-->
-<div class="fixed-bottom">
-  <div class="row">
-    <div class="col-md-7">
-    </div>
-    <div class="col-md-2">
-      <img id="popup" src="https://i.lensdump.com/i/8yyolT.png" style="display:none" />
-    </div>
-  </div>
-</div>
-<noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
-style="border:0" alt=""/></p></noscript>
-
-<!--Script zum Sichtbar machen-->
-<script type="text/javascript">
-setTimeout(function(){
-    document.getElementById('myimage').style.display = 'block';
-},10000);
-</script>
-
-
-<!--Bei Inaktivität soll Feedbackfrage erscheinen-
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
   var inaktZeit = 0;
   var angezeigt = false;
@@ -512,11 +466,12 @@ setTimeout(function(){
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
     if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
-        botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
+        botmanChatWidget.whisper("bananenkanu");
         angezeigt = true;
     }
 }
 </script>
--->
+
+
 
 </body></html>

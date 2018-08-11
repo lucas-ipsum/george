@@ -34,6 +34,7 @@ use App\Http\Controllers\BotManController;
        if($this->zufrieden === 'Ja'){
          $this->say('Danke');
          $this->begruendung = '';
+         $session_id = 111;
 
          //Einspeichern der Feedbackinformationen in DB
          DB::table('Feedback')->insert(
