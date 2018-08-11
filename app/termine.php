@@ -62,6 +62,21 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
     return $model_Termine_Seminar;
     }
     //Alle Termine fürs Seminar im Überblick
+    // Funktion um den Klausurtermin einer Veranstaltung aus der DB zu holen
+    public static function getModel_Klausurtermin($veranstaltung)
+    {
+
+        $model_klausurtermin = DB::table('termine')
+                              ->join('Veranstaltung', 'termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+                              ->where('Veranstaltung.Name', $veranstaltung)
+                              ->where('Termine.Veranstaltungsart','Klausur')
+                              ->select('Termine.Datum1','Termine.Wochentag','Termine.Uhrzeit','Termine.Raum')
+                              ->get();
+
+        return $model_klausurtermin;
+    }
+
+    
     public static function getModel_naechster_Termin_Seminar($seminar, $datum_heute)
       {
             $model_naechster_Termin_Seminar = DB::table('termine')
