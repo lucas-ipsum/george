@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
 use App\mitarbeiter;
 
-
 class Fallback extends Conversation
 {
 
