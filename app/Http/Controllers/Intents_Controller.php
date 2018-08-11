@@ -527,7 +527,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
     //  $veranstaltungsart_Termin = $naechster_termin[0]->Veranstaltungsart;
       $naechster_termin = Carbon::parse($naechster_termin)->format('d.m.y');
 
-      $bot->reply('Der nächste Termin in '. $seminar . ' ist die ' . $veranstaltungsart_Termin .' am ' . $naechster_termin);
+      $bot->reply('Der nächste Termin in '. $seminar .': <br> '. $veranstaltungsart_Termin .' am ' . $naechster_termin);
     }
   }
 //###############################################################
