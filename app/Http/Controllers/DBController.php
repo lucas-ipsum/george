@@ -141,20 +141,12 @@ class DBController extends Controller
         return $dbdatum;
     }
 
-  /*  public static function getDBBetruung($name)
-    {
+    public static function getDBBetreuung($mitarbeiter){
 
-        $dbbetreuung = betreuung::getModelBetreuung($name);
-
-      /*  $ausgabe = array();
-
-        foreach ($dbbetreuung as $person) {
-            $ausgabe[] = $person;
-
-        }
+        $dbbetreuung = betreuung::getModelBetreuung($mitarbeiter);
 
         return $dbbetreuung;
-    } */
+    }
 
   public static function getDBansprechpartner($name){
 

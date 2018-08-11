@@ -10,7 +10,7 @@ class betreuung extends Model
 {
 
     protected $table = 'betreuung';
-
+// Ausgabe aller Ansprechpartner zu einer Veranstaltung
     public static function getModelAnsprechpartner($veranstaltung){
 
     $modelAnsprechpartner = DB::table('betreuung')
@@ -19,24 +19,17 @@ class betreuung extends Model
                      ->select('Betreuung.Betreuer')
                      ->get();
 
-
       return $modelAnsprechpartner;
     }
+  //Ausgabe aller Veranstaltungen eines Mitarbeiters
+    public static function getModelBetreuung($mitarbeiter){
+
+        $modelbetreuung = DB::table('betreuung')
+                ->join('Veranstaltung','Betreuung.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+                ->where('Betreuung.Betreuer', '=', $mitarbeiter)
+                ->select('Veranstaltung.Name')
+                ->get();
+                
+        return $modelbetreuung;
+    }
 }
-
-/*   $json_array = array();
-
-   while($row = mysqli_fetch_assoc($modelAnsprechpartner)){
-     $json_array[] = $row;
-   }
-   $modelAnsprechpartner = json_encode($json_array);
-/*    foreach($modelAnsprechpartner as $betreuer_)
-       {
-         while ($obj = $modelAnsprechpartner -> fetch_object())
-         {
-         $betreuer_ =  ("%s /n, $obj -> Betreuer");
-         }
-       }
-   /*->where('Veranstaltung.Name', '=', $veranstaltung)
-   ->select('Betreuung.Betreuer')
-   ->get();*/

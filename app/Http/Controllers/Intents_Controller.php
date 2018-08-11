@@ -475,10 +475,13 @@ public function veranstaltungen_Mitarbeiter($bot){
     $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
   }
   else {
-    $betreuer = DBController::getDBBetreuung($mitarbeiter);
-  //  $string = array(1,2,3,4,5);
-    $string1 = implode('|',$betreuer);
-    $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': ' . $string1);
+    $betreuer_Veranstaltungen = DBController::getDBBetreuung($mitarbeiter);
+    $ausgabe_betreuer_Veranstaltungen = '';
+    for($index=0; $index < count($betreuer_Veranstaltungen); $index++){
+      $veranstaltung = $betreuer_Veranstaltungen[$index]->Name;
+      $ausgabe_betreuer_Veranstaltungen .= $index+1 .'. '. $veranstaltung . '<br>';
+    }
+    $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': <br>' . $ausgabe_betreuer_Veranstaltungen);  //' . $mitarbeiter . '
   }
 }
 //###############################################################
@@ -491,7 +494,13 @@ public function veranstaltungen_Mitarbeiter_withContext($bot){
     $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': ');
+    $betreuer_Veranstaltungen = DBController::getDBBetreuung($mitarbeiter);
+    $ausgabe_betreuer_Veranstaltungen = '';
+    for($index=0; $index < count($betreuer_Veranstaltungen); $index++){
+      $veranstaltung = $betreuer_Veranstaltungen[$index]->Name;
+      $ausgabe_betreuer_Veranstaltungen .= $index+1 .'. '. $veranstaltung . '<br>';
+    }
+    $bot->reply('Liste Veranstaltungen von ' . $mitarbeiter . ': <br>' . $ausgabe_betreuer_Veranstaltungen);  //' . $mitarbeiter . '
   }
 }
 //###############################################################
