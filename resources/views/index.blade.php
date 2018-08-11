@@ -66,7 +66,7 @@
 <style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
 
 
-<body>
+<body onclick="feedbackTimer()">
 
   <!-- Anpassung des Web Widgets -->
   <script>
@@ -446,12 +446,6 @@ Fax. +49 551 39 9735<br>
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
-document.getElementById.onkeydown = function(event){
-  if (event.keyCode == 13){
-    feedbackTimer();
-  }
-}
-
 function feedbackTimer(){
   var inaktZeit = 0;
   var angezeigt = false;
