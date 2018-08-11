@@ -30,27 +30,28 @@ use App\Http\Controllers\BotManController;
          Button::create('Nein')->value('Nein'),
        ]);
        $this->ask($feedback, function ($answer) {
-           $this->zufrieden = $answer->getValue();
-       if($this->zufrieden === 'Ja'){
+           $this->antwort = $answer->getValue();
+       if($this->antwort === 'Ja'){
          $this->say('Danke');
          $this->begruendung = '';
-         $session_id = 111;
 
          //Einspeichern der Feedbackinformationen in DB
          DB::table('Feedback')->insert(
-          ['User_ID' => $session_id, 'Antwort' => $this->zufrieden, 'begruendung' => $this->begruendung]
+          ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
           );
        }
-       else{
+       elseif($this->antwort === 'Nein'){
          $this->ask('Schade, kannst du mir Feedback geben, damit ich verbessert werden kann?', function ($answer){
           //Speichern des Nutzerinputs
            $this->begruendung = $answer->getText();
-           $session_id = 111;
            $this->say('Danke für dein Feedback!');
            DB::table('Feedback')->insert(
-            ['User_ID' => $session_id, 'Antwort' => $this->zufrieden, 'begruendung' => $this->begruendung]
+            ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
             );
          });
+       }
+       else{
+         $this->say('Entschuldigung, ich verstehe dich nicht..');
        }
       });
    }
