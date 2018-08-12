@@ -10,7 +10,7 @@ use App\Http\Conversations\Feedback;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\feedback;
+//use App\feedback;
 
 class DBController extends Controller
 {
