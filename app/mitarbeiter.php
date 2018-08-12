@@ -34,4 +34,12 @@ class mitarbeiter extends Model
 
     return $AlleMitarbeiter;
     }
+   public static function getModel_Bueroraum($mitarbeiter){
+
+     $model_Bueroraum = DB::table('mitarbeiter')
+                        ->where('Name', $mitarbeiter)
+                        ->value('Bueroraum');
+
+        return $model_Bueroraum;
+   }
 }
