@@ -39,4 +39,13 @@ class mitarbeiter extends Model
 
         return $model_Bueroraum;
    }
+   //Zur Ausgabe der Sprechstunde eines Mitarbeiters
+   public static function getModel_sprechstunde($mitarbeiter){
+
+     $model_Sprechstunde = DB::table('mitarbeiter')
+                          ->where('Name', $mitarbeiter)
+                          ->value('Sprechzeiten');
+
+        return $model_Sprechstunde;
+   }
 }

@@ -22,6 +22,14 @@ $dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForA
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
 //################################################################################################################################################
+//Intent: 1 - sprechzeit_Mitarbeiter
+  $botman->hears('say_sprechzeit_Mitarbeiter', 'App\Http\Controllers\Intents_Controller@sprechzeit_Mitarbeiter')->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 1 - sprechzeit_Mitarbeiter_withContext
+  $botman->hears('say_sprechzeit_Mitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@sprechzeit_Mitarbeiter_withContext')->middleware($dialogflow);
+
+//################################################################################################################################################
 //Intent: 4 - ort_Veranstaltung
 $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
 
@@ -215,6 +223,27 @@ $botman->hears('input.unknown', function ($bot) {
 //Smalltalk
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);
+//Informationen_Chatbot
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Info_Chatbot', 'App\Http\Controllers\Intents_Controller@smalltalk_Info_Chatbot') ->middleware($dialogflow);
+//smalltalk_Herkunft
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Herkunft', 'App\Http\Controllers\Intents_Controller@smalltalk_Herkunft') ->middleware($dialogflow);
+//smalltalk_Chatbot
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Chatbot', 'App\Http\Controllers\Intents_Controller@smalltalk_Chatbot') ->middleware($dialogflow);
+//smalltalk_kannst_du_helfen
+//################################################################################################################################################
+$botman->hears('say_smalltalk_kannst_du_helfen', 'App\Http\Controllers\Intents_Controller@smalltalk_kannst_du_helfen') ->middleware($dialogflow);
+//smalltalk_beschaeftigt
+//################################################################################################################################################
+$botman->hears('say_smalltalk_beschaeftigt', 'App\Http\Controllers\Intents_Controller@smalltalk_beschaeftigt') ->middleware($dialogflow);
+//smalltalk_langweilig
+//################################################################################################################################################
+$botman->hears('say_smalltalk_langweilig', 'App\Http\Controllers\Intents_Controller@smalltalk_langweilig') ->middleware($dialogflow);
+//smalltalk_Willkommen
+//################################################################################################################################################
+$botman->hears('say_smalltalk_Willkommen', 'App\Http\Controllers\Intents_Controller@smalltalk_Willkommen') ->middleware($dialogflow);
 
 //$botman->hears('say_feedback_Intent', 'App\Http\Controllers\Intents_Controller@test') ->middleware($dialogflow);
 /*

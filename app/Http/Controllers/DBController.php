@@ -15,7 +15,12 @@ use Illuminate\Http\Request;
 
 class DBController extends Controller
 {
+    public static function getDB_sprechstunde($mitarbeiter){
 
+        $db_sprechstunde = mitarbeiter::getModel_sprechstunde($mitarbeiter);
+
+          return $db_sprechstunde;
+    }
 
     public static function getDBVorleistung($art)
     {

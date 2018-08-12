@@ -17,6 +17,28 @@ use Carbon\Carbon;
 class Intents_Controller extends Controller
 {
 //###############################################################
+//Intent: 1 - sprechzeit_Mitarbeiter
+  public function sprechzeit_Mitarbeiter($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
+    $this->sprechzeit_Mitarbeiter_Logik($bot, $mitarbeiter);
+  }
+  public function sprechzeit_Mitarbeiter_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+    $this->sprechzeit_Mitarbeiter_Logik($bot, $mitarbeiter);
+  }
+  public function sprechzeit_Mitarbeiter_Logik($bot, $mitarbeiter){
+   //Prompts
+    if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn kein Mitarbeiter eingegeben wurde
+    $bot->reply('Welchen Mitarbeiter möchtest du kontaktieren?');
+    }
+    else{
+      $sprechstunde = DBController::getDB_sprechstunde($mitarbeiter);
+      $bot->reply('Sprechstunde ' . $mitarbeiter . ': <br>' . $sprechstunde);
+    }
+  }
+//###############################################################
 //Intent: 6 - credit_Anzahl
   public function credit_Anzahl($bot){
     $extras = $bot->getMessage()->getExtras();
@@ -681,6 +703,31 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
 //Smalltalk
 //###############################################################
   public function smalltalk_Danke($bot){
-    $bot->reply('Kein Problem ich helfe dir doch gerne!');
+    $bot->reply('Kein Problem ich helfe dir doch gerne! Hast du noch weitere Fragen?');
+  }
+  public function smalltalk_Info_Chatbot($bot){
+    $bot->reply('Ich bin George ein Chatbot von der Professur für Anwendungssysteme
+    und E-Business der Universität Göttingen. Ich bin hier, um deine Fragen zu beantworten.');
+  }
+  public function smalltalk_Herkunft($bot){
+    $bot->reply('Ich bin George und wurde von einem Entwicklerteam der Universität Göttingen,
+    bestehend aus Fabian, Maria, Andreas, Michael und Lucas programmiert.');
+  }
+  public function smalltalk_Chatbot($bot){
+    $bot->reply('Ich bin George ein Chatbot. Ich bin also ein automatisches natürlichsprachliches
+    Informationssystem zur Beantwortung von Fragen in Echtzeit.');
+  }
+  public function smalltalk_kannst_du_helfen($bot){
+    $bot->reply('Natürlich. Wobei kann ich dir denn helfen?');
+  }
+  public function smalltalk_beschaeftigt($bot){
+    $bot->reply('Zur Beantwortung deiner Fragen habe ich immer einen Moment!');
+  }
+  public function smalltalk_langweilig($bot){
+    $bot->reply('Das tut mir leid. Falls du mit meiner Beantwortung deiner Fragen nicht zufrieden bist,
+    gib mir doch bitte ein Feedback.');
+  }
+  public function smalltalk_Willkommen($bot){
+    $bot->reply('Hallo! Wie kann ich dir weiterhelfen?');
   }
 }
