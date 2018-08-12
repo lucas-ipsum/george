@@ -83,7 +83,7 @@ public function termin_Veranstaltung_withContext($bot){
 
     }
   }
-/*
+
   //###############################################################
   //Veranstaltung Termin nächstes Datum
   //###############################################################
@@ -102,6 +102,7 @@ public function termin_Veranstaltung_withContext($bot){
     $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
     $this->naechster_termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
   }
+
   public function naechster_termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart){
 //Prompts
 //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
@@ -113,7 +114,9 @@ public function termin_Veranstaltung_withContext($bot){
     elseif(strlen($veranstaltungsart) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
       $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung, oder dem Tutorium?');
     }
+
     else{
+
       //Antowort
       // Rufe den Datenbankcontroller für die Abfrage auf
       $termine = DBController::getDB_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute);
@@ -126,11 +129,12 @@ public function termin_Veranstaltung_withContext($bot){
 
       $datum = Carbon::parse($datum)->format('d.m.y');
 
-      $bot->reply('Der nächste Termin in '$veranstaltung.' ('. $veranstaltungsart .') findet am '. $datum .' ('.$wochentag.')'.' von '.$uhrzeit.' im Raum: '.$raum.' statt');
+      $bot->reply('Der nächste Termin in '. $veranstaltung.' ('. $veranstaltungsart .') findet am '. $datum .' ('.$wochentag.')'.' von '.$uhrzeit.' im Raum: '.$raum.' statt');
 
       }
+
   }
-*/
+
 //###############################################################
 // Intent: 5 - termin_Klausur
 public function termin_Klausur($bot){

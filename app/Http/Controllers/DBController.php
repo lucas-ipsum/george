@@ -115,10 +115,10 @@ class DBController extends Controller
 //Veranstaltungen
 //######################################################
    // Funktion um nächsten Termin einer Veranstaltung aufzurufen
-    public static function getDB_naechster_Termin_Veranstaltung($veranstaltung,$veranstaltungsart,$datum_heute)//, $datum_heute
+    public static function getDB_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute)
     {
 
-        $db_naechster_Termin_Veranstaltung = termine::getModel_naechster_Termin_Veranstaltung($veranstaltung,$veranstaltungsart,$datum_heute);//, $datum_heute
+        $db_naechster_Termin_Veranstaltung = termine::getModel_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute);
 
         return $db_naechster_Termin_Veranstaltung;
     }

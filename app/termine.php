@@ -107,7 +107,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
 //veranstaltungen
 
             // Funktion um das nächste Datum einer Veranstaltung aus der DB zu holen
-            public static function getModel_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart,$datum_heute)
+            public static function getModel_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute)
             {
 
 
@@ -149,9 +149,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
                   ->where('Veranstaltung.VeranstaltungsArt', $veranstaltungsart)
                   ->select('Termine.Wochentag','Termine.Uhrzeit','Termine.Raum')
                   ->get();
-                  /*->select('Termine.Wochentag');//,'Termine.Raum');,'Termine.Uhrzeit'
-                   ->get();
-*/
+
 
                   return $modeltermin;
             }
