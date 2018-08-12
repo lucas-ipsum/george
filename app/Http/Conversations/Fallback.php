@@ -18,6 +18,7 @@ class Fallback extends Conversation
 
 protected $name;
 
+    //Standard Fallback, falls kein Intent gematcht werden kann
     public function run(){
       $question = Question::create('Entschuldige bitte, ich habe deine Frage nicht verstanden.')
       ->addButtons([
@@ -26,14 +27,17 @@ protected $name;
       ]);
       $this->ask($question, function ($answer) {
           $buttonAnswer = $answer->getValue();
+      //Beispielfragen
       if($buttonAnswer === 'beispiel'){
         $this->say('Was sind die Lernziele in U&M? <br><br>
                     Wird MIS im Sommersemester angeboten? <br><br>
-                    Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
+                    Wie viele Credits bringt das Projektseminar?');
       }
+      //Mitarbeiter kontaktieren
       elseif($buttonAnswer === 'kontakt'){
         $this->contact();
       }
+      //Breakout, falls nicht entsprechend geantwortet wird
       else{
         $this->say("Ich kann dich leider nicht verstehen..");
       }
@@ -42,20 +46,15 @@ protected $name;
 
     //Funktion die anfragt, wecher Mitarbeiter kontaktiert werden sollte
     public function contact(){
-      /* Versuch aus Arrays Button zu erzeugen
-      $alleMitarbeiter = DBController::getAlleMitarbeiter();
-      for($index=0; $index<3; $index++){
-        $mitarbeiter = $alleMitarbeiter[$index]->Name;
-        ->addButtons([
-        Button::create($mitarbeiter)->value($mitarbeiter),*/
-
+      //Schleife in addButtons Methode nicht möglich, deshalb hardcoded
       $name = Question::create('Welchen Mitarbeiter möchtest du kontaktieren?')
         ->addButtons([
+          //Nur 4 Mitarbeiter, um Übersichtlichkeit zu gewährleisten
           Button::create('Pascal Freier')->value('Pascal Freier'),
           Button::create('Steffen Zenker')->value('Steffen Zenker'),
           Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'),
           Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
-          Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter') //Muss noch zu neuer Frage gelinkt werden!*/
+          Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter')
       ]);
       $this->ask($name, function($answer) {
         $name = $answer->getValue();
@@ -68,6 +67,26 @@ protected $name;
         }
     });
   }
+
+  //Buttons für restliche Mitarbeiter
+  public function mehrereMitarbeiter(){
+    $mehrereMitarbeiter = Question::create('Welchen anderen Mitarbeiter möchtest du kontaktieren?')
+      ->addButtons([
+        Button::create('Jasmin Decker')->value('Jasmin Decker'),
+        Button::create('Kevin Koch')->value('Kevin Koch'),
+        Button::create('Dr. Sebastian Hobert')->value('Dr. Sebastian Hobert'),
+        Button::create('Jan Moritz Anke')->value('Jan Moritz Anke'),
+        Button::create('Julian Busse')->value('Julian Busse'),
+        Button::create('Madlen Neubert')->value('Madlen Neubert'),
+    ]);
+    $this->ask($mehrereMitarbeiter, function($answer) {
+      $name = $answer->getValue();
+      $this->name = $name;
+      $this->mitarbeiterKontaktieren($name);
+    });
+  }
+
+    //Funktion um Mitarbeiterfunktionen auszugeben
     public function mitarbeiterKontaktieren($name){
       $this->name = $name;
       $art = Question::create('Wie möchtest du ' . $name . ' kontaktieren?')
@@ -82,22 +101,5 @@ protected $name;
         $this->say($art . ': ' . $kontaktinfo);
       });
 
-    }
-
-    public function mehrereMitarbeiter(){
-      $mehrereMitarbeiter = Question::create('Welchen anderen Mitarbeiter möchtest du kontaktieren?')
-        ->addButtons([
-          Button::create('Jasmin Decker')->value('Jasmin Decker'),
-          Button::create('Kevin Koch')->value('Kevin Koch'),
-          Button::create('Dr. Sebastian Hobert')->value('Dr. Sebastian Hobert'),
-          Button::create('Jan Moritz Anke')->value('Jan Moritz Anke'),
-          Button::create('Julian Busse')->value('Julian Busse'),
-          Button::create('Madlen Neubert')->value('Madlen Neubert'),
-      ]);
-      $this->ask($mehrereMitarbeiter, function($answer) {
-        $name = $answer->getValue();
-        $this->name = $name;
-        $this->mitarbeiterKontaktieren($name);
-      });
     }
 }
