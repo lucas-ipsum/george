@@ -35,7 +35,7 @@ class termine extends Model
                                       ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
                                       ->where('Veranstaltung.Name', $seminar)
                                       ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
-                                      ->select('Termine.Datum', 'Termine.Uhrzeit')
+                                      ->select('Termine.Datum', 'Termine.Uhrzeit', 'Termine.Raum')
                                       ->get();
 
                  return $model_termin_Seminar;

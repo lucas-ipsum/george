@@ -552,41 +552,11 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
           $uhrzeit_Seminar = $termine_Seminar[$index]->Uhrzeit;
           $ausgabe_termin_Seminar .= $datum_Seminar . ' von ' . $uhrzeit_Seminar . '<br>';
       }
-      $bot->reply('Termin: ' . $seminar.' '.'('.$seminar_Veranstaltung.'): <br>'. $ausgabe_termin_Seminar);
+        $ort_Seminar = $termine_Seminar[0]->Raum;
+      $bot->reply('Termin: ' . $seminar.' '.'('.$seminar_Veranstaltung.'): <br>'. $ausgabe_termin_Seminar .'<br>Raum: ' . $ort_Seminar);
     }
   }
-  //###############################################################
-  //Intent 23 - ort_Seminar
-    public function ort_Seminar($bot){
-      $extras = $bot->getMessage()->getExtras();
-      $seminar = $extras['apiParameters']['Seminar'];
-      $seminar_Veranstaltung = $extras['apiParameters']['Seminar_Veranstaltungen'];
-      $this->ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
-}
-      public function ort_Seminar_withContext($bot){
-        $extras = $bot->getMessage()->getExtras();
-        $seminar = $extras['apiContext']['Seminar'];
-        $seminar_Veranstaltung = $extras['apiContext']['Seminar_Veranstaltungen'];
-        $this->ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung);
-    }
-    public function ort_Seminar_Logik($bot, $seminar, $seminar_Veranstaltung){
-    //Prompts
-      if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-        $bot->reply('Für welches Seminar möchtest du diese Information?');
-      }
-      elseif(strlen($seminar_Veranstaltung) === 0){
-        $bot->reply('Für welche der Veranstaltungen möchtest du diese Information? Pflicht-Blockkurs, Abgabe der Seminararbeit, Abgabe der Präsentation oder Präsentation');
-      }
-      else {
-        $raeume_Seminar = DBController::getDBRaumSeminar($seminar, $seminar_Veranstaltung);
-        $ausgabe_raum_Seminar = '';
-       for($index=0; $index < count($raeume_Seminar); $index++){
-          $raum_Seminar = $raeume_Seminar[$index]->Raum;
-          $ausgabe_raum_Seminar .= $raum_Seminar;
-      }
-      $bot->reply($seminar . ' (' . $seminar_Veranstaltung . ') ist im Raum ' .  $ausgabe_raum_Seminar . '.');
-    }
-}
+  
 //###############################################################
 //Intent 24 - themen_Seminar
     public function themen_Seminar($bot){
@@ -667,7 +637,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
               $ausgabe_termine_Seminar = '';
             for($index = 0; $index < count($termine_Seminar); $index++){
               $datum = $termine_Seminar[$index]->Datum;
-              $datum = Carbon::parse($datum)->format('d.m.y');                // Formatiert Datum von DB Format um 
+              $datum = Carbon::parse($datum)->format('d.m.y');                // Formatiert Datum von DB Format um
               $zeit = $termine_Seminar[$index]->Uhrzeit;
               $art = $termine_Seminar[$index]->Veranstaltungsart;
               $artAlt = '';
