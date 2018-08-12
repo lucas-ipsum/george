@@ -31,12 +31,12 @@ class mitarbeiter extends Model
 
           return $model_mitarbeiter_Foto;
     }
-   public function getModel_Bueroraum($mitarbeiter){
+   public static function getModel_Bueroraum($mitarbeiter){
 
      $model_Bueroraum = DB::table('mitarbeiter')
                         ->where('Name', $mitarbeiter)
                         ->value('Bueroraum');
-                        
+
         return $model_Bueroraum;
    }
 }

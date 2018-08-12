@@ -72,7 +72,7 @@ class DBController extends Controller
         return $dbcontact;
     }
     //Bueroraum Mitarbeiters
-    public function getDB_bueroraum($mitarbeiter){
+    public static function getDB_bueroraum($mitarbeiter){
 
       $db_bueroraum = mitarbeiter::getModel_Bueroraum($mitarbeiter);
 
