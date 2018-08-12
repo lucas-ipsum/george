@@ -186,6 +186,15 @@ public function mitarbeiter_Kontakt($bot){
   $extras = $bot->getMessage()->getExtras();
   $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
   $kontaktart = $extras['apiParameters']['Kontaktart'];
+  $this->mitarbeiter_Kontakt_Logik($bot, $mitarbeiter, $kontaktart);
+}
+public function mitarbeiter_Kontakt_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+  $kontaktart = $extras['apiParameters']['Kontaktart'];
+  $this->mitarbeiter_Kontakt_Logik($bot, $mitarbeiter, $kontaktart);
+}
+  public function mitarbeiter_Kontakt_Logik($bot, $mitarbeiter, $kontaktart){
   //Prompts
   if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn kein Mitarbeiter eingegeben wurde
   $bot->reply('Welchen Mitarbeiter möchtest du kontaktieren?');
@@ -441,6 +450,14 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   public function foto_Mitarbeiter($bot){
     $extras = $bot->getMessage()->getExtras();
     $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
+    $this->foto_Mitarbeiter_Logik($bot, $mitarbeiter);
+  }
+  public function foto_Mitarbeiter_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+    $this->foto_Mitarbeiter_Logik($bot, $mitarbeiter);
+  }
+  public function foto_Mitarbeiter_Logik($bot, $mitarbeiter){
 //Prompts
     if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
       $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
@@ -480,6 +497,14 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   public function naechster_Termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();
     $seminar = $extras['apiParameters']['Seminar'];
+    $this->naechster_Termin_Seminar_Logik($bot, $seminar);
+  }
+  public function naechster_Termin_Seminar_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiContext']['Seminar'];
+    $this->naechster_Termin_Seminar_Logik($bot, $seminar);
+  }
+  public function naechster_Termin_Seminar_Logik($bot, $seminar){
 //Datum heute
     $datum_heute = Carbon::now()->format('Y-m-d');            //Carbon holt das aktuelle Datum und bringt es In Format mit dem die DB auch arbeitet
 //Prompts
@@ -621,10 +646,18 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
     }
 
 //###############################################################
-//Intent 26 - terminuebersicht_Seminar_withContext
-        public function terminuebersicht_Seminar_withContext($bot){
-          $extras = $bot->getMessage()->getExtras();
-          $seminar = $extras['apiContext']['Seminar'];
+//Intent 26 - terminuebersicht_Seminar
+  public function terminuebersicht_Seminar($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiParameters']['Seminar'];
+    $this->terminuebersicht_Seminar_Logik($bot, $seminar);
+  }
+  public function terminuebersicht_Seminar_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $seminar = $extras['apiContext']['Seminar'];
+    $this->terminuebersicht_Seminar_Logik($bot, $seminar);
+  }
+  public function terminuebersicht_Seminar_Logik($bot, $seminar){
         //Prompts
           if(strlen($seminar) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
             $bot->reply('Für welches Seminar möchtest du diese Information?');
@@ -634,6 +667,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
               $ausgabe_termine_Seminar = '';
             for($index = 0; $index < count($termine_Seminar); $index++){
               $datum = $termine_Seminar[$index]->Datum;
+              $datum = Carbon::parse($datum)->format('d.m.y');                // Formatiert Datum von DB Format um 
               $zeit = $termine_Seminar[$index]->Uhrzeit;
               $art = $termine_Seminar[$index]->Veranstaltungsart;
               $artAlt = '';
@@ -674,6 +708,14 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   public function beschreibung_Projekt($bot){
     $extras = $bot->getMessage()->getExtras();
     $projekt = $extras['apiParameters']['Projekt'];
+    $this->beschreibung_Projekt_Logik($bot, $projekt);
+  }
+  public function beschreibung_Projekt_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $projekt = $extras['apiContext']['Projekt'];
+    $this->beschreibung_Projekt_Logik($bot, $projekt);
+  }
+  public function beschreibung_Projekt_Logik($bot, $projekt){
   //Prompts
     if(strlen($projekt) === 0) {
       $bot->reply('Zu welchem Projekt möchtest du weitere Informationen haben?');
@@ -687,10 +729,19 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   public function kontaktperson_Projekt($bot){
     $extras = $bot->getMessage()->getExtras();
     $projekt = $extras['apiParameters']['Projekt'];
+    $this->kontaktperson_Projekt_Logik($bot, $projekt);
+  }
+  public function kontaktperson_Projekt_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $projekt = $extras['apiContext']['Projekt'];
+    $this->kontaktperson_Projekt_Logik($bot, $projekt);
+  }
+  public function kontaktperson_Projekt_Logik($bot, $projekt){
   //Prompts
     if(strlen($projekt) === 0) {
       $bot->reply('Zu welchem Projekt möchtest du einen Mitarbeiter kontaktieren?');
     }
+    else{
     $projekt_Kontaktperson = DBController::getDBprojektKontaktperson($projekt);
     $mail = $projekt_Kontaktperson[0]->Kontakt_Email;
     $tel = $projekt_Kontaktperson[0]->Kontakt_Telefonnummer;
@@ -698,6 +749,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
 
     $bot->reply('Die Kontaktperson im Projekt ' .$projekt. ' ist ' . $name . '<br><br>'.
                 'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
+      }
     }
 //###############################################################
 //Smalltalk

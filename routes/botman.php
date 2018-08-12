@@ -30,6 +30,11 @@ $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an
   $botman->hears('say_sprechzeit_Mitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@sprechzeit_Mitarbeiter_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 2 - kontakt_Mitarbeiter
+    $botman->hears('say_mitarbeiter_Kontakt', 'App\Http\Controllers\Intents_Controller@mitarbeiter_Kontakt') ->middleware($dialogflow);
+    $botman->hears('say_mitarbeiter_Kontakt_withContext', 'App\Http\Controllers\Intents_Controller@mitarbeiter_Kontakt_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
 //Intent: 4 - ort_Veranstaltung
 $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
 
@@ -60,10 +65,6 @@ $botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller
 //################################################################################################################################################
 //Intent: 6 - credit_Anzahl_withContext
   $botman->hears('say_credit_Anzahl_withContext', 'App\Http\Controllers\Intents_Controller@credit_Anzahl_withContext') ->middleware($dialogflow);
-
-//################################################################################################################################################
-//Intent: 2 - kontakt_Mitarbeiter
-  $botman->hears('say_mitarbeiter_Kontakt', 'App\Http\Controllers\Intents_Controller@mitarbeiter_Kontakt') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 8 - vorleistung_Klausur
@@ -166,16 +167,16 @@ $botman->hears('input.unknown', function ($bot) {
 //################################################################################################################################################
 //Intent: 21 - foto_Mitarbeiter
   $botman->hears('say_foto_Mitarbeiter', 'App\Http\Controllers\Intents_Controller@foto_Mitarbeiter') ->middleware($dialogflow);
+  $botman->hears('say_foto_Mitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@foto_Mitarbeiter_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 7 - naechster_Termin_Seminar
   $botman->hears('say_naechster_Termin_Seminar', 'App\Http\Controllers\Intents_Controller@naechster_Termin_Seminar') ->middleware($dialogflow);
+  $botman->hears('say_naechster_Termin_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@naechster_Termin_Seminar_withContext') ->middleware($dialogflow);
+
 //################################################################################################################################################
 //Intent: 22 - termin_Seminar
   $botman->hears('say_termin_Seminar', 'App\Http\Controllers\Intents_Controller@termin_Seminar') ->middleware($dialogflow);
-
-//################################################################################################################################################
-//Intent: 22 - termin_Seminar_withContext
   $botman->hears('say_termin_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@termin_Seminar_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
@@ -199,24 +200,24 @@ $botman->hears('input.unknown', function ($bot) {
   $botman->hears('say_themen_Seminar_nachMitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@themen_Seminar_nachMitarbeiter_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 26 - terminuebersicht_Seminar_withContext
+//Intent: 26 - terminuebersicht_Seminar
+  $botman->hears('say_terminuebersicht_Seminar', 'App\Http\Controllers\Intents_Controller@terminuebersicht_Seminar') ->middleware($dialogflow);
   $botman->hears('say_terminuebersicht_Seminar_withContext', 'App\Http\Controllers\Intents_Controller@terminuebersicht_Seminar_withContext') ->middleware($dialogflow);
 //################################################################################################################################################
 //Projekte
 //################################################################################################################################################
 //Intent: 27 - beschreibung_Projekt
   $botman->hears('say_beschreibung_Projekt', 'App\Http\Controllers\Intents_Controller@beschreibung_Projekt') ->middleware($dialogflow);
+  $botman->hears('say_beschreibung_Projekt_withContext', 'App\Http\Controllers\Intents_Controller@beschreibung_Projekt_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 28 - kontaktperson_Projekt
   $botman->hears('say_kontaktperson_Projekt', 'App\Http\Controllers\Intents_Controller@kontaktperson_Projekt') ->middleware($dialogflow);
+  $botman->hears('say_kontaktperson_Projekt_withContext', 'App\Http\Controllers\Intents_Controller@kontaktperson_Projekt_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 29 - bueroraum
   $botman->hears('say_bueroraum', 'App\Http\Controllers\Intents_Controller@bueroraum') ->middleware($dialogflow);
-
-//################################################################################################################################################
-//Intent: 29 - bueroraum
   $botman->hears('say_bueroraum_withContext', 'App\Http\Controllers\Intents_Controller@bueroraum_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
