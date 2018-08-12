@@ -82,7 +82,7 @@ class DBController extends Controller
     public static function getDB_bueroraum($mitarbeiter){
 
       $db_bueroraum = mitarbeiter::getModel_Bueroraum($mitarbeiter);
-
+    }
 
     // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
     public static function getDBAnmeldung($name)
