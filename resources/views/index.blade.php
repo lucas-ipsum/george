@@ -449,11 +449,14 @@ Fax. +49 551 39 9735<br>
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
-
 //Sobald auf Website geklickt wurde, soll Timer loslaufen
-$("body").click(function(){
-    feedbackTimer();
-});
+var angezeigt = false;
+if(angezeigt == false){
+  $("body").click(function(){
+      feedbackTimer(angezeigt);
+      angezeigt = true;
+  });
+}
 </script>
 
 

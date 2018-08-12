@@ -1,6 +1,6 @@
-function feedbackTimer(){
+function feedbackTimer(angezeigt){
   var inaktZeit = 0;
-  var angezeigt = false;
+  var angezeigt = angezeigt;
   $(document).ready(function () {
 
   //Erhöhe den Inaktivitätszähler jede Sekunde
@@ -18,7 +18,7 @@ function feedbackTimer(){
 //Timererhöhung und Ausgabe der Feedbackfrage
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 60 && angezeigt == false) { //60 Sekunden und noch nicht angezeigt worden
+    if (inaktZeit == 90 && angezeigt == false) { //90 Sekunden und noch nicht angezeigt worden
         botmanChatWidget.whisper("bananenkanu");
         angezeigt = true;
     }
