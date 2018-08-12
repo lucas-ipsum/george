@@ -24,6 +24,10 @@ html, body {
     margin: 0;
 }
 
+.chat a{
+  color: #FFFFFF;
+}
+
 .chat li {
     padding: 8px;
     padding: 0.5rem;
@@ -207,4 +211,3 @@ div.loading-dots .dot-lg {
     cursor: pointer;
     text-align: center;
 }
-
