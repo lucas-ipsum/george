@@ -504,7 +504,7 @@ public function abschlussarbeiten_Mitarbeiter_withContext($bot){
   //###############################################################
   //Intent 21 - projekte_Lehrstuhl
   public function test_Intent($bot){
-    $message = OutgoingMessage::create('Test')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/482ba95f3c327436fe9593a18587d4c3.jpg'));
+    $message = OutgoingMessage::create('<a href="https://www.uni-goettingen.de/de/bachelor-studiengang+in+wirtschaftsinformatik/23246.html" target="_blank">Nähere Informationen</a>')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));
 	   $bot->reply($message);
    }
 //###############################################################
