@@ -204,6 +204,14 @@ $botman->hears('input.unknown', function ($bot) {
   $botman->hears('say_kontaktperson_Projekt', 'App\Http\Controllers\Intents_Controller@kontaktperson_Projekt') ->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent: 29 - bueroraum
+  $botman->hears('say_bueroraum', 'App\Http\Controllers\Intents_Controller@bueroraum') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 29 - bueroraum
+  $botman->hears('say_bueroraum_withContext', 'App\Http\Controllers\Intents_Controller@bueroraum_withContext') ->middleware($dialogflow);
+
+//################################################################################################################################################
 //Smalltalk
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);

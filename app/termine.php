@@ -35,7 +35,7 @@ class termine extends Model
                                       ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
                                       ->where('Veranstaltung.Name', $seminar)
                                       ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
-                                      ->select('Termine.Datum1', 'Termine.Uhrzeit')
+                                      ->select('Termine.Datum', 'Termine.Uhrzeit')
                                       ->get();
 
                  return $model_termin_Seminar;
@@ -74,7 +74,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
                               ->join('Veranstaltung', 'termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
                               ->where('Veranstaltung.Name', $veranstaltung)
                               ->where('Termine.Veranstaltungsart','Klausur')
-                              ->select('Termine.Datum1','Termine.Wochentag','Termine.Uhrzeit','Termine.Raum')
+                              ->select('Termine.Datum','Termine.Wochentag','Termine.Uhrzeit','Termine.Raum')
                               ->get();
 
         return $model_klausurtermin;
@@ -86,8 +86,8 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
             $model_naechster_Termin_Seminar = DB::table('termine')
             ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
             ->where('Veranstaltung.Name', $seminar)
-            ->where('Termine.Datum1', '>=', $datum_heute)
-            ->select('Termine.Datum1')
+            ->where('Termine.Datum', '>=', $datum_heute)
+            ->select('Termine.Datum')
             ->get();
 
           return $model_naechster_Termin_Seminar;
@@ -99,7 +99,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
                 $model_art_Veranstaltung_nachTermin = DB::table('termine')
                 ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
                 ->where('Veranstaltung.Name', $seminar)
-                ->where('Termine.Datum1', '=', $termin_veranstaltung)
+                ->where('Termine.Datum', '=', $termin_veranstaltung)
                 ->value('Termine.Veranstaltungsart');
 
 

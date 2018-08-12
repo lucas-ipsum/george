@@ -16,7 +16,7 @@ class betreuung extends Model
     $modelAnsprechpartner = DB::table('betreuung')
                      ->join('Veranstaltung','Betreuung.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
                      ->where('Veranstaltung.Name', '=', $veranstaltung)
-                     ->select('Betreuung.Betreuer')
+                     ->select('Betreuung.Betreuer', 'Veranstaltung.Verantwortlicher')
                      ->get();
 
       return $modelAnsprechpartner;
@@ -29,7 +29,7 @@ class betreuung extends Model
                 ->where('Betreuung.Betreuer', '=', $mitarbeiter)
                 ->select('Veranstaltung.Name')
                 ->get();
-                
+
         return $modelbetreuung;
     }
 }

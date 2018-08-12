@@ -17,12 +17,11 @@ class mitarbeiter extends Model
     // Funktion um die Anmeldung einer Veranstaltung aus der DB zu holen
     public static function getModelKontaktart($kontaktart, $mitarbeiter)
     {
-
         $modelcontact = DB::table('mitarbeiter')
                               ->where('Name', $mitarbeiter)
                               ->value($kontaktart);
 
-    return $modelcontact;
+          return $modelcontact;
     }
     public static function getModel_foto_Mitarbeiter($mitarbeiter){
 
@@ -32,4 +31,12 @@ class mitarbeiter extends Model
 
           return $model_mitarbeiter_Foto;
     }
+   public function getModel_Bueroraum($mitarbeiter){
+
+     $model_Bueroraum = DB::table('mitarbeiter')
+                        ->where('Name', $mitarbeiter)
+                        ->value('Bueroraum');
+                        
+        return $model_Bueroraum;
+   }
 }

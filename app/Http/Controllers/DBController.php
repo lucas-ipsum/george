@@ -6,6 +6,7 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\projekte;
+use App\themen_fuer_abschlussarbeiten;
 use App\themen_im_bachelorseminar;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
@@ -63,15 +64,20 @@ class DBController extends Controller
         return $dbturnus;
     }
 
-
-    public static function getDBKontaktart($art, $name)
+// Kontakt Mitarbeiter
+    public static function getDBKontaktart($kontaktart, $mitarbeiter)
     {
-
-        $dbcontact = mitarbeiter::getModelKontaktart($art, $name);
+        $dbcontact = mitarbeiter::getModelKontaktart($kontaktart, $mitarbeiter);
 
         return $dbcontact;
     }
+    //Bueroraum Mitarbeiters
+    public function getDB_bueroraum($mitarbeiter){
 
+      $db_bueroraum = mitarbeiter::getModel_Bueroraum($mitarbeiter);
+
+      return $db_bueroraum;
+    }
 
     // Funktion um die Anmeldung einer Veranstaltung aus dem model zu holen
     public static function getDBAnmeldung($name)
@@ -154,6 +160,13 @@ class DBController extends Controller
 
         return $dbansprechpartner;
 
+  }
+  //Zum abfragen der Themen fuer Abschlussarbeiten
+  public static function getDB_themen_Abschlussarbeit($mitarbeiter){
+
+    $db_themen_Abschlussarbeit = themen_fuer_abschlussarbeiten::getModelThemen_Abschlussarbeit($mitarbeiter);
+
+      return $db_themen_Abschlussarbeit;
   }
 //#########################################################################################
 //Seminare

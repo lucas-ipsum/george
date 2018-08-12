@@ -1,12 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\veranstaltung;
-use App\mitarbeiter;
-use App\betreuung;
-use App\termine;
-use App\projekte;
-use App\themen_im_bachelorseminar;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Http\Controllers\Conversations;
 use App\Http\Controllers\Controller;
@@ -15,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Storages\Storage;
-//use BotMan\BotMan\Middleware\Dialogflow;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\BotMan\Messages\Attachments\Image;
 use Carbon\Carbon;
@@ -134,7 +127,7 @@ public function termin_Klausur_Logik($bot, $veranstaltung){
       $ausgabe_klausuren='';
       for($index=0; $index < count($klausurtermin); $index++)
       {
-        $datum = $klausurtermin[$index]->Datum1;
+        $datum = $klausurtermin[$index]->Datum;
         $wochentag = $klausurtermin[$index]->Wochentag;
         $uhrzeit= $klausurtermin[$index]->Uhrzeit;
         $raum = $klausurtermin[$index]->Raum;
@@ -179,7 +172,7 @@ public function mitarbeiter_Kontakt($bot){
           $bot->reply('Wie möchtest du ' . $mitarbeiter . ' kontaktieren?');
   }
   else {
-        $Contact = 'pfreier@uni-goettingen.de';//DBController::getDBKontaktart($kontaktart, $mitarbeiter);
+        $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
         $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: ' . $Contact . '.');
         }
   }
@@ -205,11 +198,12 @@ public function mitarbeiter_Kontakt($bot){
    else {
      $mitarbeiter = DBController::getDBansprechpartner($veranstaltung);
      $ausgabe = '';
+     $verantwortlicher = $mitarbeiter[0]->Verantwortlicher;
    for($index=0; $index < count($mitarbeiter); $index++){
-     $test = $mitarbeiter[$index]->Betreuer;
-     $ausgabe .= $test . '<br> ';
+     $betreuer = $mitarbeiter[$index]->Betreuer;
+     $ausgabe .= $betreuer . '<br> ';
    }
-    $bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $ausgabe);
+    $bot->reply('Ansprechpartner für ' . $veranstaltung . ': <br>' . $ausgabe . '<br> Verantwortlich: <br>' . $verantwortlicher);
    }
 }
 
@@ -394,26 +388,32 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   }
 }
 //###############################################################
-//Intent 19 - abschlussarbeiten_Mitarbeiter
-public function abschlussarbeiten_Mitarbeiter($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
-  $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
-}
-public function abschlussarbeiten_Mitarbeiter_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
-  $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
-}
-public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
-//Prompts
-  if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
+//Intent 19 - themen_Abschlussarbeit
+  public function abschlussarbeiten_Mitarbeiter($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
+    $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
   }
-  else {
-    $bot->reply('Abschlussarbeiten von ' . $mitarbeiter . ': ');
+  public function abschlussarbeiten_Mitarbeiter_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+    $this->abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter);
   }
-}
+  public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
+    //Prompts
+    if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
+    }
+    else{
+      $themen_Abschlussarbeit = DBController::getDB_themen_Abschlussarbeit($mitarbeiter);
+      $ausgabe_themen_Abschlussarbeit = '';
+        for($index=0; $index < count($themen_Abschlussarbeit); $index++){
+            $thema_Abschlussarbeit = $themen_Abschlussarbeit[0]->Thema;
+            $ausgabe_themen_Abschlussarbeit .= $index+1 . '. ' . $thema_Abschlussarbeit . '<br>';
+        }
+      $bot->reply('Themen der Abschlussarbeiten betreut von ' . $mitarbeiter . ': <br>' . $ausgabe_themen_Abschlussarbeit);
+    }
+  }
   //###############################################################
   //Intent 21 - foto_Mitarbeiter
   public function foto_Mitarbeiter($bot){
@@ -431,6 +431,29 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
    }
   }
 //###############################################################
+//Intent 29 - bueroraum
+  public function bueroraum($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiParameters']['Mitarbeiter'];
+    $this->bueroraum_Logik($bot, $mitarbeiter);
+  }
+  public function bueroraum_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $mitarbeiter = $extras['apiContext']['Mitarbeiter'];
+    $this->bueroraum_Logik($bot, $mitarbeiter);
+  }
+  public function bueroraum_Logik($bot, $mitarbeiter){
+  //Prompts
+    if(strlen($mitarbeiter) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welchen Mitarbeiter möchten Sie diese Information?');
+    }
+    else{
+      $bueroraum = DBController::getDB_bueroraum($mitarbeiter);
+
+      $bot->reply('Das Büro von ' . $mitarbeiter . ' ist im Raum ' . $bueroraum);
+    }
+  }
+//###############################################################
 //Intent 7 - naechster_Termin_Seminar
   public function naechster_Termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();
@@ -443,7 +466,7 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
     }
     else{
       $naechster_termin = DBController::getDB_naechster_Termin_seminar($seminar, $datum_heute);
-      $naechster_termin = $naechster_termin[0]->Datum1;
+      $naechster_termin = $naechster_termin[0]->Datum;
       $veranstaltungsart_Termin = DBController::getDB_art_Veranstaltung_nachTermin($seminar, $naechster_termin);
     //  $veranstaltungsart_Termin = $naechster_termin[0]->Veranstaltungsart;
       $naechster_termin = Carbon::parse($naechster_termin)->format('d.m.y');
@@ -477,7 +500,7 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
         $termine_Seminar = DBController::getDB_termin_Seminar($seminar, $seminar_Veranstaltung);
         $ausgabe_termin_Seminar = '';
        for($index=0; $index < count($termine_Seminar); $index++){
-          $datum_Seminar = $termine_Seminar[$index]->Datum1;
+          $datum_Seminar = $termine_Seminar[$index]->Datum;
           $datum_Seminar = Carbon::parse($datum_Seminar)->format('d.m.y');
           $uhrzeit_Seminar = $termine_Seminar[$index]->Uhrzeit;
           $ausgabe_termin_Seminar .= $datum_Seminar . ' von ' . $uhrzeit_Seminar . '<br>';
@@ -634,7 +657,6 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
       $bot->reply('Zu welchem Projekt möchtest du weitere Informationen haben?');
     }
     $projekt_Beschreibung = DBController::getDBprojektBeschreibung($projekt);
-    //$test = (string)$projekt_Beschreibung;
     $bot->reply($projekt_Beschreibung);
   }
 
