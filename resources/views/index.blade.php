@@ -66,7 +66,7 @@
 <style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
 
 
-<body onclick="feedbackTimer()">
+<body>
 
   <!-- Anpassung des Web Widgets -->
   <script>
@@ -446,6 +446,12 @@ Fax. +49 551 39 9735<br>
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
+
+//Sobald auf Website geklickt wurde, soll Timer loslaufen
+$("body").click(function(){
+    feedbackTimer();
+});
+
 function feedbackTimer(){
   var inaktZeit = 0;
   var angezeigt = false;
@@ -466,7 +472,7 @@ function feedbackTimer(){
 //Timererhöhung und Ausgabe der Feedbackfrage
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 5 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
+    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
         botmanChatWidget.whisper("bananenkanu");
         angezeigt = true;
     }
