@@ -396,7 +396,7 @@ public function klausur_Anmeldung($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Klausuranmeldung in ' . $veranstaltung . ': https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
+    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  <a href="https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp" target="_blank">FlexNow-Anmeldung</a>');
   }
 }
 //###############################################################
@@ -409,7 +409,7 @@ public function klausur_Anmeldung_withContext($bot){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
+    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  <a href="https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp" target="_blank">FlexNow-Anmeldung</a>');
   }
 }
 //###############################################################
@@ -423,7 +423,7 @@ public function gesamtueberblick_Veranstaltung($bot){
   }
   else {
     $ueberblick = DBController::getDBUeberblick($veranstaltung);
-    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
+    $bot->reply('Die Zusammenfassung für Organisatorisches von ' . $veranstaltung . ' ist unter diesem <a href="'.$ueberblick.'" target="_blank">Link</a> verfügbar');
   }
 }
 //###############################################################
@@ -437,7 +437,7 @@ public function gesamtueberblick_Veranstaltung_withContext($bot){
   }
   else {
     $ueberblick = DBController::getDBUeberblick($veranstaltung);
-    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
+    $bot->reply('Die Zusammenfassung für Organisatorisches von ' . $veranstaltung . ' ist unter diesem <a href="'.$ueberblick.'" target="_blank">Link</a> verfügbar');
   }
 }
 //###############################################################
