@@ -22,12 +22,6 @@ $dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForA
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
 //################################################################################################################################################
-//Intent: 4 - ort_Veranstaltung
-$botman->hears('say_Ort_Veranstaltung', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung')->middleware($dialogflow);
-
-//################################################################################################################################################
-//Intent: 4 - ort_Veranstaltung_withContext
-  $botman->hears('say_Ort_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@ort_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 3 - termin_Veranstaltung
@@ -202,6 +196,16 @@ $botman->hears('input.unknown', function ($bot) {
 //################################################################################################################################################
 //Intent: 28 - kontaktperson_Projekt
   $botman->hears('say_kontaktperson_Projekt', 'App\Http\Controllers\Intents_Controller@kontaktperson_Projekt') ->middleware($dialogflow);
+
+
+  //################################################################################################################################################
+  //Intent:30 -naechster_Termin_Veranstaltung
+  //################################################################################################################################################
+  $botman->hears('say_naechster_Termin_Veranstaltung','App\Http\Controllers\Intents_Controller@naechster_Termin_Veranstaltung')->middleware($dialogflow);
+  //################################################################################################################################################
+  //Intent:30 -naechster_Termin_Veranstaltung_withContext
+  //################################################################################################################################################
+  $botman->hears('say_naechster_Termin_Veranstaltung_withContext','App\Http\Controllers\Intents_Controller@naechster_Termin_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
 //Smalltalk

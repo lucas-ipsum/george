@@ -111,35 +111,36 @@ class DBController extends Controller
 
         return $dbcredits;
     }
-
-    // Funktion um den Raum einer Veranstaltung aus dem model zu holen
-    public static function getDBRaum($name, $art)
+//######################################################
+//Veranstaltungen
+//######################################################
+   // Funktion um nächsten Termin einer Veranstaltung aufzurufen
+    public static function getDB_naechster_Termin_Veranstaltung($veranstaltung,$veranstaltungsart,$datum_heute)//, $datum_heute
     {
 
-        $dbraum = veranstaltung::getModelRaum($name, $art);
+        $db_naechster_Termin_Veranstaltung = termine::getModel_naechster_Termin_Veranstaltung($veranstaltung,$veranstaltungsart,$datum_heute);//, $datum_heute
 
-        return $dbraum;
+        return $db_naechster_Termin_Veranstaltung;
     }
 
-
-    // Funktion um die Uhrzeit einer Veranstaltung aus dem model zu holen
-    public static function getDBUhrzeit($name, $art)
+//Hole nur Wochentag Uhrzeit und Raumnummer
+    public static function getDBTermin($veranstaltung, $veranstaltungsart)
     {
 
-        $dbuhrzeit = veranstaltung::getModelUhrzeit($name, $art);
+        $dbTermin_Veranstaltung = termine::getModelTermin($veranstaltung, $veranstaltungsart);
 
-        return $dbuhrzeit;
+        return $dbTermin_Veranstaltung;
     }
-
-
-    // Funktion um das Datum einer Veranstaltung aus der DB zu holen
-    public static function getDBDatum($name, $art)
-    {
-
-        $dbdatum = veranstaltung::getModelDatum($name, $art);
-
-        return $dbdatum;
-    }
+//Art nach Datum
+/*
+   public static function getDBArtderVeranstaltung($veranstaltung,$veranstaltungsart,$datum)
+   {
+     $dbArt_nachTermin = termine::getModelArtderVeranstaltung($veranstaltung,$veranstaltungsart,$datum);
+     return $dbArt_nachTermin;
+   }
+*/
+//#############
+//betreuung
 
     public static function getDBBetreuung($mitarbeiter){
 

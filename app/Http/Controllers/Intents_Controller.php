@@ -46,39 +46,7 @@ class Intents_Controller extends Controller
     }
   }
 //###############################################################
-//Intent: 4 - ort_Veranstaltung
-public function ort_Veranstaltung($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
-  $this->ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
-}
-public function ort_Veranstaltung_withContext($bot){
-  $extras = $bot->getMessage()->getExtras();
-  $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
-  $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
-  $this->ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
-}
-  public function ort_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart){
-  //Prompts
-  //Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
-  if(strlen($veranstaltung) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
-  }
-  elseif(strlen($veranstaltungsart) ===  0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
-    $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung oder dem Tutorium?');
-  }
-  else{
-      $raum = DBController::getDBRaum($veranstaltung, $veranstaltungsart);
-      if(strlen($raum) === 0) {
-        $bot->reply('Diese Veranstaltungsart ist in ' . $veranstaltung . ' leider nicht verfügbar.');
-      }
-      else{
-        $bot->reply($veranstaltung . ' (' . $veranstaltungsart . ') ist im Raum ' .  $raum . '.');  //Platzhalter für Raum abfragen, der aus DB geholt wird
-      }
-  }
-}
-
+//Veranstaltung Termin ohne Datum
 //###############################################################
 //Intent: 3 - veranstaltung_Termin
 public function termin_Veranstaltung($bot){
@@ -107,11 +75,62 @@ public function termin_Veranstaltung_withContext($bot){
     else{
       //Antowort
       // Rufe den Datenbankcontroller für die Abfrage auf
-      $uhrzeit = DBController::getDBUhrzeit($veranstaltung, $veranstaltungsart);
-      $datum = DBController::getDBDatum($veranstaltung, $veranstaltungsart);
-      $bot->reply($veranstaltung.' '.'('.$veranstaltungsart.') findet '.$datum.' um '.$uhrzeit.' statt');  //Platzhalter für Raum abfragen, der aus DB geholt wird
+      $termine = DBController::getDBTermin($veranstaltung, $veranstaltungsart);
+      $wochentag=$termine[0]->Wochentag;
+      $uhrzeit=$termine[0]->Uhrzeit;
+      $raum=$termine[0]->Raum;
+      $bot->reply($veranstaltung.' ('.$veranstaltungsart.') findet am '.$wochentag.' von '.$uhrzeit.' im Raum: '.$raum.' statt');
+
     }
   }
+/*
+  //###############################################################
+  //Veranstaltung Termin nächstes Datum
+  //###############################################################
+  //Intent: 30 - naechster_Termin_Veranstaltung
+  public function naechster_Termin_Veranstaltung($bot){
+    //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
+    $extras = $bot->getMessage()->getExtras();
+    $veranstaltung = $extras['apiParameters']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+    $veranstaltungsart = $extras['apiParameters']['Veranstaltungsart'];
+    $this->naechster_termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
+  }
+  public function naechster_termin_Veranstaltung_withContext($bot){
+    //Aufruf der Extras der Dialogflow Middleware. Hier auf Elemente des JSONs von Dialogflow zugegriffen werden
+    $extras = $bot->getMessage()->getExtras();
+    $veranstaltung = $extras['apiContext']['Veranstaltung']; //Sucht nach Veranstaltung in Paramtern von Dialogflow und speichert sie in Variable
+    $veranstaltungsart = $extras['apiContext']['Veranstaltungsart'];
+    $this->naechster_termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart);
+  }
+  public function naechster_termin_Veranstaltung_Logik($bot, $veranstaltung, $veranstaltungsart){
+//Prompts
+//Hier wird geprüft, ob alle nötigen Informationen vorhanden sind und ob sie aus dem Context aufgegriffen werden können
+    $datum_heute = Carbon::now()->format('Y-m-d');
+
+    if(strlen($veranstaltung) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
+    }
+    elseif(strlen($veranstaltungsart) === 0) {       //Dieser Fall wird aufgerufen, wenn die Veranstaltung nicht eingegeben wurde
+      $bot->reply('Möchten Sie diese Information zur Vorlesung, Übung, oder dem Tutorium?');
+    }
+    else{
+      //Antowort
+      // Rufe den Datenbankcontroller für die Abfrage auf
+      $termine = DBController::getDB_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute);
+      $wochentag=$termine[0]->Wochentag;
+      $uhrzeit=$termine[0]->Uhrzeit;
+      $raum=$termine[0]->Raum;
+      $datum=$termine[0]->Datum;
+
+    //  $art_der_Veranstaltung = DBController::getDBArtderVeranstaltung($veranstaltung,$veranstaltungsart,$datum);
+
+      $datum = Carbon::parse($datum)->format('d.m.y');
+
+      $bot->reply('Der nächste Termin in '$veranstaltung.' ('. $veranstaltungsart .') findet am '. $datum .' ('.$wochentag.')'.' von '.$uhrzeit.' im Raum: '.$raum.' statt');
+
+      }
+  }
+*/
 //###############################################################
 // Intent: 5 - termin_Klausur
 public function termin_Klausur($bot){
@@ -134,7 +153,7 @@ public function termin_Klausur_Logik($bot, $veranstaltung){
       $ausgabe_klausuren='';
       for($index=0; $index < count($klausurtermin); $index++)
       {
-        $datum = $klausurtermin[$index]->Datum1;
+        $datum = $klausurtermin[$index]->Datum;
         $wochentag = $klausurtermin[$index]->Wochentag;
         $uhrzeit= $klausurtermin[$index]->Uhrzeit;
         $raum = $klausurtermin[$index]->Raum;
@@ -443,7 +462,7 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
     }
     else{
       $naechster_termin = DBController::getDB_naechster_Termin_seminar($seminar, $datum_heute);
-      $naechster_termin = $naechster_termin[0]->Datum1;
+      $naechster_termin = $naechster_termin[0]->Datum;
       $veranstaltungsart_Termin = DBController::getDB_art_Veranstaltung_nachTermin($seminar, $naechster_termin);
     //  $veranstaltungsart_Termin = $naechster_termin[0]->Veranstaltungsart;
       $naechster_termin = Carbon::parse($naechster_termin)->format('d.m.y');
@@ -477,7 +496,7 @@ public function abschlussarbeiten_Mitarbeiter_Logik($bot, $mitarbeiter){
         $termine_Seminar = DBController::getDB_termin_Seminar($seminar, $seminar_Veranstaltung);
         $ausgabe_termin_Seminar = '';
        for($index=0; $index < count($termine_Seminar); $index++){
-          $datum_Seminar = $termine_Seminar[$index]->Datum1;
+          $datum_Seminar = $termine_Seminar[$index]->Datum;
           $datum_Seminar = Carbon::parse($datum_Seminar)->format('d.m.y');
           $uhrzeit_Seminar = $termine_Seminar[$index]->Uhrzeit;
           $ausgabe_termin_Seminar .= $datum_Seminar . ' von ' . $uhrzeit_Seminar . '<br>';
