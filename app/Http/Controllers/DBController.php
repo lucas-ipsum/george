@@ -10,6 +10,7 @@ use App\Http\Conversations\Feedback;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\feedback;
 
 class DBController extends Controller
 {
@@ -207,9 +208,9 @@ class DBController extends Controller
     }
 
     //Funktion um Feedback in DB zu speichern
-    public static function getModelFeedback($u_id,$antwort,$begründung)
+    public static function setFeedback($antwort,$begruendung)
     {
-      return $db_deedback = feedback::getModelFeedback($u_id,$antwort,$begründung);
+      $db_feedback = feedback::setModelFeedback($antwort,$begruendung);
     }
 
 
