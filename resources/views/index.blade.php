@@ -51,6 +51,9 @@
     <!-- Script fuer responsive Navigation -->
     <script src="js/navigation.js"></script>
 
+    <!--Feedback Timer-->
+    <script src="js/fbTimer.js"></script>
+
     <!-- Faculty color -->
     <style>
         #navigation-affix, #navigation-toggle, #search-content {
@@ -451,34 +454,6 @@ Fax. +49 551 39 9735<br>
 $("body").click(function(){
     feedbackTimer();
 });
-
-function feedbackTimer(){
-  var inaktZeit = 0;
-  var angezeigt = false;
-  $(document).ready(function () {
-
-  //Erhöhe den Inaktivitätszähler jede Sekunde
-  var inaktInterval = setInterval(timerErhoehen, 1000); // 1000ms=1Sek
-
-  //Bei Mausbewegung oder Tastatureingabe wird Timer auf 0 gesetzt
-  $(this).mousemove(function (e) {
-      inaktZeit = 0;
-  });
-  $(this).keypress(function (e) {
-      inaktZeit = 0;
-  });
-});
-
-//Timererhöhung und Ausgabe der Feedbackfrage
-function timerErhoehen() {
-    inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
-        botmanChatWidget.whisper("bananenkanu");
-        angezeigt = true;
-    }
-  }
-}
-
 </script>
 
 
