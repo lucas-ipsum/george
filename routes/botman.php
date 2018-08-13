@@ -246,8 +246,6 @@ $botman->hears('say_smalltalk_langweilig', 'App\Http\Controllers\Intents_Control
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Willkommen', 'App\Http\Controllers\Intents_Controller@smalltalk_Willkommen') ->middleware($dialogflow);
 
-//$botman->hears('say_feedback_Intent', 'App\Http\Controllers\Intents_Controller@test') ->middleware($dialogflow);
-
 //################################################################################################################################################
 //Intent: 00 - feedback_Intent
 $botman->hears('say_feedback_Intent', function ($bot) {
