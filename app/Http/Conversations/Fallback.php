@@ -5,21 +5,21 @@ namespace App\Http\Conversations;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use App\Http\Controllers\DBController;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use BotMan\BotMan\Storages\Storage;
+use App\mitarbeiter;
 
 class Fallback extends Conversation
 {
 
-    protected $buttonAnswer;
+protected $name;
 
-   // $Beispielfragen = array ('Wo ist die IKS Vorlesung?', 'Wer ist der Ansprechpartner für MIS?', 'Wann ist die U&M Klausur?');
-    /**
-     * Start the conversation.
-     *
-     * @return mixed
-     */
-    public function run()
-    {
+    //Standard Fallback, falls kein Intent gematcht werden kann
+    public function run(){
       $question = Question::create('Entschuldige bitte, ich habe deine Frage nicht verstanden.')
       ->addButtons([
         Button::create('Beispielfragen')->value('beispiel'),
@@ -27,111 +27,79 @@ class Fallback extends Conversation
       ]);
       $this->ask($question, function ($answer) {
           $buttonAnswer = $answer->getValue();
+      //Beispielfragen
       if($buttonAnswer === 'beispiel'){
         $this->say('Was sind die Lernziele in U&M? <br><br>
                     Wird MIS im Sommersemester angeboten? <br><br>
-                    Wie viele Credits bringt das Projektseminar?'); //'Hier sind einige Beispielfragen: Wo ist die IKS Vorlesung?'
+                    Wie viele Credits bringt das Projektseminar?');
       }
-      else{
+      //Mitarbeiter kontaktieren
+      elseif($buttonAnswer === 'kontakt'){
         $this->contact();
       }
+      //Breakout, falls nicht entsprechend geantwortet wird
+      else{
+        $this->say("Ich kann dich leider nicht verstehen..");
+      }
     });
     }
 
+    //Funktion die anfragt, wecher Mitarbeiter kontaktiert werden sollte
     public function contact(){
-      $mitarbeiter = Question::create('Welchen Mitarbeiter möchten Sie kontaktieren?')
-      ->addButtons([
-        Button::create('Pascal Freier')->value('Pascal Freier'),
-        Button::create('Steffen Zenker')->value('Stefen Zenker'),
-        Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'), //henrik.wesseloh@uni-goettingen.de
-        Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
-    //    ElementButton::create('Jan Moritz Anke')->url('https://stackoverflow.com/questions/51074583/how-can-i-make-a-botman-url-button-for-facebook-messenger-that-acts-as-a-webview'),      //janke@uni-goettingen.de
-    //  Button::create('Steffen Zenker')->value('Stefen Zenker'),
-    //  Button::create('Henrik Wesseloh')->value('Stefen Zenker'),
+      //Schleife in addButtons Methode nicht möglich, deshalb hardcoded
+      $name = Question::create('Welchen Mitarbeiter möchtest du kontaktieren?')
+        ->addButtons([
+          //Nur 4 Mitarbeiter, um Übersichtlichkeit zu gewährleisten
+          Button::create('Pascal Freier')->value('Pascal Freier'),
+          Button::create('Steffen Zenker')->value('Steffen Zenker'),
+          Button::create('Raphael Meyer von Wolff')->value('Raphael Meyer von Wolff'),
+          Button::create('Henrik Wesseloh')->value('Henrik Wesseloh'),
+          Button::create('Anderer Mitarbeiter')->value('Anderer Mitarbeiter')
       ]);
-      $this->ask($mitarbeiter, function($answer) {
-        $buttonAnswer = $answer->getValue();
-      if($buttonAnswer === 'Pascal Freier'){
-        $this->pascal($buttonAnswer);
-      }
-
-      elseif ($buttonAnswer === 'Steffen Zenker') {
-        $this->steffen();
-      }
-      elseif ($buttonAnswer === 'Raphael Meyer von Wolff') {
-        $this->rafael();
-      }
-      else{
-        $this->henrik();
-      }
+      $this->ask($name, function($answer) {
+        $name = $answer->getValue();
+        $this->name = $name;
+        if($name === 'Anderer Mitarbeiter'){
+          $this->mehrereMitarbeiter();
+        }
+        else{
+          $this->mitarbeiterKontaktieren($name);
+        }
     });
   }
-    public function pascal(){
-      $kontaktart = Question::create('Wie möchtest du Pascal Freier kontaktieren?')
-      //$this->say('Hallo Pascal');
+
+  //Buttons für restliche Mitarbeiter
+  public function mehrereMitarbeiter(){
+    $mehrereMitarbeiter = Question::create('Welchen anderen Mitarbeiter möchtest du kontaktieren?')
       ->addButtons([
-        Button::create('Telefon')->value('Telefonnr'),
+        Button::create('Jasmin Decker')->value('Jasmin Decker'),
+        Button::create('Kevin Koch')->value('Kevin Koch'),
+        Button::create('Dr. Sebastian Hobert')->value('Dr. Sebastian Hobert'),
+        Button::create('Jan Moritz Anke')->value('Jan Moritz Anke'),
+        Button::create('Julian Busse')->value('Julian Busse'),
+        Button::create('Madlen Neubert')->value('Madlen Neubert'),
+    ]);
+    $this->ask($mehrereMitarbeiter, function($answer) {
+      $name = $answer->getValue();
+      $this->name = $name;
+      $this->mitarbeiterKontaktieren($name);
+    });
+  }
+
+    //Funktion um Mitarbeiterfunktionen auszugeben
+    public function mitarbeiterKontaktieren($name){
+      $this->name = $name;
+      $art = Question::create('Wie möchtest du ' . $name . ' kontaktieren?')
+      ->addButtons([
+        Button::create('Telefon')->value('Telefonnummer'),
         Button::create('E-Mail')->value('E-Mail'),
       ]);
-      $this->ask($kontaktart, function($answer){
-        $buttonAnswer = $answer->getValue();
-        if($buttonAnswer === 'Telefonnr'){
-          $this->say($buttonAnswer .': +49 (0)551 / 39 - 7881');
-        }
-        else {
-          $this->say($buttonAnswer .': pfreier@uni-goettingen.de');
-        }
+      $this->ask($art, function($answer){
+        $art = $answer->getValue();
+        $name = $this->name;
+        $kontaktinfo = DBController::getDBKontaktart($art, $name);
+        $this->say($art . ': ' . $kontaktinfo);
       });
-    }
-    public function steffen(){
-      $kontaktart = Question::create('Wie möchtest du Steffen Zenker kontaktieren?')
-      //$this->say('Hallo Pascal');
-      ->addButtons([
-        Button::create('Telefon')->value('Telefonnr'),
-        Button::create('E-Mail')->value('E-Mail'),
-      ]);
-      $this->ask($kontaktart, function($answer){
-        $buttonAnswer = $answer->getValue();
-        if($buttonAnswer === 'Telefonnr'){
-          $this->say($buttonAnswer .': +49 (0)551 / 39 - 4449');
-        }
-        else {
-          $this->say($buttonAnswer .': steffen.zenker@uni-goettingen.de');
-        }
-      });
-    }
-    public function henrik(){
-      $kontaktart = Question::create('Wie möchtest du Henrik Wesseloh kontaktieren?')
-      //$this->say('Hallo Pascal');
-      ->addButtons([
-        Button::create('Telefon')->value('Telefonnr'),
-        Button::create('E-Mail')->value('E-Mail'),
-      ]);
-      $this->ask($kontaktart, function($answer){
-        $buttonAnswer = $answer->getValue();
-        if($buttonAnswer === 'Telefonnr'){
-          $this->say($buttonAnswer .': +49 (0)551 / 39 - 7331');
-        }
-        else {
-          $this->say($buttonAnswer .': henrik.wesseloh@uni-goettingen.de');
-        }
-      });
-    }
-    public function rafael(){
-      $kontaktart = Question::create('Wie möchtest du Raphael Meyer von Wolff kontaktieren?')
-      //$this->say('Hallo Pascal');
-      ->addButtons([
-        Button::create('Telefon')->value('Telefonnr'),
-        Button::create('E-Mail')->value('E-Mail'),
-      ]);
-      $this->ask($kontaktart, function($answer){
-        $buttonAnswer = $answer->getValue();
-        if($buttonAnswer === 'Telefonnr'){
-          $this->say($buttonAnswer .': +49 (0)551 / 39 - 4479');
-        }
-        else {
-          $this->say($buttonAnswer .': r.meyervonwolff@uni-goettingen.de');
-        }
-      });
+
     }
 }

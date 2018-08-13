@@ -22,8 +22,7 @@
 <script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen">
 
-<!--404 Error beheben, Line wird nicht gebraucht-->
-<!--<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>-->
+
 
 
     <!-- icons and theme colors for various OS -->
@@ -52,6 +51,9 @@
     <!-- Script fuer responsive Navigation -->
     <script src="js/navigation.js"></script>
 
+    <!--Feedback Timer-->
+    <script src="js/fbTimer.js"></script>
+
     <!-- Faculty color -->
     <style>
         #navigation-affix, #navigation-toggle, #search-content {
@@ -61,30 +63,6 @@
             border-color: #2579B5;
         }
     </style>
-
-
-<!-- Piwik -->
-<script type="text/javascript">
-var pkBaseURL = "https://piwik.gwdg.de/";
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 5);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business");
-} catch( err ) {}
-</script>
-<!-- End Piwik Tag -->
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="/lib/bootstrap/js/html5shiv.min.js"></script>
-    <script src="/lib/bootstrap/js/respond.min.js"></script>
-    <![endif]-->
-
-
 
 
     <!-- Template:  inst_start -->
@@ -101,9 +79,9 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
     introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
     chatServer: '/george/public/botman',
     frameEndpoint: '/george/public/chat',
-    bubbleAvatarUrl: 'img/Chatbot.png',
+    bubbleAvatarUrl: 'img/Chatbot_blase.png',
     headerTextColor: '#FFFFFF',
-    bubbleBackground: '#FFFFFF',
+    bubbleBackground: 'none',
     mainColor: '#13306A',
     placeholderText: 'Nachricht eingeben..',
     mobileHeight: '98%'
@@ -111,7 +89,7 @@ piwikTracker.setDocumentTitle("Professur für Anwendungssysteme und E-Business")
   </script>
 
 <!-- Aufruf Web Widget -->
-<script id="botmanWidget" src='js/widget.js'></script>
+<script id="botmanWidget" src='js/widget.min.js'></script>
 
 <header>
     <div class="container-fluid logo-container">
@@ -469,54 +447,17 @@ Fax. +49 551 39 9735<br>
             </div>
 </footer>
 
-<!--Popup zum Aufmerksam machen-->
-<div class="fixed-bottom">
-  <div class="row">
-    <div class="col-md-7">
-    </div>
-    <div class="col-md-2">
-      <img id="popup" src="https://i.lensdump.com/i/8yyolT.png" style="display:none" />
-    </div>
-  </div>
-</div>
-<noscript><p><img src="http://piwik.gwdg.de/piwik.php?idsite=5"
-style="border:0" alt=""/></p></noscript>
-
-<!--Script zum Sichtbar machen-->
+<!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
-setTimeout(function(){
-    document.getElementById('myimage').style.display = 'block';
-},10000);
-</script>
-
-
-<!--Bei Inaktivität soll Feedbackfrage erscheinen-
-<script type="text/javascript">
-  var inaktZeit = 0;
-  var angezeigt = false;
-  $(document).ready(function () {
-
-  //Erhöhe den Inaktivitätszähler jede Sekunde
-  var inaktInterval = setInterval(timerErhoehen, 1000); // 1000ms=1Sek
-
-  //Bei Mausbewegung oder Tastatureingabe wird Timer auf 0 gesetzt
-  $(this).mousemove(function (e) {
-      inaktZeit = 0;
+//Sobald auf Website geklickt wurde, soll Timer loslaufen
+var angezeigt = false;
+if(angezeigt == false){
+  $("body").click(function(){
+      feedbackTimer(angezeigt);
+      angezeigt = true;
   });
-  $(this).keypress(function (e) {
-      inaktZeit = 0;
-  });
-});
-
-//Timererhöhung und Ausgabe der Feedbackfrage
-function timerErhoehen() {
-    inaktZeit = inaktZeit + 1;
-    if (inaktZeit == 60 && angezeigt == false) { //30 Sekunden und noch nicht angezeigt worden
-        botmanChatWidget.sayAsBot("Bist du mit deinem Ergebnis zufrieden? Gib uns Feedback");
-        angezeigt = true;
-    }
 }
 </script>
--->
+
 
 </body></html>
