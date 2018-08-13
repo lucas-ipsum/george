@@ -345,7 +345,7 @@ public function literatur_Veranstaltung_withContext($bot){
       }
       else {
         $literatur = DBController::getDBLiteratur($veranstaltung);
-        $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ': <br>'.$literatur.'.');
+        $bot->reply('Literatur der Veranstaltung ' . $veranstaltung . ' ist: '.$literatur.'.');
       }
   }
 //###############################################################
@@ -366,7 +366,7 @@ public function klausur_Anmeldung_Logik($bot, $veranstaltung){
     $bot->reply('Für welche Veranstaltung möchten Sie diese Information?');
   }
   else {
-    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp');
+    $bot->reply('Klausuranmeldung in  ' . $veranstaltung . ':  <a href="https://flexnow2.uni-goettingen.de/FN2AUTH/login.jsp" target="_blank">FlexNow-Anmeldung</a>');
   }
 }
 //###############################################################
@@ -388,7 +388,7 @@ public function gesamtueberblick_Veranstaltung_Logik($bot, $veranstaltung){
   }
   else {
     $ueberblick = DBController::getDBUeberblick($veranstaltung);
-    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist unter: '.$ueberblick.' ');
+    $bot->reply('Die Zusammenfassung für Organisatorisches von ' . $veranstaltung . ' ist unter diesem <a href="'.$ueberblick.'" target="_blank">Link</a> verfügbar');
   }
 }
 //###############################################################
@@ -556,7 +556,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
       $bot->reply('Termin: ' . $seminar.' '.'('.$seminar_Veranstaltung.'): <br>'. $ausgabe_termin_Seminar .'<br>Raum: ' . $ort_Seminar);
     }
   }
-  
+
 //###############################################################
 //Intent 24 - themen_Seminar
     public function themen_Seminar($bot){
