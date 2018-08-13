@@ -42,6 +42,10 @@ $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an
 //Intent: 3 - termin_Veranstaltung_withContext
   $botman->hears('say_termin_Veranstaltung_withContext', 'App\Http\Controllers\Intents_Controller@termin_Veranstaltung_withContext')->middleware($dialogflow);
 
+  //################################################################################################################################################
+  //Intent: 4 - studienplan_WiInf
+    $botman->hears('say_studienplan_WiInf', 'App\Http\Controllers\Intents_Controller@studienplan_WiInf')->middleware($dialogflow);
+
 //################################################################################################################################################
 //Intent: 5 - termin_Klausur
   $botman->hears('say_termin_Klausur', 'App\Http\Controllers\Intents_Controller@termin_Klausur') ->middleware($dialogflow);

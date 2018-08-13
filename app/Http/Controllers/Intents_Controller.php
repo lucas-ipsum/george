@@ -150,6 +150,13 @@ public function termin_Veranstaltung_withContext($bot){
 
   }
 
+  //###############################################################
+  // Intent: 4 - studienplan_WiInf
+  public function studienplan_WiInf($bot){
+    $message = OutgoingMessage::create('Hier ist der Studienaufbau vom Bachelor Wirtschaftsinformatik <br>(<a href="https://www.uni-goettingen.de/de/bachelor-studiengang+in+wirtschaftsinformatik/23246.html" target="_blank">Weitere Informationen</a>)')->withAttachment(Image::url('https://www.uni-goettingen.de/admin/bilder/pictures/87cabed5f37058b113e853e0d5086486.jpg'));  //URL Mitarbeiter Foto wird eingefügt
+	   $bot->reply($message);
+  }
+
 //###############################################################
 // Intent: 5 - termin_Klausur
 public function termin_Klausur($bot){
