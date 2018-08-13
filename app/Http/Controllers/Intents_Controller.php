@@ -411,10 +411,9 @@ public function gesamtueberblick_Veranstaltung_Logik($bot, $veranstaltung){
   }
   else {
     $ueberblick = DBController::getDBUeberblick($veranstaltung);
-    $bot->reply('Die Zusammenfassung für Organisatorisches von ' . $veranstaltung . ' ist unter diesem <a href="'.$ueberblick.'" target="_blank">Link</a> verfügbar');
     $hyperlink = $ueberblick[0]->Hyperlink;
-  //  $univz = $ueberblick[0]->UniVZ_Link;
-    $bot->reply('Die Zusammenfassung Organisatorisches ' . $veranstaltung . ' ist auf der Webseite der Professur unter: '.$hyperlink.'<br> oder in UniVZ: ');//.$univz);
+    $univz = $ueberblick[0]->UniVZ_Link;
+    $bot->reply('Mehr Informationen zu der Veranstaltung ' . $veranstaltung . ' ist auf der <a href="' .$hyperlink. '" target="_blank">Website der Professur</a> und im <a href="'.$univz.'" target="_blank">UniVZ</a> verfügbar');
   }
 }
 //###############################################################
