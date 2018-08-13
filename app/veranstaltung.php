@@ -32,7 +32,8 @@ class veranstaltung extends Model
             $modelueberblick = DB::table('veranstaltung')
                                 ->where('Name', $veranstaltung)
                                 ->where('VeranstaltungsArt', 'Vorlesung')
-                                ->value('Hyperlink');
+                                ->select('Hyperlink', 'UniVZ_Link');
+                                ->get();
         return $modelueberblick;
         }
 //Liste der Literatur die bei der Veranstaltung empfohlen ist

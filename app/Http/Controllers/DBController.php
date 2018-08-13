@@ -37,10 +37,10 @@ class DBController extends Controller
 
 
 
-    public static function getDBUeberblick($art)
+    public static function getDBUeberblick($veranstaltung)
     {
 
-        $dbueberblick = veranstaltung::getModelUeberblick($art);
+        $dbueberblick = veranstaltung::getModelUeberblick($veranstaltung);
 
         return $dbueberblick;
     }
