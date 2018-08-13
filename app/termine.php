@@ -28,17 +28,20 @@ class termine extends Model
   //#################################################################################
   //Seminar
           // Funktion um die Uhrzeit einer Veranstaltung aus der DB zu holen
-          public static function getModel_termin_Seminar($seminar, $seminar_Veranstaltung)
+          public static function getModelUhrzeitSeminar($seminar, $seminar_Veranstaltung)
           {
-
                 $model_termin_Seminar = DB::table('termine')
                                       ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
                                       ->where('Veranstaltung.Name', $seminar)
                                       ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
                                       ->select('Termine.Datum', 'Termine.Uhrzeit', 'Termine.Raum')
                                       ->get();
+                $modeluhrzeit_Seminar = DB::table('termine')
+                                      ->where('Veranstaltung', $seminar)
+                                      ->where('Veranstaltungsart', $seminar_Veranstaltung)
+                                      ->value('Uhrzeit');
 
-                 return $model_termin_Seminar;
+                 return $modeluhrzeit_Seminar;
            }
 //#######################################
 //raum_Seminar
@@ -46,11 +49,9 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
 {
 
       $modelraum_Seminar = DB::table('termine')
-                        ->join('Veranstaltung','Veranstaltung.ID_Veranstaltung', '=', 'Termine.ID_Veranstaltung')
-                        ->where('Veranstaltung.Name', $seminar)
-                        ->where('Termine.Veranstaltungsart', $seminar_Veranstaltung)
-                        ->select('Termine.Raum')
-                        ->get();
+                        ->where('Veranstaltung', $seminar)
+                        ->where('Veranstaltungsart', $seminar_Veranstaltung)
+                        ->value('Raum');
 
 
       return $modelraum_Seminar;
@@ -93,7 +94,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
           return $model_naechster_Termin_Seminar;
 
         }
-      //Veranstaltungsart zu Termin
+      //Veranstaltungsart zu Termin-Seminar
         public static function getModel_art_Veranstaltung_nachTermin($seminar, $termin_veranstaltung)
           {
                 $model_art_Veranstaltung_nachTermin = DB::table('termine')
@@ -106,4 +107,56 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
               return $model_art_Veranstaltung_nachTermin;
 
             }
+
+//################
+//veranstaltungen
+
+            // Funktion um das nächste Datum einer Veranstaltung aus der DB zu holen
+            public static function getModel_naechster_Termin_Veranstaltung($veranstaltung, $veranstaltungsart, $datum_heute)
+            {
+
+
+                $model_naechster_termin = DB::table('Termine')
+                ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung' )
+                ->where('Veranstaltung.Name', $veranstaltung)
+                ->where('Veranstaltung.VeranstaltungsArt', $veranstaltungsart)
+                ->where('Termine.Datum','>=',$datum_heute)
+                ->select('Termine.Wochentag','Termine.Uhrzeit','Termine.Raum','Termine.Datum')
+                ->get();
+
+
+                      return $model_naechster_termin;
+            }
+/*
+            //Veranstaltungsart zu Termin
+              public static function getModelArtderVeranstaltung($veranstaltung, $veranstaltungsart, $datum)
+                {
+                      $modelArtderVeranstaltung = DB::table('termine')
+                      ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
+                      ->where('Veranstaltung.Name', $veranstaltung)
+                      ->where('Veranstaltung.VeranstaltungsArt',$veranstaltungsart)
+                      ->where('Termine.Datum', '=', $datum)
+                      ->value('Termine.Veranstaltungsart');
+
+
+                    return $modelArtderVeranstaltung;
+
+                  }
+
+*/
+            // Funktion um Termin ohne konkretes Datum aus der DB zu holen
+            public static function getModelTermin($veranstaltung, $veranstaltungsart)
+            {
+
+                  $modeltermin = DB::table('Termine')
+                  ->join('Veranstaltung','Termine.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung' )
+                  ->where('Veranstaltung.Name', $veranstaltung)
+                  ->where('Veranstaltung.VeranstaltungsArt', $veranstaltungsart)
+                  ->select('Termine.Wochentag','Termine.Uhrzeit','Termine.Raum')
+                  ->get();
+
+
+                  return $modeltermin;
+            }
+
 }
