@@ -746,6 +746,25 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
                 'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
       }
     }
+    //###############################################################
+    //Stellenangebote
+    //###############################################################
+
+    //Intent 31 Stellenangebote
+public function stellenangebote($bot){
+  $stellenangebote = DBController::getDBStellenangebote();
+
+  $ausgabe_stellenangebote = '';
+  for($index=0; $index < count($stellenangebote); $index++){
+     $stellenangebot = $stellenangebote[$index]->Stelle;
+
+     $ausgabe_stellenangebote .= $stellenangebot . '<br><br> ';
+
+     $bot->reply('Momentan werden folgende Stellen ausgeschrieben:' . $ausgabe_stellenangebote);
+}
+}
+
+
 //###############################################################
 //Smalltalk
 //###############################################################

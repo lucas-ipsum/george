@@ -259,6 +259,15 @@ class DBController extends Controller
      return $db_projekt_Kontaktperson;
    }
 
+//Stellenangebote
+
+    public static function getDBStellenangebote()
+    {
+      $db_stellenangebote = stellenangebote::getModelStellenangebote();
+
+      return $db_stellenangebote;
+    }
+
 
 }
 ?>
