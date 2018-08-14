@@ -15,6 +15,7 @@ use App\Http\Controllers\BotManController;
 
  class Feedback extends Conversation
  {
+//Controller für Feedbackanfrage, welcher auf Timer oder bananenkanu reagiert
 
      protected $begruendung;
      protected $zufrienden;
@@ -34,7 +35,6 @@ use App\Http\Controllers\BotManController;
        if($this->antwort === 'Ja'){
          $this->say('Danke für dein Feedback!');
          $this->begruendung = '';
-
          //Einspeichern der Feedbackinformationen in DB
          DB::table('Feedback')->insert(
           ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
@@ -45,13 +45,14 @@ use App\Http\Controllers\BotManController;
           //Speichern des Nutzerinputs
            $this->begruendung = $answer->getText();
            $this->say('Danke für dein Feedback!');
+           //Einspeichern der Feedbackinformationen in DB
            DB::table('Feedback')->insert(
             ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
             );
          });
        }
        else{
-         $this->say('Entschuldigung, ich verstehe dich nicht..');
+         $this->say('Entschuldigung, ich verstehe dich nicht..'); //Breakout, falls weder ja noch nein eingegeben wurde
        }
       });
    }

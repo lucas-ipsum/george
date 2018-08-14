@@ -76,7 +76,7 @@
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
+    introMessage: 'Hallo ich bin George, ein Chatbot der Professur für Anwendungssysteme und E-Business. Ich helfe dir gerne bei Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was kann ich für dich tun?',
     chatServer: '/george/public/botman',
     frameEndpoint: '/george/public/chat',
     bubbleAvatarUrl: 'img/Chatbot_blase.png',
@@ -449,12 +449,12 @@ Fax. +49 551 39 9735<br>
 
 <!--Bei Inaktivität soll Feedbackfrage erscheinen-->
 <script type="text/javascript">
-//Sobald auf Website geklickt wurde, soll Timer loslaufen
-var angezeigt = false;
+var angezeigt = false; //Feedbackanfrage soll nur einmal angezeigt werden
 if(angezeigt == false){
+  //Sobald auf Website geklickt wurde, soll Timer loslaufen
   $("body").click(function(){
       feedbackTimer(angezeigt);
-      angezeigt = true;
+      angezeigt = true; //verhindert mehrmaliges Anzeigen
   });
 }
 </script>

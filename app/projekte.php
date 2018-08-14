@@ -16,7 +16,6 @@ class projekte extends Model
             public static function getModelProjekte()
             {
                 $modelprojekte = DB::table('projekte')
-                              //      ->where('Zuordnung', $test)
                                     ->select('Name', 'ID')
                                     ->orderBy('ID', 'asc')
                                     ->get();
