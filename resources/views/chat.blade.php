@@ -7,6 +7,7 @@
 </head>
 <body>
 
+<!--Blade, welche nur auf das Chatskript verweist und importiert-->
 <script src="js/chat.js"></script>
 
 </body>

@@ -15,7 +15,7 @@ use App\Http\Controllers\BotManController;
 
  class Feedback extends Conversation
  {
-//Controller für Feedbackanfrage, welcher auf Timer oder bananenkanu reagiert
+//Controller für Feedbackanfrage, welcher auf Timer und Eingabe "bananenkanu" reagiert
 
      protected $begruendung;
      protected $zufrienden;
