@@ -76,7 +76,7 @@
   var botmanWidget = {
     title: 'George',
     aboutText: '',
-    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen Ihnen gerne mit Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für Sie tun?',
+    introMessage: 'Willkommen bei der Professur für Anwendungssysteme und E-Business. Wir helfen dir gerne bei Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was können wir für dich tun?',
     chatServer: '/george/public/botman',
     frameEndpoint: '/george/public/chat',
     bubbleAvatarUrl: 'img/Chatbot_blase.png',
