@@ -1,3 +1,4 @@
+//Feedbacktimer, nachdem auf Website (Widget) geklickt wurde
 function feedbackTimer(angezeigt){
   var inaktZeit = 0;
   var angezeigt = angezeigt;
@@ -19,7 +20,8 @@ function feedbackTimer(angezeigt){
 function timerErhoehen() {
     inaktZeit = inaktZeit + 1;
     if (inaktZeit == 90 && angezeigt == false) { //90 Sekunden und noch nicht angezeigt worden
-        botmanChatWidget.whisper("bananenkanu");
+    //Whisper Befehl schickt zwar String an Middleware (Dialogflow) und kann entsprechend gematcht werden, aber wird nicht im Chat angezeigt
+        botmanChatWidget.whisper("bananenkanu"); //bananenkanu = wird vermutlich nie vom Benutzer eingegeben
         angezeigt = true;
     }
   }
