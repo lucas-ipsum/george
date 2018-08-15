@@ -22,6 +22,18 @@ $dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForA
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
 //################################################################################################################################################
+//Intent: Default Fallback Intent
+$botman->hears('input.unknown', function ($bot) {
+  $bot->startConversation(new App\Http\Conversations\Fallback);
+})->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 00 - feedback_Intent
+$botman->hears('say_feedback_Intent', function ($bot) {
+  $bot->startConversation(new App\Http\Conversations\Feedback);
+})->middleware($dialogflow);
+
+//################################################################################################################################################
 //Intent: 1 - sprechzeit_Mitarbeiter
   $botman->hears('say_sprechzeit_Mitarbeiter', 'App\Http\Controllers\Intents_Controller@sprechzeit_Mitarbeiter')->middleware($dialogflow);
 
@@ -155,12 +167,6 @@ $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an
   $botman->hears('say_projekte_Lehrstuhl', 'App\Http\Controllers\Intents_Controller@projekte_Lehrstuhl') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: Default Fallback Intent
-$botman->hears('input.unknown', function ($bot) {
-  $bot->startConversation(new App\Http\Conversations\Fallback);
-})->middleware($dialogflow);
-
-//################################################################################################################################################
 //Intent: 21 - foto_Mitarbeiter
   $botman->hears('say_foto_Mitarbeiter', 'App\Http\Controllers\Intents_Controller@foto_Mitarbeiter') ->middleware($dialogflow);
   $botman->hears('say_foto_Mitarbeiter_withContext', 'App\Http\Controllers\Intents_Controller@foto_Mitarbeiter_withContext') ->middleware($dialogflow);
@@ -250,9 +256,3 @@ $botman->hears('say_smalltalk_langweilig', 'App\Http\Controllers\Intents_Control
 //smalltalk_Willkommen
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Willkommen', 'App\Http\Controllers\Intents_Controller@smalltalk_Willkommen') ->middleware($dialogflow);
-
-//################################################################################################################################################
-//Intent: 00 - feedback_Intent
-$botman->hears('say_feedback_Intent', function ($bot) {
-  $bot->startConversation(new App\Http\Conversations\Feedback);
-})->middleware($dialogflow);
