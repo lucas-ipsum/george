@@ -259,6 +259,43 @@ class DBController extends Controller
      return $db_projekt_Kontaktperson;
    }
 
+ //#######################################################################################################################
+ //Stellenangebote
+ //#######################################################################################################################
+   public static function getDBStellenangebote()
+     {
+       $dbStellenangebote = stellenangebote::getModelStellenangebote();
+
+           return $dbStellenangebote;
+     }
+
+   public static function getDBStellenangebotBeschreibung()
+     {
+       $dbStellenangebote_Beschreibung = stellenangebote::getModelStellenangebotBeschreibung($Stelle);
+
+           return $dbStellenangebote_Beschreibung;
+     }
+
+   public static function getDBStellenangebotAufgaben()
+     {
+       $dbStellenangebot_Aufgaben = stellenangebote::getModelStellenangebotAufgaben($Stelle);
+
+           return $dbStellenangebot_Aufgaben;
+     }
+
+   public static function getDBStellenangebotOrgaBewerbung()
+     {
+       $dbStellenangebote_Profil = stellenangebote::getModelStellenangebotOrgaBewerbung($Stelle);
+
+           return $dbStellenangebote_Profil;
+
+           return $dbStellenangebote_Frist;
+
+           return $dbStellenangebote_Kontaktperson;
+
+           return $dbStellenangebote_Link;
+     }
+
 
 }
 ?>
