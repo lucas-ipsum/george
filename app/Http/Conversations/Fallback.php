@@ -98,7 +98,12 @@ protected $name;
         $art = $answer->getValue();
         $name = $this->name;
         $kontaktinfo = DBController::getDBKontaktart($art, $name);
-        $this->say($art . ': ' . $kontaktinfo);
+      if($art === 'Telefonnummer')
+        $this->say($art . ': <a href="tel:'.$kontaktinfo.'">'.$kontaktinfo.'</a>');
+        //Wenn nicht Telefonnummer wird Standardmäßig E-Mail ausgegeben
+      else{
+        $this->say($art . ': <a href="mailto:'.$kontaktinfo.'" target="_top">'.$kontaktinfo.'</a>');
+      }
       });
 
     }

@@ -232,6 +232,15 @@ public function mitarbeiter_Kontakt_withContext($bot){
   elseif(strlen($kontaktart) === 0) {    //Nachfrage Kontaktart falls diese nicht eingegeben wurde
           $bot->reply('Wie möchtest du ' . $mitarbeiter . ' kontaktieren?');
   }
+  elseif($kontaktart === 'E-Mail') {
+          $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
+          $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: <a href="mailto:'.$Contact.'" target="_top">'.$Contact.'</a> ');
+  }
+  elseif($kontaktart === 'Telefonnummer') {
+          $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
+          $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: <a href="tel:'.$Contact.'">'.$Contact.'</a> '); //Bei mobilen Geräten kann direkt angerufen werden
+  }
+  //Falls Anfragen nicht richtig verstanden werden kein link
   else {
         $Contact = DBController::getDBKontaktart($kontaktart, $mitarbeiter);
         $bot->reply('Die ' . $kontaktart . ' von ' . $mitarbeiter . ' lautet: ' . $Contact . '.');
@@ -750,7 +759,8 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
     $name = $projekt_Kontaktperson[0]->Kontaktperson;
 
     $bot->reply('Die Kontaktperson im Projekt ' .$projekt. ' ist ' . $name . '<br><br>'.
-                'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
+                //'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
+                'E-Mail: <a href="mailto:'.$mail.'" target="_top">'.$mail.'</a> <br>Telefon: <a href="tel:'.$tel.'">'.$tel.'</a>');
       }
     }
 
@@ -764,7 +774,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
       for($index=0; $index < count($stellenangebote); $index++){
          $stellenangebote = $stellenangebote[$index]->Stelle;
          $id = $stellenangebote[$index]->ID;
-         $ausgabe_stellenangebote .= $id .'. ' .$stellenangebote . '<br><br> ';
+         $ausgabe_stellenangebote = $id .'. ' .$stellenangebote . '<br><br> ';
        }
 
       $bot->reply($ausgabe_stellenangebote);
