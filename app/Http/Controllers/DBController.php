@@ -6,7 +6,7 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\projekte;
-//use App\stellenangebote;
+use App\stellenangebote;
 use App\themen_fuer_abschlussarbeiten;
 use App\themen_im_bachelorseminar;
 use App\Http\Controllers\Intents_Controller;
@@ -270,33 +270,26 @@ class DBController extends Controller
            return $dbStellenangebote;
      }
 
-   public static function getDBStellenangebotBeschreibung()
+   public static function getDBStellenangebotBeschreibung($stelle)
      {
-       $dbStellenangebote_Beschreibung = stellenangebote::getModelStellenangebotBeschreibung($Stelle);
+       $dbStellenangebote_Beschreibung = stellenangebote::getModelStellenangebotBeschreibung($stelle);
 
            return $dbStellenangebote_Beschreibung;
      }
 
-   public static function getDBStellenangebotAufgaben()
+   public static function getDBStellenangebotAufgaben($stelle)
      {
-       $dbStellenangebot_Aufgaben = stellenangebote::getModelStellenangebotAufgaben($Stelle);
+       $dbStellenangebot_Aufgaben = stellenangebote::getModelStellenangebotAufgaben($stelle);
 
            return $dbStellenangebot_Aufgaben;
      }
 
-   public static function getDBStellenangebotOrgaBewerbung()
+   public static function getDB_Bewerbungsinformationen($stelle)
      {
-       $dbStellenangebote_Profil = stellenangebote::getModelStellenangebotOrgaBewerbung($Stelle);
+       $db_Bewerbungsinformationen = stellenangebote::getModel_Bewerbungsinformationen($stelle);
 
-           return $dbStellenangebote_Profil;
-
-           return $dbStellenangebote_Frist;
-
-           return $dbStellenangebote_Kontaktperson;
-
-           return $dbStellenangebote_Link;
+           return $db_Bewerbungsinformationen;
      }
-
 
 }
 ?>

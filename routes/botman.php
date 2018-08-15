@@ -235,8 +235,17 @@ $botman->hears('say_naechster_Termin_Veranstaltung_withContext','App\Http\Contro
 //Intent:31 -stellenangebote_Lehrstuhl
 //################################################################################################################################################
 $botman->hears('say_lehrstuhl_Stellenangebote', 'App\Http\Controllers\Intents_Controller@stellenangebote_Lehrstuhl') ->middleware($dialogflow);
+//################################################################################################################################################
+//Intent: 32 - stellenangebot_Beschreibung
+  $botman->hears('say_stellenangebot_Beschreibung', 'App\Http\Controllers\Intents_Controller@stellenangebot_Beschreibung') ->middleware($dialogflow);
 
+//################################################################################################################################################
+//Intent: 33 - stellenangebot_Beschreibung
+  $botman->hears('say_aufgaben_Stelle', 'App\Http\Controllers\Intents_Controller@aufgaben_Stelle') ->middleware($dialogflow);
 
+//################################################################################################################################################
+//Intent: 34 - bewerbungsinformationen_Stelle
+  $botman->hears('say_bewerbungsinformationen_Stelle', 'App\Http\Controllers\Intents_Controller@bewerbungsinformationen_Stelle') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Smalltalk

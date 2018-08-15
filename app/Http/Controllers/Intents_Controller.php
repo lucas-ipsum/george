@@ -772,15 +772,41 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
       $stellenangebote = DBController::getDBStellenangebote();
       $ausgabe_stellenangebote = '';
       for($index=0; $index < count($stellenangebote); $index++){
-         $stellenangebote = $stellenangebote[$index]->Stelle;
+         $stellenangebot = $stellenangebote[$index]->Stelle;
          $id = $stellenangebote[$index]->ID;
-         $ausgabe_stellenangebote = $id .'. ' .$stellenangebote . '<br><br> ';
+         $ausgabe_stellenangebote .= $id .'. ' .$stellenangebot . '<br><br> ';
        }
 
       $bot->reply($ausgabe_stellenangebote);
+      $bot->reply('Weitere Informationen zu den jeweiligen Stellen sind unter Angabe von Stelle mit der jeweiligen Nummer ansprechbar (z.B. Beschreibung Stelle 5)');
     }
+  //Intent 32 - beschreibung_Stellenangebot
+    public function stellenangebot_Beschreibung($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $stelle = $extras['apiParameters']['Stelle'];
+      $beschreibung_Stellenangebot = DBController::getDBStellenangebotBeschreibung($stelle);
+      $bot->reply($beschreibung_Stellenangebot);
+    }
+    //Intent 33 - aufgaben_Stelle
+      public function aufgaben_Stelle($bot){
+        $extras = $bot->getMessage()->getExtras();
+        $stelle = $extras['apiParameters']['Stelle'];
+        $aufgaben_Stelle = DBController::getDBStellenangebotAufgaben($stelle);
+        $bot->reply($aufgaben_Stelle);
+      }
 
+    //Intent 34 - bewerbungsinformationen_Stelle
+    public function bewerbungsinformationen_Stelle($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $stelle = $extras['apiParameters']['Stelle'];
+      $bewerbungsinformationen = DBController::getDB_Bewerbungsinformationen($stelle);
+      $bewerberprofil = $bewerbungsinformationen[0]->Erforderliches_Profil;
+      $kontaktperson = $bewerbungsinformationen[0]->Kontaktperson;
+      $bewerbungsfrist = $bewerbungsinformationen[0]->Bewerbungsfrist;
+      $link = $bewerbungsinformationen[0]->Link;
 
+      $bot->reply($bewerberprofil . '<br><br>' . $kontaktperson . '<br><br>' . $bewerbungsfrist . '<br><br>' . $link);
+    }
 //###############################################################
 //Smalltalk
 //###############################################################

@@ -22,6 +22,7 @@ class stellenangebote extends Model
     return $modelStellenangebote;
   }
 
+
   //Beschreibung eines ausgewählten Projekts
   public static function getModelStellenangebotBeschreibung($Stelle){
 
@@ -42,35 +43,15 @@ class stellenangebote extends Model
        return $modelStellenangebote_Aufgaben;
   }
   //Organisatorisches, falls Nutzer interessiert ist
-  public static function getModelStellenangebotOrgaBewerbung($Stelle){
+  public static function getModel_Bewerbungsinformationen($Stelle){
 
         //Erforderliches Profil / Anforderungen für Stelle
-        $modelStellenangebote_Profil = DB::table('stellenangebote')
-                                    ->where('Stelle', $Stelle)
-                                    ->value('Erforderliches_Profil');
-        return $modelStellenangebote_Profil;
+        $model_Bewerbungsinformationen = DB::table('stellenangebote')
+                                      ->where('Stelle', $Stelle)
+                                      ->select('Erforderliches_Profil', 'Bewerbungsfrist', 'Link', 'Kontaktperson')
+                                      ->get();
+        return $model_Bewerbungsinformationen;
 
-       //Bewerbungsfrist abrufen
-       $modelStellenangebote_Frist = DB::table('stellenangebote')
-                                   ->where('Stelle', $Stelle)
-                                   ->value('Bewerbungsfrist');
-
-      return $modelStellenangebote_Frist;
-
-      //Kontaktperson, wo sich beworben werden muss
-      $modelStellenangebote_Kontaktperson = DB::table('stellenangebote')
-                                  ->where('Stelle', $Stelle)
-                                  ->value('Kontaktperson');
-
-       return $modelStellenangebote_Kontaktperson;
-
-       //Link für Bewerbung / Weitere Informationen
-       $modelStellenangebote_Link = DB::table('stellenangebote')
-                                   ->where('Stelle', $Stelle)
-                                   ->value('Link');
-
-      return $modelStellenangebote_Link;
-  }
-
+      }
 
 }
