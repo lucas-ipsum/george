@@ -753,6 +753,24 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
                 'E-Mail: ' . $mail . '<br>Telefon: ' . $tel);
       }
     }
+
+  //###############################################################
+  //Stellenangebote
+  //###############################################################
+  //Intent 31 - stellenangebote_Lehrstuhl
+    public function stellenangebote_Lehrstuhl($bot){
+      $stellenangebote = DBController::getDBStellenangebote();
+      $ausgabe_stellenangebote = '';
+      for($index=0; $index < count($stellenangebote); $index++){
+         $stellenangebote = $stellenangebote[$index]->Stelle;
+         $id = $stellenangebote[$index]->ID;
+         $ausgabe_stellenangebote .= $id .'. ' .$stellenangebote . '<br><br> ';
+       }
+
+      $bot->reply($ausgabe_stellenangebote);
+    }
+
+
 //###############################################################
 //Smalltalk
 //###############################################################

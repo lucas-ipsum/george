@@ -232,6 +232,13 @@ $botman->hears('say_naechster_Termin_Veranstaltung','App\Http\Controllers\Intent
 $botman->hears('say_naechster_Termin_Veranstaltung_withContext','App\Http\Controllers\Intents_Controller@naechster_Termin_Veranstaltung_withContext')->middleware($dialogflow);
 
 //################################################################################################################################################
+//Intent:31 -stellenangebote_Lehrstuhl
+//################################################################################################################################################
+$botman->hears('say_lehrstuhl_Stellenangebote', 'App\Http\Controllers\Intents_Controller@stellenangebote_Lehrstuhl') ->middleware($dialogflow);
+
+
+
+//################################################################################################################################################
 //Smalltalk
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);

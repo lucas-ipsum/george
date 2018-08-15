@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\DBController;
+use App\Http\Controllers\BotManController;
 
 class stellenangebote extends Model
 {
@@ -12,7 +15,7 @@ class stellenangebote extends Model
     public static function getModelStellenangebote()
     {
         $modelStellenangebote = DB::table('stellenangebote')
-                            ->select('Stelle', 'Art')
+                            ->select('Stelle', 'ID')
                             ->orderBy('ID', 'asc')
                             ->get();
 

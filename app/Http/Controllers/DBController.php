@@ -6,6 +6,7 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\projekte;
+//use App\stellenangebote;
 use App\themen_fuer_abschlussarbeiten;
 use App\themen_im_bachelorseminar;
 use App\Http\Controllers\Intents_Controller;
