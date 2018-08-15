@@ -59,11 +59,16 @@ protected $name;
       $this->ask($name, function($answer) {
         $name = $answer->getValue();
         $this->name = $name;
-        if($name === 'Anderer Mitarbeiter'){
-          $this->mehrereMitarbeiter();
+        if($answer->isInteractiveMessageReply()){
+          if($name === 'Anderer Mitarbeiter'){
+            $this->mehrereMitarbeiter();
+          }
+          else{
+            $this->mitarbeiterKontaktieren($name);
+          }
         }
         else{
-          $this->mitarbeiterKontaktieren($name);
+          $this->repeat();
         }
     });
   }
