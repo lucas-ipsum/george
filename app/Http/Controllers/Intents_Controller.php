@@ -777,8 +777,10 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
          $ausgabe_stellenangebote .= $id .'. ' .$stellenangebot . '<br><br> ';
        }
 
-      $bot->reply($ausgabe_stellenangebote);
-      $bot->reply('Weitere Informationen zu den jeweiligen Stellen sind unter Angabe von Stelle mit der jeweiligen Nummer ansprechbar (z.B. Beschreibung Stelle 5)');
+      $bot->reply('Folgende Stellen sind momentan am Lehrstuhl ausgeschrieben:<br><br>'
+                  .$ausgabe_stellenangebote.
+                  'Weitere Informationen zu den jeweiligen Stellen sind unter Angabe von Stelle mit der jeweiligen Nummer ansprechbar (z.B. Beschreibung Stelle 5)');
+      //$bot->reply('');
     }
   //Intent 32 - beschreibung_Stellenangebot
     public function stellenangebot_Beschreibung($bot){
