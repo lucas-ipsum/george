@@ -53,7 +53,7 @@ use App\Http\Controllers\BotManController;
          });
        }
        elseif($this->antwort === 'Nächstes Mal bewerten'){
-         $this->say('Danke, bitte bewerte mich das nächste Mal, damit ich verbessert werden kann.');
+         $this->say('Danke. Bitte bewerte mich das nächste Mal, damit ich verbessert werden kann.');
        }
        else{
          $this->say('Entschuldigung, ich verstehe dich nicht..'); //Breakout, falls weder ja noch nein eingegeben wurde
