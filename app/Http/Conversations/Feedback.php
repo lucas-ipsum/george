@@ -29,6 +29,7 @@ use App\Http\Controllers\BotManController;
        ->addButtons([
          Button::create('Ja')->value('Ja'),
          Button::create('Nein')->value('Nein'),
+         Button::create('Nächstes Mal bewerten')->value('Nächstes Mal bewerten'),
        ]);
        $this->ask($feedback, function ($answer) {
            $this->antwort = $answer->getValue();
@@ -50,6 +51,9 @@ use App\Http\Controllers\BotManController;
             ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
             );
          });
+       }
+       elseif($this->antwort === 'Nächstes Mal bewerten'){
+         $this->say('Danke, bitte bewerte mich das nächste Mal, damit ich verbessert werden kann.');
        }
        else{
          $this->say('Entschuldigung, ich verstehe dich nicht..'); //Breakout, falls weder ja noch nein eingegeben wurde
