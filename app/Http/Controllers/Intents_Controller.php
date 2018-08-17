@@ -12,6 +12,7 @@ use BotMan\BotMan\Storages\Storage;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use BotMan\BotMan\Messages\Attachments\Image;
 use Carbon\Carbon;
+use App\Http\Conversations\Feedback;
 
 
 class Intents_Controller extends Controller
@@ -836,6 +837,7 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
   public function smalltalk_langweilig($bot){
     $bot->reply('Das tut mir leid. Falls du mit meiner Beantwortung deiner Fragen nicht zufrieden bist,
     gib mir doch bitte ein Feedback.');
+    $bot->startConversation(new Feedback);
   }
   public function smalltalk_Willkommen($bot){
     $bot->reply('Hallo! Wie kann ich dir weiterhelfen?');
