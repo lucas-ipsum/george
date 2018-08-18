@@ -960,9 +960,9 @@
     e.a = function(t) {
         function e(n) {
             var r = t.call(this, n) || this;
-            return r.handleKeyPress = function(t) {
+            return r.handleKeyPress = function(t) {  //Wenn der Nutzer "Enter" drückt wird die Nachticht abgeschickt
                 13 === t.keyCode && r.input.value.replace(/\s/g, "") && (r.say(r.input.value), r.input.value = "")
-            }, r.handleSendClick = function() {
+            }, r.handleSendClick = function() {      //Wenn der Nutzer auf den "Sendenbutton" drückt wird die Nachticht abgeschickt
                 r.say(r.input.value), r.input.value = ""
             }, r.writeToMessages = function(t) {
                 void 0 === t.time && (t.time = (new Date).toJSON()), void 0 === t.visible && (t.visible = !1), void 0 === t.timeout && (t.timeout = 0), void 0 === t.id && (t.id = e.generateUuid()), null === t.attachment && (t.attachment = {}), r.state.messages.push(t), r.setState({
@@ -983,13 +983,13 @@
                     t[e.data.method].apply(t, e.data.params)
                 } catch (t) {}
             })
-        }, e.prototype.sayAsBot = function(t) {
+        }, e.prototype.sayAsBot = function(t) { //Chatblase vom Chatbot
             this.writeToMessages({
                 text: t,
                 type: "text",
                 from: "chatbot"
             })
-        }, e.prototype.say = function(t, e) {
+        }, e.prototype.say = function(t, e) {   //Chatblase vom Nutzer
             var n = this;
             void 0 === e && (e = !0);
             var r = {
@@ -1005,7 +1005,7 @@
         }, e.prototype.render = function(t, e) {
             var n = this;
             return Object(r.b)("div", null, Object(r.b)("div", {
-                id: "messageArea"
+                id: "messageArea"         //Chatfeld
             }, Object(r.b)(o.a, {
                 messages: e.messages,
                 conf: this.props.conf,
@@ -1015,7 +1015,7 @@
                 x: "0px",
                 y: "0px",
                 onClick: this.handleSendClick,
-                style: "cursor: pointer; position: absolute; width: 25px; bottom: 19px; right: 16px; z-index: 1000",
+                style: "cursor: pointer; position: fixed; width: 25px; bottom: 19px; right: 16px; z-index: 1000",    //SendeButton position
                 fill: "#13306a",
                 viewBox: "0 0 535.5 535.5"
             }, Object(r.b)("g", null, Object(r.b)("g", {
@@ -1024,7 +1024,7 @@
                 points: "0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"
             })))), Object(r.b)("input", {
                 id: "userText",
-                class: "textarea",
+                class: "textarea",    //Eingabefeld
                 type: "text",
                 placeholder: this.props.conf.placeholderText,
                 ref: function(t) {
@@ -1542,7 +1542,7 @@
                 n = t.message,
                 o = n.buttons.map(function(t) {
                     return "postback" === t.type ? Object(r.b)("div", {
-                        class: "btn",
+                        class: "btn",                                 //Button fuer die Conversation
                         onClick: function() {
                             return e.performAction(t)
                         }

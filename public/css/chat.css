@@ -16,6 +16,13 @@ html, body {
 /* M E S S A G E S */
 #messageArea {
     overflow-y: scroll;
+
+}
+
+@media (min-width: 400px){      /* Responsive 400 x 700 */
+ #messageArea{
+ 	padding-bottom: 52%;
+ }
 }
 
 .chat {

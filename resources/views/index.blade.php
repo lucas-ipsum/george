@@ -78,13 +78,13 @@
     aboutText: '',
     introMessage: 'Hallo ich bin George, ein Chatbot der Professur für Anwendungssysteme und E-Business. Ich helfe dir gerne bei Fragen zu unseren Veranstaltungen und Mitarbeitern weiter. Was kann ich für dich tun?',
     chatServer: '/george/public/botman',
-    frameEndpoint: '/george/public/chat',
+    frameEndpoint: '/george/public/chat', <!-- verweist auf chat.blade.php-->
     bubbleAvatarUrl: 'img/Chatbot_blase.png',
     headerTextColor: '#FFFFFF',
     bubbleBackground: 'none',
     mainColor: '#13306A',
     placeholderText: 'Nachricht eingeben..',
-    mobileHeight: '98%'
+    <!--mobileHeight: '98%'-->
   };
   </script>
 
