@@ -87,8 +87,15 @@ protected $name;
     $this->ask($mehrereMitarbeiter, function($answer) {
       $name = $answer->getValue();
       $this->name = $name;
+      //Falls keine der Möglichkeiten eingegeben wird oder per Button ausgewählt wurde
+      if($answer->isInteractiveMessageReply()){
       $this->mitarbeiterKontaktieren($name);
-    });
+      }
+      //Wird Auswahlmöglichkeit wiederholt
+      else{
+        $this->repeat();
+      }
+  });
   }
 
     //Funktion um Mitarbeiterfunktionen auszugeben
@@ -102,12 +109,17 @@ protected $name;
       $this->ask($art, function($answer){
         $art = $answer->getValue();
         $name = $this->name;
+        //Falls keine der Möglichkeiten eingegeben wird oder per Button ausgewählt wurde
+        if($answer->isInteractiveMessageReply()){
         $kontaktinfo = DBController::getDBKontaktart($art, $name);
       if($art === 'Telefonnummer')
         $this->say($art . ': <a href="tel:'.$kontaktinfo.'">'.$kontaktinfo.'</a>');
-        //Wenn nicht Telefonnummer wird Standardmäßig E-Mail ausgegeben
       else{
         $this->say($art . ': <a href="mailto:'.$kontaktinfo.'" target="_top">'.$kontaktinfo.'</a>');
+      }}
+      //wird Text ausgegeben
+      else{
+        $this->say("Ich kann dich leider nicht verstehen..");
       }
       });
 
