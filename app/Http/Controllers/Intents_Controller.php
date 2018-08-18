@@ -535,6 +535,18 @@ public function veranstaltungen_Mitarbeiter_Logik($bot, $mitarbeiter){
     }
   }
 //###############################################################
+//Intent 35 - pflichtberatung
+public function pflichtberatung($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiParameters']['Veranstaltung'];
+  $this->pflichtberatung_Logik($bot, $veranstaltung);
+}
+  public function pflichtberatung_Logik($bot, $veranstaltung){
+    $pflichtberatung = DBController::getDB_Pflichtberatung($veranstaltung);
+
+    $bot->reply('Informationen zur Pflichtberatung in '. $veranstaltung . ' sind unter diesem Link abzurufen <br><a href="'.$pflichtberatung.'" target="_top">Link</a>');
+  }
+//###############################################################
 //Intent 7 - naechster_Termin_Seminar
   public function naechster_Termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();

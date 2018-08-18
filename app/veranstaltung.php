@@ -81,4 +81,12 @@ class veranstaltung extends Model
                                 ->value('Credits');
             return $modelcredits;
         }
+        public static function getModel_Pflichtberatung($veranstaltung){
+
+          $model_Pflichtberatung = DB::table('veranstaltung')
+                                    ->where('Name', $veranstaltung)
+                                    ->value('Pflichtberatung');
+
+            return $model_Pflichtberatung;
+        }
 }

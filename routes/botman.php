@@ -17,7 +17,7 @@ $botman = resolve('botman');
 
 // Dialogflow integration
 
-$dialogflow = Dialogflow::create('6528f020cb224358a4863f656c5a0294')->listenForAction(); //Client access token Dialogflow eingefügt
+$dialogflow = Dialogflow::create('e7f8be73aec445398718216e861df354')->listenForAction(); //Client access token Dialogflow eingefügt
 
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
@@ -246,6 +246,10 @@ $botman->hears('say_lehrstuhl_Stellenangebote', 'App\Http\Controllers\Intents_Co
 //################################################################################################################################################
 //Intent: 34 - bewerbungsinformationen_Stelle
   $botman->hears('say_bewerbungsinformationen_Stelle', 'App\Http\Controllers\Intents_Controller@bewerbungsinformationen_Stelle') ->middleware($dialogflow);
+
+//################################################################################################################################################
+//Intent: 35 - bewerbungsinformationen_Stelle
+  $botman->hears('say_pflichtberatung', 'App\Http\Controllers\Intents_Controller@pflichtberatung') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Smalltalk

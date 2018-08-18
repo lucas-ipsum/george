@@ -175,6 +175,13 @@ class DBController extends Controller
 
       return $db_themen_Abschlussarbeit;
   }
+  //Pflichtberatung
+  public static function getDB_Pflichtberatung($veranstaltung){
+
+    $db_pflichtberatung = veranstaltung::getModel_Pflichtberatung($veranstaltung);
+
+      return $db_pflichtberatung;
+  }
 //#########################################################################################
 //Seminare
 
