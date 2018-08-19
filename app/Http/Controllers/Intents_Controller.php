@@ -799,6 +799,14 @@ public function pflichtberatung($bot){
     public function stellenangebot_Beschreibung($bot){
       $extras = $bot->getMessage()->getExtras();
       $stelle = $extras['apiParameters']['Stelle'];
+      $this->stellenangebot_Beschreibung_Logik($bot, $stelle);
+    }
+    public function stellenangebot_Beschreibung_withContext($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $stelle = $extras['apiContext']['Stelle'];
+      $this->stellenangebot_Beschreibung_Logik($bot, $stelle);
+    }
+    public function stellenangebot_Beschreibung_Logik($bot, $stelle){
       $beschreibung_Stellenangebot = DBController::getDBStellenangebotBeschreibung($stelle);
       $bot->reply($beschreibung_Stellenangebot);
     }

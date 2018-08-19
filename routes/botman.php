@@ -235,9 +235,11 @@ $botman->hears('say_naechster_Termin_Veranstaltung_withContext','App\Http\Contro
 //Intent:31 -stellenangebote_Lehrstuhl
 //################################################################################################################################################
 $botman->hears('say_lehrstuhl_Stellenangebote', 'App\Http\Controllers\Intents_Controller@stellenangebote_Lehrstuhl') ->middleware($dialogflow);
+
 //################################################################################################################################################
 //Intent: 32 - stellenangebot_Beschreibung
   $botman->hears('say_stellenangebot_Beschreibung', 'App\Http\Controllers\Intents_Controller@stellenangebot_Beschreibung') ->middleware($dialogflow);
+  $botman->hears('say_stellenangebot_Beschreibung_withContext', 'App\Http\Controllers\Intents_Controller@stellenangebot_Beschreibung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 33 - stellenangebot_Beschreibung
