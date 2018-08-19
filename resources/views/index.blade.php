@@ -83,8 +83,7 @@
     headerTextColor: '#FFFFFF',
     bubbleBackground: 'none',
     mainColor: '#13306A',
-    placeholderText: 'Nachricht eingeben..',
-    <!--mobileHeight: '98%'-->
+    placeholderText: 'Nachricht eingeben..'
   };
   </script>
 
