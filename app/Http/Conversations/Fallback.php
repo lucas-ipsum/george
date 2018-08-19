@@ -29,11 +29,13 @@ protected $name;
           $buttonAnswer = $answer->getValue();
       //Beispielfragen
       if($buttonAnswer === 'beispiel'){
-        $this->say('Was sind die Lernziele in U&M? <br><br>
+        $this->say('Dies sind einige der Fragen, die du mir stellen kannst: <br><br>
+                    Was sind die Lernziele in U&M? <br><br>
                     Wird MIS im Sommersemester angeboten? <br><br>
                     Wie viele Credits bringt das Projektseminar? <br><br>
                     An welchen Projekten arbeitet der Lehrstuhl gerade?
                     Gibt es aktuelle Stellenausschreibungen? <br><br>
+                    Ich hätte gerne einen Terminüberblick zum Bachelorseminar. <br><br>
                     ');
       }
       //Mitarbeiter kontaktieren
