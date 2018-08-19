@@ -17,7 +17,7 @@ $botman = resolve('botman');
 
 // Dialogflow integration
 
-$dialogflow = Dialogflow::create('e7f8be73aec445398718216e861df354')->listenForAction(); //Client access token Dialogflow eingefügt
+$dialogflow = Dialogflow::create('fd962e82ac3449dead5499acc11604f5')->listenForAction(); //Client access token Dialogflow eingefügt
 
 $botman->middleware->received($dialogflow); //Jede Nachricht die ankommt wird an die Middleware geschickt
 
