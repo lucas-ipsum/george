@@ -23,6 +23,7 @@ class stellenangebote extends Model
   }
 
 
+
   //Beschreibung eines ausgewählten Projekts
   public static function getModelStellenangebotBeschreibung($Stelle){
 
