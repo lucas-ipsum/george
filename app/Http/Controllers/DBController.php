@@ -6,9 +6,11 @@ use App\mitarbeiter;
 use App\betreuung;
 use App\termine;
 use App\projekte;
+use App\feedback;
 use App\stellenangebote;
 use App\themen_fuer_abschlussarbeiten;
 use App\themen_im_bachelorseminar;
+use App\Http\Conversations\Feedback;
 use App\Http\Controllers\Intents_Controller;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -296,6 +298,15 @@ class DBController extends Controller
        $db_Bewerbungsinformationen = stellenangebote::getModel_Bewerbungsinformationen($stelle);
 
            return $db_Bewerbungsinformationen;
+     }
+
+   //#######################################################################################################################
+   //Feedback
+   //#######################################################################################################################
+
+   public static function setDB_Feedback($antwort, $begruendung)
+     {
+       feedback::setModel_Feedback($antwort, $begruendung);
      }
 
 }

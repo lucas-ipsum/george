@@ -13,6 +13,8 @@ use App\Http\Controllers\BotManController;
  use Illuminate\Support\Facades\DB;
  use Illuminate\Database\Eloquent\Model;
 
+ use Illuminate\Http\Request;
+
  class Feedback extends Conversation
  {
 //Controller für Feedbackanfrage, welcher auf Timer und Eingabe "bananenkanu" reagiert
@@ -36,20 +38,27 @@ use App\Http\Controllers\BotManController;
        if($this->antwort === 'Ja'){
          $this->say('Danke für dein Feedback!');
          $this->begruendung = '';
-         //Einspeichern der Feedbackinformationen in DB
+         $begruendung = $this->begruendung;
+         $antwort = $this->antwort;
+         //Einspeichern der Feedbackinformationen in DB, Controlleraufruf funktioniert nicht
+         //DBController::setDB_Feedback($antwort, $begruendung);
          DB::table('Feedback')->insert(
-          ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
-          );
+          ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung, 'verantwortlicher' => 'Raphael Meyer von Wolff']
+        );
        }
        elseif($this->antwort === 'Nein'){
          $this->ask('Schade, kannst du mir Feedback geben? Schreib mir, was ich verbessern kann!', function ($answer){
           //Speichern des Nutzerinputs
            $this->begruendung = $answer->getText();
            $this->say('Danke für dein Feedback!');
-           //Einspeichern der Feedbackinformationen in DB
+           $begruendung = $this->begruendung;
+           $antwort = $this->antwort;
+
+           //Einspeichern der Feedbackinformationen in DB, Controlleraufruf funktioniert nicht
+           //DBController::setDB_Feedback($antwort, $begruendung);
            DB::table('Feedback')->insert(
-            ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung]
-            );
+            ['Antwort' => $this->antwort, 'begruendung' => $this->begruendung, 'verantwortlicher' => 'Raphael Meyer von Wolff']
+          );
          });
        }
        elseif($this->antwort === 'Nächstes Mal bewerten'){
