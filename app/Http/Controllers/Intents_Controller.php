@@ -541,6 +541,11 @@ public function pflichtberatung($bot){
   $veranstaltung = $extras['apiParameters']['Veranstaltung'];
   $this->pflichtberatung_Logik($bot, $veranstaltung);
 }
+public function pflichtberatung_withContext($bot){
+  $extras = $bot->getMessage()->getExtras();
+  $veranstaltung = $extras['apiContext']['Veranstaltung'];
+  $this->pflichtberatung_Logik($bot, $veranstaltung);
+}
   public function pflichtberatung_Logik($bot, $veranstaltung){
     $pflichtberatung = DBController::getDB_Pflichtberatung($veranstaltung);
 
@@ -795,17 +800,34 @@ public function pflichtberatung($bot){
                   'Weitere Informationen zu den jeweiligen Stellen sind unter Angabe von Stelle mit der jeweiligen Nummer ansprechbar (z.B. Beschreibung Stelle 5)');
       //$bot->reply('');
     }
-  //Intent 32 - beschreibung_Stellenangebot
-    public function stellenangebot_Beschreibung($bot){
-      $extras = $bot->getMessage()->getExtras();
-      $stelle = $extras['apiParameters']['Stelle'];
-      $beschreibung_Stellenangebot = DBController::getDBStellenangebotBeschreibung($stelle);
-      $bot->reply($beschreibung_Stellenangebot);
-    }
+
+//Intent 32 - beschreibung_Stellenangebot
+  public function stellenangebot_Beschreibung($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $stelle = $extras['apiParameters']['Stelle'];
+    $this->stellenangebot_Beschreibung_Logik($bot, $stelle);
+  }
+  public function stellenangebot_Beschreibung_withContext($bot){
+    $extras = $bot->getMessage()->getExtras();
+    $stelle = $extras['apiContext']['Stelle'];
+    $this->stellenangebot_Beschreibung_Logik($bot, $stelle);
+  }
+  public function stellenangebot_Beschreibung_Logik($bot, $stelle){
+    $beschreibung_Stellenangebot = DBController::getDBStellenangebotBeschreibung($stelle);
+    $bot->reply($beschreibung_Stellenangebot);
+  }
     //Intent 33 - aufgaben_Stelle
       public function aufgaben_Stelle($bot){
         $extras = $bot->getMessage()->getExtras();
         $stelle = $extras['apiParameters']['Stelle'];
+        $this->aufgaben_Stelle_Logik($bot, $stelle);
+      }
+      public function aufgaben_Stelle_withContext($bot){
+        $extras = $bot->getMessage()->getExtras();
+        $stelle = $extras['apiContext']['Stelle'];
+        $this->aufgaben_Stelle_Logik($bot, $stelle);
+      }
+      public function aufgaben_Stelle_Logik($bot, $stelle){
         $aufgaben_Stelle = DBController::getDBStellenangebotAufgaben($stelle);
         $bot->reply($aufgaben_Stelle);
       }
@@ -814,13 +836,22 @@ public function pflichtberatung($bot){
     public function bewerbungsinformationen_Stelle($bot){
       $extras = $bot->getMessage()->getExtras();
       $stelle = $extras['apiParameters']['Stelle'];
+      $this->bewerbungsinformationen_Stelle_Logik($bot, $stelle);
+
+    }
+    public function bewerbungsinformationen_Stelle_withContext($bot){
+      $extras = $bot->getMessage()->getExtras();
+      $stelle = $extras['apiContext']['Stelle'];
+      $this->bewerbungsinformationen_Stelle_Logik($bot, $stelle);
+    }
+    public function bewerbungsinformationen_Stelle_Logik($bot, $stelle){
       $bewerbungsinformationen = DBController::getDB_Bewerbungsinformationen($stelle);
       $bewerberprofil = $bewerbungsinformationen[0]->Erforderliches_Profil;
       $kontaktperson = $bewerbungsinformationen[0]->Kontaktperson;
       $bewerbungsfrist = $bewerbungsinformationen[0]->Bewerbungsfrist;
       $link = $bewerbungsinformationen[0]->Link;
 
-      $bot->reply($bewerberprofil . '<br><br>' . $kontaktperson . '<br><br>' . $bewerbungsfrist . '<br><br>' . $link);
+      $bot->reply($bewerberprofil . '<br><br>' . $kontaktperson . '<br><br>' . $bewerbungsfrist . '<br><br>' . ' Die Ausschreibung ist unter diesem <a href="'.$link.'" target="_top">Link</a> verfügbar');
     }
 //###############################################################
 //Smalltalk
