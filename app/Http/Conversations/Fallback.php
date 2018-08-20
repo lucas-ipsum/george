@@ -33,10 +33,10 @@ protected $name;
                     Was sind die Lernziele in U&M? <br><br>
                     Wird MIS im Sommersemester angeboten? <br><br>
                     Wie viele Credits bringt das Projektseminar? <br><br>
-                    An welchen Projekten arbeitet der Lehrstuhl gerade?
+                    An welchen Projekten arbeitet der Lehrstuhl gerade? <br><br>
+                    Wie funktionierst du George? <br><br>
                     Gibt es aktuelle Stellenausschreibungen? <br><br>
-                    Ich hätte gerne einen Terminüberblick zum Bachelorseminar. <br><br>
-                    Wie funktionierst du George?
+                    Ich hätte gerne einen Terminüberblick zum Bachelorseminar.
                     ');
       }
       //Mitarbeiter kontaktieren

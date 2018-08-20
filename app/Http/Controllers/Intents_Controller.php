@@ -549,7 +549,7 @@ public function pflichtberatung_withContext($bot){
   public function pflichtberatung_Logik($bot, $veranstaltung){
     $pflichtberatung = DBController::getDB_Pflichtberatung($veranstaltung);
 
-    $bot->reply('Informationen zur Pflichtberatung in '. $veranstaltung . ' sind unter diesem Link abzurufen <br><a href="'.$pflichtberatung.'" target="_top">Link</a>');
+    $bot->reply('Informationen zur Pflichtberatung in '. $veranstaltung . ' sind unter diesem <a href="'.$pflichtberatung.'" target="_top">Link</a> abzurufen');
   }
 //###############################################################
 //Intent 36 - liste_Veranstaltungen
