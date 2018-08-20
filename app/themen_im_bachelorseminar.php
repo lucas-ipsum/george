@@ -24,7 +24,7 @@ class themen_im_bachelorseminar extends Model
         ->join('Veranstaltung','themen_im_bachelorseminar.ID_Veranstaltung', '=', 'Veranstaltung.ID_Veranstaltung')
         ->where('Veranstaltung.Name', $seminar)
         ->where('themen_im_bachelorseminar.Betreuer', $mitarbeiter)
-        ->select('themen_im_bachelorseminar.Thema', 'themen_im_bachelorseminar.Nummer')
+        ->select('themen_im_bachelorseminar.Thema', 'themen_im_bachelorseminar.ID_Thema_Bachelorseminar')
         ->get();
     return $modelthemen_nachMitarbeiter;
     }

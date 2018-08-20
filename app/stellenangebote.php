@@ -15,8 +15,8 @@ class stellenangebote extends Model
     public static function getModelStellenangebote()
     {
         $modelStellenangebote = DB::table('stellenangebote')
-                            ->select('Stelle', 'ID')
-                            ->orderBy('ID', 'asc')
+                            ->select('Stelle', 'ID_Stelle')
+                            ->orderBy('ID_Stelle', 'asc')
                             ->get();
 
     return $modelStellenangebote;
