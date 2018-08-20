@@ -184,6 +184,12 @@ class DBController extends Controller
 
       return $db_pflichtberatung;
   }
+   public static function getDB_liste_Verantstaltungen(){
+
+    $db_liste_Veranstaltungen = veranstaltung::getModel_alleVeranstaltungen();
+
+     return $db_liste_Veranstaltungen;
+   }
 //#########################################################################################
 //Seminare
 
@@ -200,7 +206,7 @@ class DBController extends Controller
     // Funktion um das Datum einer Veranstaltung aus der DB zu holen
     public static function getDB_termin_Seminar($seminar, $seminar_Veranstaltung)
     {
-        $db_termin_Seminar = termine::getModel_termin_Seminar($seminar, $seminar_Veranstaltung);
+        $db_termin_Seminar = termine::getModel_termin_Seminar($seminar, $seminar_Veranstaltung); 
 
         return $db_termin_Seminar;
     }

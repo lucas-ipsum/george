@@ -36,6 +36,7 @@ protected $name;
                     An welchen Projekten arbeitet der Lehrstuhl gerade?
                     Gibt es aktuelle Stellenausschreibungen? <br><br>
                     Ich hätte gerne einen Terminüberblick zum Bachelorseminar. <br><br>
+                    Wie funktionierst du George?
                     ');
       }
       //Mitarbeiter kontaktieren

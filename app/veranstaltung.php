@@ -89,4 +89,12 @@ class veranstaltung extends Model
 
             return $model_Pflichtberatung;
         }
+        public static function getModel_alleVeranstaltungen(){
+
+          $model_Veranstaltungen = DB::table('veranstaltung')
+                                  ->select('Name')
+                                  ->get();
+
+               return $model_Veranstaltungen;
+        }
 }

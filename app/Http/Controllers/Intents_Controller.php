@@ -552,6 +552,30 @@ public function pflichtberatung_withContext($bot){
     $bot->reply('Informationen zur Pflichtberatung in '. $veranstaltung . ' sind unter diesem Link abzurufen <br><a href="'.$pflichtberatung.'" target="_top">Link</a>');
   }
 //###############################################################
+//Intent 36 - liste_Veranstaltungen
+  public function liste_Veranstaltungen($bot){
+    $liste_Veranstaltungen = DBController::getDB_liste_Verantstaltungen();
+    $ausgabe_liste_Veranstaltungen = '';
+    for($index = 0; $index < count($liste_Veranstaltungen); $index++){
+      $veranstaltung = $liste_Veranstaltungen[$index]->Name;
+  //    $ausgabe_liste_Veranstaltungen .= $veranstaltung . '<br><br>';
+
+      $veranstaltungAlt = '';
+      if($index > 0){
+        $test = $index - 1;
+        $veranstaltungAlt = $liste_Veranstaltungen[$test]->Name;
+      }
+        if(strcmp($veranstaltung, $veranstaltungAlt) === 0){         //Wenn artdoppel gleich art
+        $veranstaltung_ausgabe = '';
+        }
+        else{
+          $veranstaltung_ausgabe = $veranstaltung . '<br>';
+        }
+         $ausgabe_liste_Veranstaltungen .= $veranstaltung_ausgabe . '<br><br>';
+    }
+    $bot->reply('Liste der Veranstaltungen der Professur für Anwendungssysteme und E-Business: <br><br> ' . $ausgabe_liste_Veranstaltungen);
+ }
+//###############################################################
 //Intent 7 - naechster_Termin_Seminar
   public function naechster_Termin_Seminar($bot){
     $extras = $bot->getMessage()->getExtras();
@@ -856,6 +880,12 @@ public function pflichtberatung_withContext($bot){
 //###############################################################
 //Smalltalk
 //###############################################################
+  public function funktionsweise_George($bot){
+    $bot->reply('Hallo ich bin George, <br><br>
+                ich bin in der Lage Fragen zu Mitarbeitern, Veranstaltungen, Seminaren, Abschlussarbeiten, Stellenausschreibungen und zu Projekten der Professur zu beantworten.
+                <br><br> Dabei kann ich bspw. Informationen zu Terminen, Räumen, Kontaktmöglichkeiten, Inhalten und Themen bereitstellen.
+                <br><br> Hast du mich einmal nach einer bestimmten Veranstaltung gefragt, kannst du ohne erneute Eingabe der Veranstaltung weitere Fragen dazu stellen, bis du eine neue Veranstaltung eingibst.');
+  }
   public function smalltalk_Danke($bot){
     $bot->reply('Kein Problem ich helfe dir doch gerne! Hast du noch weitere Fragen?');
   }
