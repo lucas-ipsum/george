@@ -144,7 +144,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
                   }
 
 */
-            // Funktion um Termin ohne konkretes Datum aus der DB zu holen
+            // Gibt Termine von Veranstaltungen aus
             public static function getModelTermin($veranstaltung, $veranstaltungsart)
             {
 
@@ -159,7 +159,7 @@ public static function getModelRaumSeminar($seminar, $seminar_Veranstaltung)
                   return $modeltermin;
             }
 
-  //Seminar
+  //Gibt Termine von Seminaren aus
           public static function getModel_termin_Seminar($seminar, $seminar_Veranstaltung)
           {
                 $model_termin_Seminar = DB::table('termine')

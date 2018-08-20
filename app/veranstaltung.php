@@ -92,7 +92,8 @@ class veranstaltung extends Model
         public static function getModel_alleVeranstaltungen(){
 
           $model_Veranstaltungen = DB::table('veranstaltung')
-                                  ->select('Name')
+                                  ->select('Name', 'VeranstaltungsArt')
+                                  ->orderBy('Name', 'asc')
                                   ->get();
 
                return $model_Veranstaltungen;

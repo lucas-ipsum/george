@@ -238,21 +238,32 @@ $botman->hears('say_lehrstuhl_Stellenangebote', 'App\Http\Controllers\Intents_Co
 //################################################################################################################################################
 //Intent: 32 - stellenangebot_Beschreibung
   $botman->hears('say_stellenangebot_Beschreibung', 'App\Http\Controllers\Intents_Controller@stellenangebot_Beschreibung') ->middleware($dialogflow);
+  $botman->hears('say_stellenangebot_Beschreibung_withContext', 'App\Http\Controllers\Intents_Controller@stellenangebot_Beschreibung_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 33 - stellenangebot_Beschreibung
   $botman->hears('say_aufgaben_Stelle', 'App\Http\Controllers\Intents_Controller@aufgaben_Stelle') ->middleware($dialogflow);
+  $botman->hears('say_aufgaben_Stelle_withContext', 'App\Http\Controllers\Intents_Controller@aufgaben_Stelle_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
 //Intent: 34 - bewerbungsinformationen_Stelle
   $botman->hears('say_bewerbungsinformationen_Stelle', 'App\Http\Controllers\Intents_Controller@bewerbungsinformationen_Stelle') ->middleware($dialogflow);
+  $botman->hears('say_bewerbungsinformationen_Stelle_withContext', 'App\Http\Controllers\Intents_Controller@bewerbungsinformationen_Stelle_withContext') ->middleware($dialogflow);
 
 //################################################################################################################################################
-//Intent: 35 - bewerbungsinformationen_Stelle
+//Intent: 35 - Pflichtberatung
   $botman->hears('say_pflichtberatung', 'App\Http\Controllers\Intents_Controller@pflichtberatung') ->middleware($dialogflow);
+  $botman->hears('say_pflichtberatung_withContext', 'App\Http\Controllers\Intents_Controller@pflichtberatung_withContext') ->middleware($dialogflow);
 
+//################################################################################################################################################
+//Intent: 36 - liste_Veranstaltungen
+    $botman->hears('say_liste_Veranstaltungen', 'App\Http\Controllers\Intents_Controller@liste_Veranstaltungen') ->middleware($dialogflow);
 //################################################################################################################################################
 //Smalltalk
+//################################################################################################################################################
+//Intent: 37 - funktionsweise_George
+  $botman->hears('say_funktionsweise_George', 'App\Http\Controllers\Intents_Controller@funktionsweise_George') ->middleware($dialogflow);
+//smalltalk_Danke
 //################################################################################################################################################
 $botman->hears('say_smalltalk_Danke', 'App\Http\Controllers\Intents_Controller@smalltalk_Danke') ->middleware($dialogflow);
 //Informationen_Chatbot

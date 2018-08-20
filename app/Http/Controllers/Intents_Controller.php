@@ -558,20 +558,22 @@ public function pflichtberatung_withContext($bot){
     $ausgabe_liste_Veranstaltungen = '';
     for($index = 0; $index < count($liste_Veranstaltungen); $index++){
       $veranstaltung = $liste_Veranstaltungen[$index]->Name;
-  //    $ausgabe_liste_Veranstaltungen .= $veranstaltung . '<br><br>';
+      $veranstaltungs_Art = $liste_Veranstaltungen[$index]->VeranstaltungsArt;
+      $veranstaltungs_Art = '-> ' . $veranstaltungs_Art;
 
-      $veranstaltungAlt = '';
+      $veranstaltung_Alt = '';
       if($index > 0){
         $test = $index - 1;
-        $veranstaltungAlt = $liste_Veranstaltungen[$test]->Name;
+        $veranstaltung_Alt = $liste_Veranstaltungen[$test]->Name;
       }
-        if(strcmp($veranstaltung, $veranstaltungAlt) === 0){         //Wenn artdoppel gleich art
+        if(strcmp($veranstaltung, $veranstaltung_Alt) === 0){         //Wenn artdoppel gleich art
         $veranstaltung_ausgabe = '';
         }
         else{
           $veranstaltung_ausgabe = $veranstaltung . '<br>';
         }
-         $ausgabe_liste_Veranstaltungen .= $veranstaltung_ausgabe . '<br><br>';
+      $ausgabe_liste_Veranstaltungen .= $veranstaltung_ausgabe . ' ' . $veranstaltungs_Art . '<br>';
+
     }
     $bot->reply('Liste der Veranstaltungen der Professur für Anwendungssysteme und E-Business: <br><br> ' . $ausgabe_liste_Veranstaltungen);
  }
