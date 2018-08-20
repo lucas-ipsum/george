@@ -16,8 +16,8 @@ class projekte extends Model
             public static function getModelProjekte()
             {
                 $modelprojekte = DB::table('projekte')
-                                    ->select('Name', 'ID')
-                                    ->orderBy('ID', 'asc')
+                                    ->select('Name', 'ID_Projekt')
+                                    ->orderBy('ID_Projekt', 'asc')
                                     ->get();
 
             return $modelprojekte;
