@@ -180,7 +180,7 @@ public function termin_Klausur_Logik($bot, $veranstaltung){
       $ausgabe_klausuren='';
       for($index=0; $index < count($klausurtermin); $index++)
       {
-        $datum = $klausurtermin[$index]->Datum;
+        $datum = $klausurtermin[$index]->Datum;                         //Ruft Datum aus Ausgabe ab
         $wochentag = $klausurtermin[$index]->Wochentag;
         $uhrzeit= $klausurtermin[$index]->Uhrzeit;
         $raum = $klausurtermin[$index]->Raum;
@@ -564,15 +564,15 @@ public function pflichtberatung_withContext($bot){
       $veranstaltung_Alt = '';
       if($index > 0){
         $test = $index - 1;
-        $veranstaltung_Alt = $liste_Veranstaltungen[$test]->Name;
+        $veranstaltung_Alt = $liste_Veranstaltungen[$test]->Name;       //Zur Überprüfung ob eine Veranstaltung doppelt kommt wird die vorherige nochmal aufgerufen
       }
-        if(strcmp($veranstaltung, $veranstaltung_Alt) === 0){         //Wenn artdoppel gleich art
-        $veranstaltung_ausgabe = '';
+        if(strcmp($veranstaltung, $veranstaltung_Alt) === 0){         //Prüfen, ob die jetzige Veranstaltung gleich der vorherigen ist
+        $veranstaltung_ausgabe = '';                                  //falls ja, wird ein leerer wert eingespeichert
         }
         else{
-          $veranstaltung_ausgabe = $veranstaltung . '<br>';
+          $veranstaltung_ausgabe = $veranstaltung . '<br>';         //Falls Veranstaltung nicht doppelt, wird sie ausgegeben
         }
-      $ausgabe_liste_Veranstaltungen .= $veranstaltung_ausgabe . ' ' . $veranstaltungs_Art . '<br>';
+      $ausgabe_liste_Veranstaltungen .= $veranstaltung_ausgabe . ' ' . $veranstaltungs_Art . '<br>';      //Schreibt Veranstaltung + Art ind die Ausgabe Variable
 
     }
     $bot->reply('Liste der Veranstaltungen der Professur für Anwendungssysteme und E-Business: <br><br> ' . $ausgabe_liste_Veranstaltungen);
