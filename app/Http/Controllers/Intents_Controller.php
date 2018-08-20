@@ -750,7 +750,7 @@ public function pflichtberatung_withContext($bot){
     $ausgabe_projekte = '';
     for($index=0; $index < count($projekte); $index++){
        $projekt = $projekte[$index]->Name;
-       $id = $projekte[$index]->ID;
+       $id = $projekte[$index]->ID_Projekt;
        $ausgabe_projekte .= $id .'. ' .$projekt . '<br><br> ';
      }
 
@@ -815,7 +815,7 @@ public function pflichtberatung_withContext($bot){
       $ausgabe_stellenangebote = '';
       for($index=0; $index < count($stellenangebote); $index++){
          $stellenangebot = $stellenangebote[$index]->Stelle;
-         $id = $stellenangebote[$index]->ID;
+         $id = $stellenangebote[$index]->ID_Stelle;
          $ausgabe_stellenangebote .= $id .'. ' .$stellenangebot . '<br><br> ';
        }
 
