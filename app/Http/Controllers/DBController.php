@@ -206,7 +206,7 @@ class DBController extends Controller
     // Funktion um das Datum einer Veranstaltung aus der DB zu holen
     public static function getDB_termin_Seminar($seminar, $seminar_Veranstaltung)
     {
-        $db_termin_Seminar = termine::getModel_termin_Seminar($seminar, $seminar_Veranstaltung); 
+        $db_termin_Seminar = termine::getModel_termin_Seminar($seminar, $seminar_Veranstaltung);
 
         return $db_termin_Seminar;
     }

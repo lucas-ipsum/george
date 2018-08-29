@@ -44,9 +44,9 @@ return [
             'host' => env('DB_HOST', 'localhost'),
 
             'port' => env('DB_PORT', '8889'),
-            'database' => env('DB_DATABASE', 'mob182db'),
+            'database' => env('DB_DATABASE', 'mob182db1'),
             'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'password' => env('DB_PASSWORD', '123456'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

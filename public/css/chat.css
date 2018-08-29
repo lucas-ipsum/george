@@ -19,7 +19,7 @@ html, body {
 
 }
 
-@media (min-width: 400px){      /* Responsive 400 x 700 */
+@media (min-width: 400px){      /* Responsive 400 x 700*/
  #messageArea{
  	padding-bottom: 52%;
  }
